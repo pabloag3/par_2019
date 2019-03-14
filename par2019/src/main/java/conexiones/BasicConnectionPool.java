@@ -42,8 +42,6 @@ public class BasicConnectionPool implements ConnectionPool {
         return new BasicConnectionPool(url, user, password, pool);
     }
      
-    // standard constructors
-     
     @Override
     public Connection getConnection() {
         Connection connection = connectionPool
@@ -71,16 +69,16 @@ public class BasicConnectionPool implements ConnectionPool {
     // standard getters
     @Override
     public String getUrl() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public String getUser() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public String getPassword() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

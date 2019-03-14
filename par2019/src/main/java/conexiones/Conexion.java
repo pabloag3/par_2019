@@ -18,10 +18,17 @@ public class Conexion {
     public String usuario;
     public String contrasenhaBase;
     
-    public Conexion() {
+    public Conexion() throws SQLException {
         conexion = "jdbc:postgresql://localhost:5432/ecomerce";
         usuario = "postgres";
         contrasenhaBase = "QAZwsx123plm";
+        crear_conexion();
+    }
+
+    private Connection crear_conexion() throws SQLException {
+        return BasicConnectionPool.create("jdbc:postgresql://"
+                    + "localhost:5432/ecomerce", "postgres", 
+                    "QAZwsx123plm").getConnection();
     }
     
     

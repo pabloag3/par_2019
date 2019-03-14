@@ -18,13 +18,13 @@ public class RepoTransacciones {
         return (List<Transacciones>) new Transacciones();
     }
 
-    public void guardarProducto(Transacciones prod ) {
+    public void guardarTransacciones(Transacciones trans ) {
     }
 
-    public void actualizarProducto(Transacciones prod ) {
+    public void actualizarTransacciones(Transacciones trans ) {
     }
 
-    public void eliminarProducto(Long idPoducto) {
+    public void eliminarTransacciones(int idTransaccion) {
         
     }
 }

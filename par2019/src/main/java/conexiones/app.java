@@ -24,13 +24,15 @@ public class app {
     public static void main(String[] args) throws SQLException {
         Connection conexion = null;
         try {
-            conexion = BasicConnectionPool.create("jdbc:postgresql://localhost:5432/ecomerce", "postgres", "QAZwsx123plm").getConnection();
+//            conexion = BasicConnectionPool.create("jdbc:postgresql://"
+//                    + "localhost:5432/ecomerce", "postgres", 
+//                    "QAZwsx123plm").getConnection();
             Statement sentencia = conexion.createStatement();
             //String sql = "SELECT * FROM CATEGORIA";
             String sql = "insert into CATEGORIA values (2, '{domitica}');";
             ResultSet resultado = sentencia.executeQuery(sql);
             System.out.println("resultado " + resultado);
-            List<Categorias > cat = (List<Categorias>) resultado.g;
+            //List<Categorias > cat = (List<Categorias>) resultado.g;
                         
         } catch (Exception e) {
             System.out.println("error");

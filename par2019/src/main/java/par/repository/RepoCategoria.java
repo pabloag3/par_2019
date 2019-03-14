@@ -14,7 +14,7 @@ import par.entities.Categorias;
  * @author PabloAgHP
  */
 public class RepoCategoria {
-     public List<Categorias> listarProductos(){
+     public List<Categorias> listarCategorias(){
         
         return (List<Categorias>) new Categorias();
     }
@@ -31,12 +31,11 @@ public class RepoCategoria {
         //emc.persist(prod);
     }
 
-    public void actualizarCategoria(Categorias prod ) {
+    public void actualizarCategoria(Categorias categoria ) {
     }
 
     public void eliminarCategoria(int idCategoria) {
-        String sent = null;
-        sent = "DELETE FROM categoria"
+        String sent = "DELETE FROM categoria"
                  + "WHERE id_categoria = " + idCategoria + ";";
     }
 }
