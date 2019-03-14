@@ -10,17 +10,17 @@ package par.entities;
  * @author Perez
  */
 public class Productos {
-    private Long idProducto;
+    private int idProducto;
     private String descripcion;
     private Categorias idCategoria;
     private Long precioUnit;
     private Long cantidad;
     
-    public Long getIdProducto() {
+    public int getIdProducto() {
         return idProducto;
     }
 
-    public void setIdProducto(Long idProducto) {
+    public void setIdProducto(int idProducto) {
         this.idProducto = idProducto;
     }
 

@@ -19,6 +19,15 @@ public class RepoProducto {
     }
 
     public void guardarProducto(Productos prod ) {
+        //Query  sentencia; //para pk de produto
+        Long codigoProducto = sencia.getResult;
+        prod.setIdProducto(Long.MIN_VALUE);
+        String sql = "insert into producto values (" + prod.getIdProducto() 
+                + ", " + prod.getDescripcion() + ',' + prod.getIdCategoria() 
+                + ',' + prod.getPrecioUnit()+ ','
+                + prod.getCantidad() + ")";
+        
+        //emc.persist(prod);
     }
 
     public void actualizarProducto(Productos prod ) {

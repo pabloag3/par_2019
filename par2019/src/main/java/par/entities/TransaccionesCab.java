@@ -12,7 +12,7 @@ import java.util.Date;
  * @author Perez
  */
 public class TransaccionesCab {
-    private Long idTransaccion;
+    private int idTransaccion;
     private Date fecha;
     private Clientes total;
     private String direccionEnvio;
@@ -20,11 +20,11 @@ public class TransaccionesCab {
     private Long nroTarjeta;
     private String estado;
 
-    public Long getIdTransaccion() {
+    public int getIdTransaccion() {
         return idTransaccion;
     }
 
-    public void setIdTransaccion(Long idTransaccion) {
+    public void setIdTransaccion(int idTransaccion) {
         this.idTransaccion = idTransaccion;
     }
 

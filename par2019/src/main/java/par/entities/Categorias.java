@@ -10,14 +10,14 @@ package par.entities;
  * @author PabloAgHP
  */
 public class Categorias {
-    Long idCategoria;
+    int idCategoria;
     String descripcion;
 
-    public Long getIdCategoria() {
+    public int getIdCategoria() {
         return idCategoria;
     }
 
-    public void setIdCategoria(Long idCategoria) {
+    public void setIdCategoria(int idCategoria) {
         this.idCategoria = idCategoria;
     }
 

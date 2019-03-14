@@ -30,6 +30,8 @@ public class app {
             String sql = "insert into CATEGORIA values (2, '{domitica}');";
             ResultSet resultado = sentencia.executeQuery(sql);
             System.out.println("resultado " + resultado);
+            List<Categorias > cat = (List<Categorias>) resultado.g;
+                        
         } catch (Exception e) {
             System.out.println("error");
         } finally {

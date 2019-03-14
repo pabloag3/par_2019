@@ -10,7 +10,7 @@ package par.entities;
  * @author Perez
  */
 public class Clientes {
-    private Long idCliente;
+    private int idCliente;
     private String nombre;
     private String apellido;
     private String email;
@@ -18,11 +18,11 @@ public class Clientes {
     private String passwd;
     private String tipoCliente;
 
-    public Long getIdCliente() {
+    public int getIdCliente() {
         return idCliente;
     }
 
-    public void setIdCliente(Long idCliente) {
+    public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
     }
 
