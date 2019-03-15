@@ -14,21 +14,17 @@ import java.sql.SQLException;
  */
 public class Conexion {
     
-    public String conexion;
-    public String usuario;
-    public String contrasenhaBase;
-    
+    public static String jdbcconexion = "jdbc:postgresql://localhost:5432/ecomerce";
+    public static String usuariodb = "postgres";
+    public static String contrasenhadb = "QAZwsx123plm";
+    public static BasicConnectionPool basicCPoll;
+
     public Conexion() throws SQLException {
-        conexion = "jdbc:postgresql://localhost:5432/ecomerce";
-        usuario = "postgres";
-        contrasenhaBase = "QAZwsx123plm";
-        crear_conexion();
     }
 
-    private Connection crear_conexion() throws SQLException {
-        return BasicConnectionPool.create("jdbc:postgresql://"
-                    + "localhost:5432/ecomerce", "postgres", 
-                    "QAZwsx123plm").getConnection();
+    public static Connection crear_conexion(BasicConnectionPool basicCPoll) throws SQLException {
+        return basicCPoll.create(jdbcconexion, usuariodb, 
+                    contrasenhadb).getConnection();
     }
     
     

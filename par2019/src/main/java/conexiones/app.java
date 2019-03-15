@@ -22,25 +22,41 @@ public class app {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SQLException {
+        Categorias cat = new Categorias();
+        cat.setDescripcion("carpinteria");
+
+        guardarCategoria(cat);
+    }
+    
+    public static void guardarCategoria(Categorias categoria ) {
+        BasicConnectionPool bcp = new BasicConnectionPool();//esto unicamente desde el login
         Connection conexion = null;
+
         try {
-//            conexion = BasicConnectionPool.create("jdbc:postgresql://"
-//                    + "localhost:5432/ecomerce", "postgres", 
-//                    "QAZwsx123plm").getConnection();
+            conexion = Conexion.crear_conexion(bcp);
+            
             Statement sentencia = conexion.createStatement();
-            //String sql = "SELECT * FROM CATEGORIA";
-            String sql = "insert into CATEGORIA values (2, '{domitica}');";
-            ResultSet resultado = sentencia.executeQuery(sql);
-            System.out.println("resultado " + resultado);
-            //List<Categorias > cat = (List<Categorias>) resultado.g;
-                        
+            //para secuencia
+            String sec = "SELECT nextval('categoria_id_categoria_seq');";
+            sentencia.execute(sec);
+            ResultSet rs = sentencia.executeQuery(sec);
+
+            int codigoCategoria = 1;
+            while (rs.next()){
+                String val = rs.getString(1);
+                codigoCategoria = Integer.parseInt(val);
+            }
+            categoria.setIdCategoria(codigoCategoria);
+            
+            //para insert
+            String sql = "insert into CATEGORIA values (" + categoria.getIdCategoria()
+                    + ", '{"+ categoria.getDescripcion()+"}');";
+            sentencia.executeUpdate(sql);
+            //ResultSet resultado = sentencia.executeQuery(sql);
+            bcp.releaseConnection(conexion);
         } catch (Exception e) {
             System.out.println("error");
-        } finally {
-            //conexion.close();
-        };
-            
-            
+        }
     }
     
 }

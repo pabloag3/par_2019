@@ -12,7 +12,7 @@ package par.entities;
 public class Productos {
     private int idProducto;
     private String descripcion;
-    private Categorias idCategoria;
+    private int idCategoria;
     private Long precioUnit;
     private Long cantidad;
     
@@ -32,11 +32,11 @@ public class Productos {
         this.descripcion = descripcion;
     }
 
-    public Categorias getIdCategoria() {
+    public int getIdCategoria() {
         return idCategoria;
     }
 
-    public void setIdCategoria(Categorias idCategoria) {
+    public void setIdCategoria(int idCategoria) {
         this.idCategoria = idCategoria;
     }
 

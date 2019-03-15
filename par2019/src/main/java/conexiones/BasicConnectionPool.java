@@ -24,14 +24,18 @@ public class BasicConnectionPool implements ConnectionPool {
     private List<Connection> usedConnections = new ArrayList<>();
     private static int INITIAL_POOL_SIZE = 10;
     
-    private BasicConnectionPool(String url, String user, String password, List<Connection> pool) {
+    public BasicConnectionPool(String url, String user, String password, List<Connection> pool) {
         this.url = url;
         this.user = user;
         this.password = password;
         this.connectionPool = pool;
     }
-     
-    public static BasicConnectionPool create(
+
+    public BasicConnectionPool(){
+        
+    };
+
+    public BasicConnectionPool create(
       String url, String user, 
       String password) throws SQLException {
   
