@@ -33,13 +33,14 @@ public class RepoProducto {
                     + "VALUES (?, ?, ?, ?);";
             PreparedStatement crearEntidad = conexion.prepareStatement(creacionString);
             Array descripcion = conexion.createArrayOf("varchar", new Object[] {prod.getDescripcion()});
-            crearEntidad.setArray(1, descripcion);
+            crearEntidad.setArray(0, descripcion);
             Array id_categoria = conexion.createArrayOf("varchar", new Object[] {prod.getIdCategoria()});
-            crearEntidad.setArray(2, id_categoria);
+            crearEntidad.setArray(1, id_categoria);
             Array precio_unit = conexion.createArrayOf("varchar", new Object[] {prod.getPrecioUnit()});
-            crearEntidad.setArray(3, precio_unit);
+            crearEntidad.setArray(2, precio_unit);
             Array cantidad = conexion.createArrayOf("varchar", new Object[] {prod.getCantidad()});
-            crearEntidad.setArray(4, cantidad);
+            crearEntidad.setArray(3, cantidad);
+            crearEntidad.
             int i = crearEntidad.executeUpdate();
             System.out.println("Insercion correcta.");
 
@@ -51,6 +52,30 @@ public class RepoProducto {
     }
 
     public void actualizarProducto(Productos prod ) {
+        Connection conexion = null;
+        try {
+            conexion = Conexion.crear_conexion(bcp);
+            String updateString = "UPDATE producto"
+                + "SET descripcion = ? ,"
+                + "SET id_categoria = ? ,"
+                + "SET precio_unit = ? ,"
+                + "SET cantidad = ?"
+                + "WHERE id_categoria = ?;";
+            PreparedStatement actualizarEntidad = conexion.prepareStatement(updateString);
+            Array descripcion = conexion.createArrayOf("varchar", new Object[] {prod.getDescripcion()});
+            actualizarEntidad.setArray(0, descripcion);
+            Array id_categoria = conexion.createArrayOf("varchar", new Object[] {prod.getIdCategoria()});
+            actualizarEntidad.setArray(1, id_categoria);
+            Array precio_unit = conexion.createArrayOf("varchar", new Object[] {prod.getPrecioUnit()});
+            actualizarEntidad.setArray(2, precio_unit);
+            Array cantidad = conexion.createArrayOf("varchar", new Object[] {prod.getCantidad()});
+            actualizarEntidad.setArray(3, cantidad);
+            actualizarEntidad.setInt(4, prod.getIdProducto());
+            int i = actualizarEntidad.executeUpdate();
+            
+        } catch (Exception e) {
+        }
+        
     }
 
     public void eliminarProducto(int idPoducto) {
@@ -58,7 +83,7 @@ public class RepoProducto {
         
         try {
             conexion = Conexion.crear_conexion(bcp);
-            String deleteString = "DELETE FROM categoria "
+            String deleteString = "DELETE FROM producto "
                     +           "WHERE id_producto = " + idPoducto;
             bcp.releaseConnection(conexion);
         } catch (Exception e) {

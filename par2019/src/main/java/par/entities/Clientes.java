@@ -16,7 +16,7 @@ public class Clientes {
     private String email;
     private String loginName;
     private String passwd;
-    private String tipoCliente;
+    private int tipoCliente;
 
     public int getIdCliente() {
         return idCliente;
@@ -66,11 +66,11 @@ public class Clientes {
         this.passwd = passwd;
     }
 
-    public String getTipoCliente() {
+    public int getTipoCliente() {
         return tipoCliente;
     }
 
-    public void setTipoCliente(String tipoCliente) {
+    public void setTipoCliente(int tipoCliente) {
         this.tipoCliente = tipoCliente;
     }
 }

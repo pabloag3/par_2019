@@ -34,9 +34,8 @@ public class RepoCategoria {
             
             String creacionString = "INSERT INTO categoria (descripcion) VALUES (?);";
             PreparedStatement crearEntidad = conexion.prepareStatement(creacionString);
-            //crearCategoria.setInt(1, codigoCategoria);
-            Array a = conexion.createArrayOf("varchar", new Object[] {categoria.getDescripcion()});
-            crearEntidad.setArray(1, a);
+            Array descripcion = conexion.createArrayOf("varchar", new Object[] {categoria.getDescripcion()});
+            crearEntidad.setArray(0, descripcion);
             int i = crearEntidad.executeUpdate();
             
             bcp.releaseConnection(conexion);
@@ -47,6 +46,23 @@ public class RepoCategoria {
     }
 
     public void actualizarCategoria(Categorias categoria ) {
+        Connection conexion = null;
+        try {
+            conexion = Conexion.crear_conexion(bcp);
+            String updateString = "UPDATE categoria"
+                + "SET descripcion = ? "
+                + "WHERE id_categoria = ?;";
+            PreparedStatement actualizarEntidad = conexion.prepareStatement(updateString);
+            Array descripcion = conexion.createArrayOf("varchar", new Object[] {categoria.getDescripcion()});
+            actualizarEntidad.setArray(0, descripcion);
+            actualizarEntidad.setInt(1, categoria.getIdCategoria());
+            int i = actualizarEntidad.executeUpdate();
+            
+            bcp.releaseConnection(conexion);
+        } catch (Exception e) {
+        }
+        
+        
     }
 
     public void eliminarCategoria(int idCategoria) {
@@ -60,12 +76,6 @@ public class RepoCategoria {
         } catch (Exception e) {
             
         }
-        
-        
-        
-        
-        
-        String sent = "DELETE FROM categoria"
-                 + "WHERE id_categoria = " + idCategoria + ";";
+
     }
 }
