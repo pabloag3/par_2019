@@ -61,7 +61,15 @@ public class RepoCliente {
     }
 
     public void eliminarClientes(int idCliente) {
-        String sent = "DELETE FROM clientes"
-                 + "WHERE id_cliente = " + idCliente + ";";
+        Connection conexion = null;
+        
+        try {
+            conexion = Conexion.crear_conexion(bcp);
+            String deleteString = "DELETE FROM categoria "
+                    +           "WHERE id_cliente = " + idCliente;
+            bcp.releaseConnection(conexion);
+        } catch (Exception e) {
+            
+        }
     }
 }

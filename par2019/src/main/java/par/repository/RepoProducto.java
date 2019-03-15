@@ -32,7 +32,6 @@ public class RepoProducto {
                     + "precio_unit, cantidad) "
                     + "VALUES (?, ?, ?, ?);";
             PreparedStatement crearEntidad = conexion.prepareStatement(creacionString);
-            //crearCategoria.setInt(1, codigoCategoria);
             Array descripcion = conexion.createArrayOf("varchar", new Object[] {prod.getDescripcion()});
             crearEntidad.setArray(1, descripcion);
             Array id_categoria = conexion.createArrayOf("varchar", new Object[] {prod.getIdCategoria()});
@@ -54,7 +53,16 @@ public class RepoProducto {
     public void actualizarProducto(Productos prod ) {
     }
 
-    public void eliminarProducto(Long idPoducto) {
+    public void eliminarProducto(int idPoducto) {
+        Connection conexion = null;
         
+        try {
+            conexion = Conexion.crear_conexion(bcp);
+            String deleteString = "DELETE FROM categoria "
+                    +           "WHERE id_producto = " + idPoducto;
+            bcp.releaseConnection(conexion);
+        } catch (Exception e) {
+            
+        }
     }
 }

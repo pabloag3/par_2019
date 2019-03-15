@@ -38,7 +38,6 @@ public class RepoCategoria {
             Array a = conexion.createArrayOf("varchar", new Object[] {categoria.getDescripcion()});
             crearEntidad.setArray(1, a);
             int i = crearEntidad.executeUpdate();
-            System.out.println("Insercion correcta.");
             
             bcp.releaseConnection(conexion);
             
@@ -51,6 +50,21 @@ public class RepoCategoria {
     }
 
     public void eliminarCategoria(int idCategoria) {
+        Connection conexion = null;
+        
+        try {
+            conexion = Conexion.crear_conexion(bcp);
+            String deleteString = "DELETE FROM categoria "
+                    +           "WHERE id_categoria = " + idCategoria;
+            bcp.releaseConnection(conexion);
+        } catch (Exception e) {
+            
+        }
+        
+        
+        
+        
+        
         String sent = "DELETE FROM categoria"
                  + "WHERE id_categoria = " + idCategoria + ";";
     }
