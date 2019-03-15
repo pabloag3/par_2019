@@ -5,6 +5,10 @@
  */
 package par.repository;
 
+import conexiones.Conexion;
+import java.sql.Array;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.List;
 import par.entities.Clientes;
 
@@ -19,17 +23,37 @@ public class RepoCliente {
     }
 
     public void guardarClientes(Clientes cliente ) {
-        String sent = "SELECT nextval('cliente_id_cliente');";
-        Integer codigoCliente = Integer.parseInt(sent);
-        cliente.setIdCliente(codigoCliente);
-        String sql = "insert into categoria values (" + cliente.getIdCliente()
-                + ", " + cliente.getNombre()
-                + ", " + cliente.getApellido()
-                + ", " + cliente.getEmail()
-                + ", " + cliente.getLoginName()
-                + ", " + cliente.getPasswd()
-                + ", " + cliente.getTipoCliente()
-                + ")";
+        
+        Connection conexion = null;
+        
+        try {
+            conexion = Conexion.crear_conexion(bcp);
+            
+            String creacionString = "INSERT INTO cliente (nombre, apellido, "
+                    + "email, login_name, passwd, tipo_cliente) "
+                    + "VALUES (?, ?, ?, ?, ?, ?);";
+            PreparedStatement crearEntidad = conexion.prepareStatement(creacionString);
+            //crearCategoria.setInt(1, codigoCategoria);
+            Array nombre = conexion.createArrayOf("varchar", new Object[] {cliente.getNombre()});
+            crearEntidad.setArray(1, nombre);
+            Array apellido = conexion.createArrayOf("varchar", new Object[] {cliente.getApellido()});
+            crearEntidad.setArray(2, apellido);
+            Array email = conexion.createArrayOf("varchar", new Object[] {cliente.getEmail()});
+            crearEntidad.setArray(3, email);
+            Array loginName = conexion.createArrayOf("varchar", new Object[] {cliente.getLoginName()});
+            crearEntidad.setArray(4, loginName);
+            Array passwd= conexion.createArrayOf("varchar", new Object[] {cliente.getPasswd()});
+            crearEntidad.setArray(5, passwd);
+            Array tipoCliente = conexion.createArrayOf("varchar", new Object[] {cliente.getTipoCliente()});
+            crearEntidad.setArray(6, tipoCliente);
+            int i = crearEntidad.executeUpdate();
+            System.out.println("Insercion correcta.");
+            
+            bcp.releaseConnection(conexion);
+            
+        } catch (Exception e) {
+            System.out.println("error");
+        }
         
     }
 

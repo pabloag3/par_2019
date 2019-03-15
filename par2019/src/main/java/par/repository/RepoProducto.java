@@ -5,6 +5,10 @@
  */
 package par.repository;
 
+import conexiones.Conexion;
+import java.sql.Array;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.List;
 import par.entities.Productos;
 
@@ -19,15 +23,32 @@ public class RepoProducto {
     }
 
     public void guardarProducto(Productos prod ) {
-        //Query  sentencia; //para pk de produto
-        Long codigoProducto = sencia.getResult;
-        prod.setIdProducto(Long.MIN_VALUE);
-        String sql = "insert into producto values (" + prod.getIdProducto() 
-                + ", " + prod.getDescripcion() + ',' + prod.getIdCategoria() 
-                + ',' + prod.getPrecioUnit()+ ','
-                + prod.getCantidad() + ")";
         
-        //emc.persist(prod);
+        Connection conexion = null;
+
+        try {
+            conexion = Conexion.crear_conexion(bcp);
+            String creacionString = "INSERT INTO producto (descripcion, id_categoria, "
+                    + "precio_unit, cantidad) "
+                    + "VALUES (?, ?, ?, ?);";
+            PreparedStatement crearEntidad = conexion.prepareStatement(creacionString);
+            //crearCategoria.setInt(1, codigoCategoria);
+            Array descripcion = conexion.createArrayOf("varchar", new Object[] {prod.getDescripcion()});
+            crearEntidad.setArray(1, descripcion);
+            Array id_categoria = conexion.createArrayOf("varchar", new Object[] {prod.getIdCategoria()});
+            crearEntidad.setArray(2, id_categoria);
+            Array precio_unit = conexion.createArrayOf("varchar", new Object[] {prod.getPrecioUnit()});
+            crearEntidad.setArray(3, precio_unit);
+            Array cantidad = conexion.createArrayOf("varchar", new Object[] {prod.getCantidad()});
+            crearEntidad.setArray(4, cantidad);
+            int i = crearEntidad.executeUpdate();
+            System.out.println("Insercion correcta.");
+
+            bcp.releaseConnection(conexion);
+        } catch (Exception e) {
+            System.out.println("error");
+        }
+        
     }
 
     public void actualizarProducto(Productos prod ) {

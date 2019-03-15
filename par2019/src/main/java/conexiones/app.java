@@ -5,7 +5,9 @@
  */
 package conexiones;
 
+import java.sql.Array;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -29,31 +31,23 @@ public class app {
     }
     
     public static void guardarCategoria(Categorias categoria ) {
+        
         BasicConnectionPool bcp = new BasicConnectionPool();//esto unicamente desde el login
         Connection conexion = null;
 
         try {
             conexion = Conexion.crear_conexion(bcp);
             
-            Statement sentencia = conexion.createStatement();
-            //para secuencia
-            String sec = "SELECT nextval('categoria_id_categoria_seq');";
-            sentencia.execute(sec);
-            ResultSet rs = sentencia.executeQuery(sec);
-
-            int codigoCategoria = 1;
-            while (rs.next()){
-                String val = rs.getString(1);
-                codigoCategoria = Integer.parseInt(val);
-            }
-            categoria.setIdCategoria(codigoCategoria);
+            String creacionString = "INSERT INTO categoria (descripcion) VALUES (?);";
+            PreparedStatement crearCategoria = conexion.prepareStatement(creacionString);
+            //crearCategoria.setInt(1, codigoCategoria);
+            Array a = conexion.createArrayOf("varchar", new Object[] {categoria.getDescripcion()});
+            crearCategoria.setArray(1, a);
+            int i = crearCategoria.executeUpdate();
+            System.out.println("Insercion correcta.");
             
-            //para insert
-            String sql = "insert into CATEGORIA values (" + categoria.getIdCategoria()
-                    + ", '{"+ categoria.getDescripcion()+"}');";
-            sentencia.executeUpdate(sql);
-            //ResultSet resultado = sentencia.executeQuery(sql);
             bcp.releaseConnection(conexion);
+            
         } catch (Exception e) {
             System.out.println("error");
         }

@@ -6,6 +6,12 @@
 package par.repository;
 
 import conexiones.BasicConnectionPool;
+import conexiones.Conexion;
+import java.sql.Array;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.List;
 import par.entities.Categorias;
 
@@ -19,16 +25,26 @@ public class RepoCategoria {
         return (List<Categorias>) new Categorias();
     }
 
-    public void guardarCategoria(Categorias categoria ) {
-        
-       //Query para pk de categoria
-        String sent = "SELECT nextval('categoria_id_categoria_seq');";
-        Integer codigoCategoria = Integer.parseInt(sent);
-        categoria.setIdCategoria(codigoCategoria);
-        String sql = "insert into categoria values (" + categoria.getIdCategoria()
-                + ", " + categoria.getDescripcion() + ")";
-        
-        //emc.persist(prod);
+    public static void guardarCategoria(Categorias categoria ) {
+        BasicConnectionPool bcp = new BasicConnectionPool();//esto unicamente desde el login
+        Connection conexion = null;
+
+        try {
+            conexion = Conexion.crear_conexion(bcp);
+            
+            String creacionString = "INSERT INTO categoria (descripcion) VALUES (?);";
+            PreparedStatement crearEntidad = conexion.prepareStatement(creacionString);
+            //crearCategoria.setInt(1, codigoCategoria);
+            Array a = conexion.createArrayOf("varchar", new Object[] {categoria.getDescripcion()});
+            crearEntidad.setArray(1, a);
+            int i = crearEntidad.executeUpdate();
+            System.out.println("Insercion correcta.");
+            
+            bcp.releaseConnection(conexion);
+            
+        } catch (Exception e) {
+            System.out.println("error");
+        }
     }
 
     public void actualizarCategoria(Categorias categoria ) {
