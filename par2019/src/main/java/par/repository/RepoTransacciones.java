@@ -12,17 +12,19 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.util.List;
 import par.dtos.Transacciones;
+import par.interfaces.TransaccionesInter;
 
 /**
  *
  * @author Perez
  */
-public class RepoTransacciones {
+public class RepoTransacciones implements TransaccionesInter{
+    @Override
     public List<Transacciones> listarTransacciones(){
-        
         return (List<Transacciones>) new Transacciones();
     }
 
+    @Override
     public void guardarTransacciones(Transacciones trans ) {
         Connection conexion = null;
 
@@ -52,10 +54,9 @@ public class RepoTransacciones {
         }
     }
 
+    @Override
     public void actualizarTransacciones(Transacciones trans ) {
-        
         Connection conexion = null;
-
         try {
             conexion = Conexion.crear_conexion(bcp);
             String updateString = "UPDATE transacciones_cab"
@@ -88,19 +89,18 @@ public class RepoTransacciones {
             System.out.println("error");
         }
         
-        
     }
 
+    @Override
     public void eliminarTransacciones(int idTransaccion) {
         Connection conexion = null;
-        
         try {
             conexion = Conexion.crear_conexion(bcp);
             String deleteString = "DELETE FROM transacciones_cab "
                     +           "WHERE id_categoria = " + idTransaccion;
             bcp.releaseConnection(conexion);
         } catch (Exception e) {
-            
+            e.printStackTrace();
         }
     }
 }

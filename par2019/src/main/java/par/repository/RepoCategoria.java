@@ -14,18 +14,21 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 import par.entities.Categorias;
+import par.interfaces.CategoriaInter;
 
 /**
  *
  * @author PabloAgHP
  */
-public class RepoCategoria {
-     public List<Categorias> listarCategorias(){
+public class RepoCategoria implements CategoriaInter{
+    @Override
+    public List<Categorias> listarCategorias(){
         
         return (List<Categorias>) new Categorias();
     }
 
-    public static void guardarCategoria(Categorias categoria ) {
+    @Override
+    public void guardarCategoria(Categorias categoria ) {
         BasicConnectionPool bcp = new BasicConnectionPool();//esto unicamente desde el login
         Connection conexion = null;
 
@@ -60,11 +63,12 @@ public class RepoCategoria {
             
             bcp.releaseConnection(conexion);
         } catch (Exception e) {
+            e.printStackTrace();
         }
-        
-        
+
     }
 
+    @Override
     public void eliminarCategoria(int idCategoria) {
         Connection conexion = null;
         
@@ -74,7 +78,7 @@ public class RepoCategoria {
                     +           "WHERE id_categoria = " + idCategoria;
             bcp.releaseConnection(conexion);
         } catch (Exception e) {
-            
+            e.printStackTrace();
         }
 
     }

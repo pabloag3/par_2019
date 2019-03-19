@@ -11,17 +11,20 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.List;
 import par.entities.Productos;
+import par.interfaces.ProductoInter;
 
 /**
  *
  * @author Perez
  */
-public class RepoProducto {
+public class RepoProducto implements ProductoInter{
+    @Override
     public List<Productos> listarProductos(){
         
         return (List<Productos>) new Productos();
     }
 
+    @Override
     public void guardarProducto(Productos prod ) {
         
         Connection conexion = null;
@@ -34,13 +37,9 @@ public class RepoProducto {
             PreparedStatement crearEntidad = conexion.prepareStatement(creacionString);
             Array descripcion = conexion.createArrayOf("varchar", new Object[] {prod.getDescripcion()});
             crearEntidad.setArray(0, descripcion);
-            Array id_categoria = conexion.createArrayOf("varchar", new Object[] {prod.getIdCategoria()});
-            crearEntidad.setArray(1, id_categoria);
-            Array precio_unit = conexion.createArrayOf("varchar", new Object[] {prod.getPrecioUnit()});
-            crearEntidad.setArray(2, precio_unit);
-            Array cantidad = conexion.createArrayOf("varchar", new Object[] {prod.getCantidad()});
-            crearEntidad.setArray(3, cantidad);
-            crearEntidad.
+            crearEntidad.setInt(1, prod.getIdCategoria());
+            crearEntidad.setLong(2, prod.getPrecioUnit());
+            crearEntidad.setLong(3, prod.getCantidad());
             int i = crearEntidad.executeUpdate();
             System.out.println("Insercion correcta.");
 
@@ -51,6 +50,7 @@ public class RepoProducto {
         
     }
 
+    @Override
     public void actualizarProducto(Productos prod ) {
         Connection conexion = null;
         try {
@@ -78,16 +78,16 @@ public class RepoProducto {
         
     }
 
+    @Override
     public void eliminarProducto(int idPoducto) {
         Connection conexion = null;
-        
         try {
             conexion = Conexion.crear_conexion(bcp);
             String deleteString = "DELETE FROM producto "
                     +           "WHERE id_producto = " + idPoducto;
             bcp.releaseConnection(conexion);
         } catch (Exception e) {
-            
+            e.printStackTrace();
         }
     }
 }

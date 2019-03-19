@@ -11,21 +11,21 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.List;
 import par.entities.Clientes;
+import par.interfaces.ClienteInter;
 
 /**
  *
  * @author PabloAgHP
  */
-public class RepoCliente {
-    public List<Clientes> listarClientes(){
-        
+public class RepoCliente implements ClienteInter{
+    @Override
+    public List<Clientes> listarClientes() {
         return (List<Clientes>) new Clientes();
     }
 
+    @Override
     public void guardarClientes(Clientes cliente ) {
-        
         Connection conexion = null;
-        
         try {
             conexion = Conexion.crear_conexion(bcp);
             
@@ -56,6 +56,7 @@ public class RepoCliente {
         
     }
 
+    @Override
     public void actualizarClientes(Clientes cliente ) {
         
         Connection conexion = null;
@@ -88,16 +89,16 @@ public class RepoCliente {
             System.out.println("Actualizacion correcta.");
             
             bcp.releaseConnection(conexion);
-            
+
         } catch (Exception e) {
             System.out.println("error");
         }
-        
     }
 
+    @Override
     public void eliminarClientes(int idCliente) {
         Connection conexion = null;
-        
+
         try {
             conexion = Conexion.crear_conexion(bcp);
             String deleteString = "DELETE FROM cliente "
