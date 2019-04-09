@@ -14,6 +14,23 @@ import par.entities.TransaccionesDet;
  * @author Perez
  */
 public class Transacciones {
-    private TransaccionesCab cabecera;
-    private List<TransaccionesDet> detalles;
+    public TransaccionesCab cabecera;
+    public List<TransaccionesDet> detalles;
+
+    public TransaccionesCab getCabecera() {
+        return cabecera;
+    }
+
+    public void setCabecera(TransaccionesCab cabecera) {
+        this.cabecera = cabecera;
+    }
+
+    public List<TransaccionesDet> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<TransaccionesDet> detalles) {
+        this.detalles = detalles;
+    }
+    
 }

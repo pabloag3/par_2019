@@ -10,18 +10,18 @@ package par.entities;
  * @author Perez
  */
 public class TransaccionesDet {
-    private Long idTransaccion;
+    private int idTransaccion;
     private Long item;
     private Productos idProducto;
     private Long cantidad;
     private Long precio;
     private Long subTotal;
 
-    public Long getIdTransaccion() {
+    public int getIdTransaccion() {
         return idTransaccion;
     }
 
-    public void setIdTransaccion(Long idTransaccion) {
+    public void setIdTransaccion(int idTransaccion) {
         this.idTransaccion = idTransaccion;
     }
 

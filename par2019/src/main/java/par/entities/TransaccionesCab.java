@@ -12,19 +12,20 @@ import java.util.Date;
  * @author Perez
  */
 public class TransaccionesCab {
-    private Long idTransaccion;
+    private int idTransaccion;
     private Date fecha;
-    private Clientes total;
+    private Clientes cliente;
+    private long total;
     private String direccionEnvio;
-    private Long idMedioPago;
+    private int idMedioPago;
     private Long nroTarjeta;
     private String estado;
 
-    public Long getIdTransaccion() {
+    public int getIdTransaccion() {
         return idTransaccion;
     }
 
-    public void setIdTransaccion(Long idTransaccion) {
+    public void setIdTransaccion(int idTransaccion) {
         this.idTransaccion = idTransaccion;
     }
 
@@ -36,11 +37,19 @@ public class TransaccionesCab {
         this.fecha = fecha;
     }
 
-    public Clientes getTotal() {
+    public Clientes getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Clientes cliente) {
+        this.cliente = cliente;
+    }
+
+    public long getTotal() {
         return total;
     }
 
-    public void setTotal(Clientes total) {
+    public void setTotal(long total) {
         this.total = total;
     }
 
@@ -52,11 +61,11 @@ public class TransaccionesCab {
         this.direccionEnvio = direccionEnvio;
     }
 
-    public Long getIdMedioPago() {
+    public int getIdMedioPago() {
         return idMedioPago;
     }
 
-    public void setIdMedioPago(Long idMedioPago) {
+    public void setIdMedioPago(int idMedioPago) {
         this.idMedioPago = idMedioPago;
     }
 
