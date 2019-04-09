@@ -20,23 +20,22 @@ import par.categoria.domain.service.CategoriaServiceImpl;
  *
  * @author Pablo Aguilar
  */
-@Path("/categoriaapi")
+@Path("/categorias")
 public class CategoriaRestService {
-
     private final CategoriaServiceImpl categoriaService = new CategoriaServiceImpl(new JdbcCategoriaRepository());
 
     @GET
-    @Path("/categorias")
+    @Path("/traer-categorias")
     @Produces("application/json")
-    public ArrayList<Categoria> getUsers() {
+    public ArrayList<Categoria> getCategories() {
         ArrayList<Categoria> categorias = (ArrayList) categoriaService.getAll();
         return categorias;
     }
 
     @GET
-    @Path("/categorias/{id}")
+    @Path("/traer-categoria/{id}")
     @Produces("application/json")
-    public Categoria getUser(@PathParam("id") Integer id) {
+    public Categoria getCategory(@PathParam("id") Integer id) {
         Categoria entity = null;
         try {
             entity = (Categoria) categoriaService.findById(id);
@@ -47,10 +46,10 @@ public class CategoriaRestService {
     }
 
     @POST
-    @Path("/categorias")
+    @Path("/agregar-categoria")
     @Consumes("application/json")
     @Produces("application/json")
-    public Categoria addUser(Categoria entity) {
+    public Categoria addCategory(Categoria entity) {
         try {
             categoriaService.add(entity);
         } catch (Exception ex) {
@@ -60,9 +59,9 @@ public class CategoriaRestService {
     }
 
     @PUT
-    @Path("/categorias")
+    @Path("/actualizar-categoria")
     @Consumes("application/json")
-    public void updateUser(Categoria entity) {
+    public void updateCategory(Categoria entity) {
         try {
             categoriaService.update(entity);
         } catch (Exception ex) {
@@ -71,8 +70,8 @@ public class CategoriaRestService {
     }
 
     @DELETE
-    @Path("/categorias/{id}")
-    public void removeCategoria(@PathParam("id") Integer id) {
+    @Path("/borrar-categoria/{id}")
+    public void removeCategory(@PathParam("id") Integer id) {
         try {
             categoriaService.delete(id);
         } catch (Exception ex) {

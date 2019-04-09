@@ -32,11 +32,11 @@ public class CategoriaServiceImpl extends BaseService<Categoria, Integer>
         if (categoriaRepository.containsDescripcion(categoria.getDescripcion())) {
             throw new Exception(String.format("Ya existe una categoria con la descripcion %s", categoria.getDescripcion()));
         }
-        
+
         if (categoria.getDescripcion()== null || "".equals(categoria.getDescripcion())) {
             throw new Exception("El nombre del usuario no puede ser nulo o cadena vacia.");
         }
-        
+
         super.add(categoria);
     }
 
@@ -92,5 +92,4 @@ public class CategoriaServiceImpl extends BaseService<Categoria, Integer>
     public Collection<Categoria> findByCriteria(Map<String, ArrayList<String>> name) throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
 }

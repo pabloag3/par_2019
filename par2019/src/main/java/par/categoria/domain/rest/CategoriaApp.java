@@ -1,6 +1,5 @@
 package par.categoria.domain.rest;
 
-import par.cliente.domain.rest.*;
 import java.util.HashSet;
 import java.util.Set;
 import javax.ws.rs.core.Application;

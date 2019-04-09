@@ -19,13 +19,12 @@ import par.cliente.domain.service.ClienteServiceImpl;
  *
  * @author Pablo Aguilar
  */
-@Path("/clienteapi")
+@Path("/clientes")
 public class ClienteRestService {
-
     private final ClienteServiceImpl userService = new ClienteServiceImpl(new JdbcClienteRepository());
 
     @GET
-    @Path("/clientes")
+    @Path("/traer-clientes")
     @Produces("application/json")
     public ArrayList<Cliente> getUsers() {
         ArrayList<Cliente> clientes = (ArrayList) userService.getAll();
@@ -33,7 +32,7 @@ public class ClienteRestService {
     }
 
     @GET
-    @Path("/clientes/{id}")
+    @Path("/traer-cliente/{id}")
     @Produces("application/json")
     public Cliente getUser(@PathParam("id") Integer id) {
         Cliente entity = null;
@@ -46,7 +45,7 @@ public class ClienteRestService {
     }
 
     @POST
-    @Path("/clientes")
+    @Path("/agregar-cliente")
     @Consumes("application/json")
     @Produces("application/json")
     public Cliente addUser(Cliente entity) {
@@ -59,7 +58,7 @@ public class ClienteRestService {
     }
 
     @PUT
-    @Path("/clientes")
+    @Path("/actualizar-cliente")
     @Consumes("application/json")
     public void updateUser(Cliente entity) {
         try {
@@ -70,7 +69,7 @@ public class ClienteRestService {
     }
 
     @DELETE
-    @Path("/clientes/{id}")
+    @Path("/borrar-cliente/{id}")
     public void removeUser(@PathParam("id") Integer id) {
         try {
             userService.delete(id);

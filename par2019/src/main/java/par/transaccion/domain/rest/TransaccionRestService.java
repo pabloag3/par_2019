@@ -19,9 +19,8 @@ import par.transaccion.domain.service.TransaccionServiceImpl;
  *
  * @author Pablo Aguilar
  */
-@Path("/transaccionapi")
+@Path("/transacciones")
 public class TransaccionRestService {
-
     private final TransaccionServiceImpl transaccionService = new TransaccionServiceImpl(new JdbcTransaccionRepository());
 
     @GET

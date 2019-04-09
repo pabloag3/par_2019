@@ -1,6 +1,6 @@
 package par.transaccion.domain.model.entity;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *

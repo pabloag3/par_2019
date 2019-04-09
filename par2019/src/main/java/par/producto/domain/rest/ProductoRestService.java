@@ -19,23 +19,22 @@ import par.producto.domain.service.ProductoServiceImpl;
  *
  * @author Pablo Aguilar
  */
-@Path("/productoapi")
+@Path("/productos")
 public class ProductoRestService {
-
     private final ProductoServiceImpl productoService = new ProductoServiceImpl(new JdbcProductoRepository());
 
     @GET
-    @Path("/productos")
+    @Path("/traer-productos")
     @Produces("application/json")
-    public ArrayList<Producto> getUsers() {
+    public ArrayList<Producto> getProducts() {
         ArrayList<Producto> productos = (ArrayList) productoService.getAll();
         return productos;
     }
 
     @GET
-    @Path("/productos/{id}")
+    @Path("/traer-producto/{id}")
     @Produces("application/json")
-    public Producto getUser(@PathParam("id") Integer id) {
+    public Producto getProduct(@PathParam("id") Integer id) {
         Producto entity = null;
         try {
             entity = (Producto) productoService.findById(id);
@@ -46,10 +45,10 @@ public class ProductoRestService {
     }
 
     @POST
-    @Path("/productos")
+    @Path("/agregar-producto")
     @Consumes("application/json")
     @Produces("application/json")
-    public Producto addUser(Producto entity) {
+    public Producto addProduct(Producto entity) {
         try {
             productoService.add(entity);
         } catch (Exception ex) {
@@ -59,9 +58,9 @@ public class ProductoRestService {
     }
 
     @PUT
-    @Path("/productos")
+    @Path("/actualizar-producto")
     @Consumes("application/json")
-    public void updateUser(Producto entity) {
+    public void updateProduct(Producto entity) {
         try {
             productoService.update(entity);
         } catch (Exception ex) {
@@ -70,8 +69,8 @@ public class ProductoRestService {
     }
 
     @DELETE
-    @Path("/productos/{id}")
-    public void removeProducto(@PathParam("id") Integer id) {
+    @Path("/borrar-producto/{id}")
+    public void removeProduct(@PathParam("id") Integer id) {
         try {
             productoService.delete(id);
         } catch (Exception ex) {

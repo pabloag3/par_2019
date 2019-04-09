@@ -107,7 +107,7 @@ public class JdbcTransaccionRepository implements TransaccionRepository<Transacc
                     + "estado = ? "
                     + "WHERE id_transaccion = ?");
 
-            pstmt.setString(1, entity.getNombre()); // ver fecha
+            pstmt.setDate(1, entity.getFecha()); // ver fecha
             pstmt.setInt(2, entity.getIdCliente());
             pstmt.setLong(3, entity.getTotal());
             pstmt.setString(4, entity.getDireccionEnvio());
@@ -164,13 +164,13 @@ public class JdbcTransaccionRepository implements TransaccionRepository<Transacc
 
             if (rs.next()) {
                 retValue = new Transaccion(rs.getInt("id_transaccion"), 
-                        rs.getString("fecha"), 
-                        rs.getString("id_cliente"), 
-                        rs.getString("total"), 
+                        rs.getDate("fecha"), 
+                        rs.getInt("id_cliente"), 
+                        rs.getLong("total"), 
                         rs.getString("direccion_envio"), 
-                        rs.getString("id_medio_pago"), 
-                        rs.getString("nro_tarjeta"), 
-                        rs.getInt("estado"));
+                        rs.getInt("id_medio_pago"), 
+                        rs.getLong("nro_tarjeta"), 
+                        rs.getString("estado"));
             } else {
                 retValue = new Transaccion(null,null,null,null,null,null,0);
             }
