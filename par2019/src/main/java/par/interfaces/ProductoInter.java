@@ -12,7 +12,7 @@ import par.entities.Productos;
  *
  * @author Pablo Aguilar
  */
-public interface ProductoInter {
+public interface ProductoInter implements readOnlyProducto {
     public List<Productos> listarProductos();
     public void guardarProducto(Productos prod );
     public void actualizarProducto(Productos prod );
