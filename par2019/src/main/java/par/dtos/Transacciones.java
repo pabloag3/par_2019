@@ -6,14 +6,13 @@
 package par.dtos;
 
 import java.util.List;
-import par.entities.TransaccionesCab;
-import par.entities.TransaccionesDet;
 
 /**
  *
  * @author Perez
  */
 public class Transacciones {
+    /*
     public TransaccionesCab cabecera;
     public List<TransaccionesDet> detalles;
 
@@ -32,5 +31,5 @@ public class Transacciones {
     public void setDetalles(List<TransaccionesDet> detalles) {
         this.detalles = detalles;
     }
-    
+    */
 }

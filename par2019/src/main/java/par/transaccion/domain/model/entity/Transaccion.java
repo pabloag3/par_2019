@@ -22,6 +22,7 @@ public class Transaccion extends BaseEntity<Integer> {
     
     /**
      *
+     * @param id
      * @param fecha
      * @param idCliente
      * @param total
@@ -30,7 +31,7 @@ public class Transaccion extends BaseEntity<Integer> {
      * @param nroTarjeta
      * @param estado
      */
-    public Transaccion(Integer id, Date fecha, int idCliente, long total,
+    public Transaccion(int id, Date fecha, int idCliente, long total,
             String direccionEnvio, int idMedioPago, Long nroTarjeta, String estado) {
         super(id);
         this.fecha = fecha;
