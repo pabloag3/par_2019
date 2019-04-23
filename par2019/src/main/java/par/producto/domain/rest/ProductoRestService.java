@@ -20,12 +20,13 @@ import par.producto.domain.service.ProductoServiceImpl;
  * @author Pablo Aguilar
  */
 @Path("/productos")
+@Consumes("application/json")
+@Produces("application/json")
 public class ProductoRestService {
     private final ProductoServiceImpl productoService = new ProductoServiceImpl(new JdbcProductoRepository());
 
     @GET
     @Path("/traer-productos")
-    @Produces("application/json")
     public ArrayList<Producto> getProducts() {
         ArrayList<Producto> productos = (ArrayList) productoService.getAll();
         return productos;
@@ -33,7 +34,6 @@ public class ProductoRestService {
 
     @GET
     @Path("/traer-producto/{id}")
-    @Produces("application/json")
     public Producto getProduct(@PathParam("id") Integer id) {
         Producto entity = null;
         try {
@@ -46,8 +46,6 @@ public class ProductoRestService {
 
     @POST
     @Path("/agregar-producto")
-    @Consumes("application/json")
-    @Produces("application/json")
     public Producto addProduct(Producto entity) {
         try {
             productoService.add(entity);
@@ -59,7 +57,6 @@ public class ProductoRestService {
 
     @PUT
     @Path("/actualizar-producto")
-    @Consumes("application/json")
     public void updateProduct(Producto entity) {
         try {
             productoService.update(entity);
