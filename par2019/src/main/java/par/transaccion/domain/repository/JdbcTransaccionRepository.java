@@ -172,7 +172,7 @@ public class JdbcTransaccionRepository implements TransaccionRepository<Transacc
                         rs.getLong("nro_tarjeta"), 
                         rs.getString("estado"));
             } else {
-                retValue = new Transaccion(null,null,null,null,null,null,0);
+                retValue = new Transaccion(0,null,0,0,null,0,(long) 0,null);
             }
 
         } catch (Exception e) {
@@ -213,7 +213,14 @@ public class JdbcTransaccionRepository implements TransaccionRepository<Transacc
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                retValue.add(new Transaccion(rs.getInt("id_transaccion"), rs.getString("nombre"), rs.getString("apellido"), rs.getString("email"), rs.getString("login_name"), rs.getString("passwd"), rs.getInt("tipo_transaccion")));
+                retValue.add(new Transaccion(rs.getInt("id_transaccion"), 
+                        rs.getDate("fecha"), 
+                        rs.getInt("id_cliente"), 
+                        rs.getLong("total"), 
+                        rs.getString("direccion_envio"), 
+                        rs.getInt("id_medio_pago"), 
+                        rs.getLong("nro_tarjeta"), 
+                        rs.getString("estado")));
             }
 
         } catch (Exception e) {

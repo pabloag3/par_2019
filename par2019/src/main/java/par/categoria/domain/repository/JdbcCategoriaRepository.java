@@ -23,9 +23,10 @@ public class JdbcCategoriaRepository implements CategoriaRepository<Categoria, I
     /**
      *
      * @param entity
+     * @throws java.lang.Exception
      */
     @Override
-    public void add(Categoria entity) {
+    public void add(Categoria entity) throws Exception {
         Connection c = null;
         PreparedStatement pstmt = null;
 
@@ -54,21 +55,22 @@ public class JdbcCategoriaRepository implements CategoriaRepository<Categoria, I
     /**
      *
      * @param id
+     * @throws java.lang.Exception
      */
     @Override
-    public void remove(Integer id) {
+    public void remove(Integer id) throws Exception {
         Connection c = null;
         PreparedStatement pstmt = null;
 
         try {
             c = DBUtils.getConnection();
-            pstmt = c.prepareStatement("DELETE FROM categoria WHERE id_categoria = ?");
+            pstmt = c.prepareStatement("DELETE FROM public.categoria WHERE id_categoria = ?");
 
             pstmt.setInt(1, id);
 
             pstmt.executeUpdate();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         } finally {
             try {
                 if (pstmt != null) {
@@ -86,20 +88,20 @@ public class JdbcCategoriaRepository implements CategoriaRepository<Categoria, I
      * @param entity
      */
     @Override
-    public void update(Categoria entity) {
+    public void update(Categoria entity) throws Exception {
         Connection c = null;
         PreparedStatement pstmt = null;
 
         try {
             c = DBUtils.getConnection();
-            pstmt = c.prepareStatement("UPDATE categoria SET descripcion = ?, "
+            pstmt = c.prepareStatement("UPDATE categoria SET descripcion = ? "
                     + "WHERE id_categoria = ?");
 
-            pstmt.setInt(7, entity.getId());
-
+            pstmt.setString(1, entity.getDescripcion());
+            pstmt.setInt(2, entity.getId());
             pstmt.executeUpdate();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         } finally {
             try {
                 if (pstmt != null) {
@@ -128,29 +130,23 @@ public class JdbcCategoriaRepository implements CategoriaRepository<Categoria, I
      * @return
      */
     @Override
-    public Entity get(Integer id) {
+    public Entity get(Integer id) throws Exception {
         Entity retValue = null;
-
         Connection c = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-
         try {
             c = DBUtils.getConnection();
             pstmt = c.prepareStatement("SELECT * FROM categoria WHERE id_categoria = ?");
-
             pstmt.setInt(1, id);
-
             rs = pstmt.executeQuery();
-
             if (rs.next()) {
                 retValue = new Categoria(rs.getInt("id_categoria"), rs.getString("descripcion"));
             } else {
                 retValue = new Categoria(null, "");
             }
-
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         } finally {
             try {
                 if (rs != null) {
@@ -164,34 +160,29 @@ public class JdbcCategoriaRepository implements CategoriaRepository<Categoria, I
                 //Logger.getLogger(UsuarioManager.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
         return retValue;
     }
 
     /**
      *
      * @return
+     * @throws java.lang.Exception
      */
     @Override
-    public Collection<Categoria> getAll() {
+    public Collection<Categoria> getAll() throws Exception {
         Collection<Categoria> retValue = new ArrayList();
-
         Connection c = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-
         try {
             c = DBUtils.getConnection();
             pstmt = c.prepareStatement("SELECT * FROM categoria");
-
             rs = pstmt.executeQuery();
-
             while (rs.next()) {
                 retValue.add(new Categoria(rs.getInt("id_categoria"), rs.getString("descripcion")));
             }
-
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         } finally {
             try {
                 if (rs != null) {
@@ -202,10 +193,9 @@ public class JdbcCategoriaRepository implements CategoriaRepository<Categoria, I
                 }
                 DBUtils.closeConnection(c);
             } catch (SQLException ex) {
-                //Logger.getLogger(UsuarioManager.class.getName()).log(Level.SEVERE, null, ex);
+                throw ex;
             }
         }
-
         return retValue;
     }
 
@@ -218,25 +208,19 @@ public class JdbcCategoriaRepository implements CategoriaRepository<Categoria, I
     @Override
     public Collection<Categoria> findByDescripcion(String descripcion) throws Exception {
         Collection<Categoria> retValue = new ArrayList();
-
         Connection c = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-
         try {
             c = DBUtils.getConnection();
             pstmt = c.prepareStatement("SELECT * FROM categoria WHERE descripcion = ? ");
-
             pstmt.setString(1, descripcion);
-
             rs = pstmt.executeQuery();
-
             if (rs.next()) {
                 retValue.add(new Categoria(rs.getInt("id_categoria"), rs.getString("descripcion")));
             }
-
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         } finally {
             try {
                 if (rs != null) {
@@ -250,7 +234,6 @@ public class JdbcCategoriaRepository implements CategoriaRepository<Categoria, I
                 //Logger.getLogger(UsuarioManager.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
         return retValue;
     }
 

@@ -18,7 +18,7 @@ public class DBUtils {
     
     public static String jdbcconexion = "jdbc:postgresql://localhost:5432/ecomerce";
     public static String usuariodb = "postgres";
-    public static String contrasenhadb = "QAZwsx123plm";
+    public static String contrasenhadb = "postgres";
 
     public static Connection getConnection() throws SQLException {
         try {

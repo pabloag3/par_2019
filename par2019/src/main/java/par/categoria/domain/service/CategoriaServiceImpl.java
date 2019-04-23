@@ -29,12 +29,9 @@ public class CategoriaServiceImpl extends BaseService<Categoria, Integer>
 
     @Override
     public void add(Categoria categoria) throws Exception {
-        if (categoriaRepository.containsDescripcion(categoria.getDescripcion())) {
-            throw new Exception(String.format("Ya existe una categoria con la descripcion %s", categoria.getDescripcion()));
-        }
 
         if (categoria.getDescripcion()== null || "".equals(categoria.getDescripcion())) {
-            throw new Exception("El nombre del usuario no puede ser nulo o cadena vacia.");
+            throw new Exception("La descripción no puede ser nulo o cadena vacia.");
         }
 
         super.add(categoria);
