@@ -29,12 +29,8 @@ public class ProductoServiceImpl extends BaseService<Producto, Integer>
 
     @Override
     public void add(Producto producto) throws Exception {
-        if (productoRepository.containsDescripcion(producto.getDescripcion())) {
-            throw new Exception(String.format("Ya existe una categoria con la descripcion %s", producto.getDescripcion()));
-        }
-
         if (producto.getDescripcion() == null || "".equals(producto.getDescripcion())) {
-            throw new Exception("El nombre del usuario no puede ser nulo o cadena vacia.");
+            throw new Exception("El nombre del producto no puede ser nulo o cadena vacia.");
         }
                 
         super.add(producto);
