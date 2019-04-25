@@ -42,7 +42,7 @@ public class JdbcClienteRepository implements ClienteRepository<Cliente, Integer
      * @param entity
      */
     @Override
-    public void add(Cliente entity) {
+    public void add(Cliente entity) throws Exception {
         Connection c = null;
         PreparedStatement pstmt = null;
 
@@ -80,7 +80,7 @@ public class JdbcClienteRepository implements ClienteRepository<Cliente, Integer
      * @param id
      */
     @Override
-    public void remove(Integer id) {
+    public void remove(Integer id) throws Exception {
         Connection c = null;
         PreparedStatement pstmt = null;
 
@@ -110,7 +110,7 @@ public class JdbcClienteRepository implements ClienteRepository<Cliente, Integer
      * @param entity
      */
     @Override
-    public void update(Cliente entity) {
+    public void update(Cliente entity) throws Exception  {
         Connection c = null;
         PreparedStatement pstmt = null;
 
@@ -160,7 +160,7 @@ public class JdbcClienteRepository implements ClienteRepository<Cliente, Integer
      * @return
      */
     @Override
-    public Entity get(Integer id) {
+    public Entity get(Integer id) throws Exception {
         Entity retValue = null;
 
         Connection c = null;
@@ -211,7 +211,7 @@ public class JdbcClienteRepository implements ClienteRepository<Cliente, Integer
      * @return
      */
     @Override
-    public Collection<Cliente> getAll() {
+    public Collection<Cliente> getAll() throws Exception {
         Collection<Cliente> retValue = new ArrayList();
 
         Connection c = null;

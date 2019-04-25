@@ -14,6 +14,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
+import org.springframework.web.bind.annotation.RequestBody;
 import par.producto.domain.model.entity.Producto;
 import par.producto.domain.repository.JdbcProductoRepository;
 import par.producto.domain.service.ProductoServiceImpl;
@@ -32,7 +33,6 @@ public class ProductoRestService {
     public Response getProductos() {
         try {
             ArrayList<Producto> productos = new ArrayList<>();
-            //categorias.add(new Categoria(1,"hola"));
             productos = (ArrayList) productoService.getAll();
             ObjectMapper mapper = new ObjectMapper();
             String resp = mapper.writeValueAsString(productos);
@@ -60,9 +60,9 @@ public class ProductoRestService {
 
     @POST
     @Path("/agregar-producto")
-    public void addProduct(Producto entity) {
+    public void addProduct(@RequestBody String entity) {
         try {
-            System.out.println("Guardando Categoria.");
+            System.out.println("Guardando Producto.");
             ObjectMapper mapper = new ObjectMapper();
             Producto producto = mapper.readValue(entity, Producto.class);
             productoService.add(producto);
@@ -73,12 +73,12 @@ public class ProductoRestService {
 
     @PUT
     @Path("/actualizar-producto")
-    public void updateProduct(Producto entity) {
+    public void updateProduct(@RequestBody String entity) {
         try {
-            System.out.println("actualizar Categoria.");
+            System.out.println("actualizar Producto.");
             ObjectMapper mapper = new ObjectMapper();
-            Producto categoria = mapper.readValue(entity, Producto.class);
-            productoService.update(categoria);
+            Producto producto = mapper.readValue(entity, Producto.class);
+            productoService.update(producto);
         } catch (Exception ex) {
             Logger.getLogger(ProductoRestService.class.getName()).log(Level.SEVERE, null, ex);
         }

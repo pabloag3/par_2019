@@ -31,7 +31,7 @@ public abstract class BaseService<TE, T> extends ReadOnlyBaseService<TE, T> {
      *
      * @return
      */
-    public Collection<TE> getAll() {
+    public Collection<TE> getAll() throws Exception{
         return _repository.getAll();
     }
 }

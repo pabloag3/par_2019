@@ -41,7 +41,7 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
      * @param entity
      */
     @Override
-    public void add(Producto entity) {
+    public void add(Producto entity) throws Exception  {
         Connection c = null;
         PreparedStatement pstmt = null;
 
@@ -76,7 +76,7 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
      * @param id
      */
     @Override
-    public void remove(Integer id) {
+    public void remove(Integer id) throws Exception {
         Connection c = null;
         PreparedStatement pstmt = null;
 
@@ -106,7 +106,7 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
      * @param entity
      */
     @Override
-    public void update(Producto entity) {
+    public void update(Producto entity) throws Exception {
         Connection c = null;
         PreparedStatement pstmt = null;
 
@@ -156,7 +156,7 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
      * @return
      */
     @Override
-    public Entity get(Integer id) {
+    public Entity get(Integer id) throws Exception {
         Entity retValue = null;
 
         Connection c = null;
@@ -205,7 +205,7 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
      * @return
      */
     @Override
-    public Collection<Producto> getAll() {
+    public Collection<Producto> getAll() throws Exception {
         Collection<Producto> retValue = new ArrayList();
 
         Connection c = null;

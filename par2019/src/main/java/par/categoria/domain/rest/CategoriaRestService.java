@@ -2,7 +2,6 @@ package par.categoria.domain.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import par.categoria.domain.rest.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -72,7 +71,6 @@ public class CategoriaRestService {
         } catch (Exception ex) {
             Logger.getLogger(CategoriaRestService.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //return entity;
     }
 
     @PUT
