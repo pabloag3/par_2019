@@ -26,7 +26,7 @@ public class JdbcTransaccionRepository implements TransaccionRepository<Transacc
      * @param entity
      */
     @Override
-    public void add(Transaccion entity) {
+    public void add(Transaccion entity) throws Exception {
         Connection c = null;
         PreparedStatement pstmt = null;
 
@@ -65,7 +65,7 @@ public class JdbcTransaccionRepository implements TransaccionRepository<Transacc
      * @param id
      */
     @Override
-    public void remove(Integer id) {
+    public void remove(Integer id) throws Exception {
         Connection c = null;
         PreparedStatement pstmt = null;
 
@@ -95,7 +95,7 @@ public class JdbcTransaccionRepository implements TransaccionRepository<Transacc
      * @param entity
      */
     @Override
-    public void update(Transaccion entity) {
+    public void update(Transaccion entity) throws Exception {
         Connection c = null;
         PreparedStatement pstmt = null;
 
@@ -147,7 +147,7 @@ public class JdbcTransaccionRepository implements TransaccionRepository<Transacc
      * @return
      */
     @Override
-    public Entity get(Integer id) {
+    public Entity get(Integer id) throws Exception {
         Entity retValue = null;
 
         Connection c = null;
@@ -199,7 +199,7 @@ public class JdbcTransaccionRepository implements TransaccionRepository<Transacc
      * @return
      */
     @Override
-    public Collection<Transaccion> getAll() {
+    public Collection<Transaccion> getAll() throws Exception {
         Collection<Transaccion> retValue = new ArrayList();
 
         Connection c = null;

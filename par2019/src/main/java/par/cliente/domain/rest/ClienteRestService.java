@@ -1,5 +1,7 @@
 package par.cliente.domain.rest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,8 +13,11 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
+import org.springframework.web.bind.annotation.RequestBody;
 import par.cliente.domain.model.entity.Cliente;
 import par.cliente.domain.repository.JdbcClienteRepository;
+import par.cliente.domain.service.ClienteService;
 import par.cliente.domain.service.ClienteServiceImpl;
 
 /**
@@ -20,49 +25,62 @@ import par.cliente.domain.service.ClienteServiceImpl;
  * @author Pablo Aguilar
  */
 @Path("/clientes")
+@Consumes("application/json")
+@Produces("application/json")
 public class ClienteRestService {
-    private final ClienteServiceImpl userService = new ClienteServiceImpl(new JdbcClienteRepository());
+    private final ClienteServiceImpl clienteService = new ClienteServiceImpl(new JdbcClienteRepository());
 
     @GET
     @Path("/traer-clientes")
-    @Produces("application/json")
-    public ArrayList<Cliente> getUsers() {
-        ArrayList<Cliente> clientes = (ArrayList) userService.getAll();
-        return clientes;
+    public Response getUsers() {
+        try {
+            ArrayList<Cliente> clientes = new ArrayList<>();
+            clientes = (ArrayList) clienteService.getAll();
+            ObjectMapper mapper = new ObjectMapper();
+            String resp = mapper.writeValueAsString(clientes);
+            return Response.ok(resp).header("Content-Type: aplication/json; charset=utf-8", "*").build();
+        } catch (Exception ex) {
+            Logger.getLogger(ClienteRestService.class.getName()).log(Level.SEVERE, null, ex);
+            return Response.status(Response.Status.NOT_FOUND).header("Content-Type: text/html; charset=utf-8", "*").build();
+        }
     }
 
     @GET
     @Path("/traer-cliente/{id}")
-    @Produces("application/json")
-    public Cliente getUser(@PathParam("id") Integer id) {
+    public Response getUser(@PathParam("id") Integer id) {
         Cliente entity = null;
         try {
-            entity = (Cliente) userService.findById(id);
+            entity = (Cliente) clienteService.findById(id);
+            ObjectMapper mapper = new ObjectMapper();
+            String resp = mapper.writeValueAsString(entity);
+            return Response.ok(resp).header("Content-Type: aplication/json; charset=utf-8", "*").build();
         } catch (Exception ex) {
             Logger.getLogger(ClienteRestService.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return entity;
+        return Response.ok(entity).build();
     }
 
     @POST
     @Path("/agregar-cliente")
-    @Consumes("application/json")
-    @Produces("application/json")
-    public Cliente addUser(Cliente entity) {
+    public void addUser(@RequestBody String entity) {
         try {
-            userService.add(entity);
+            System.out.println("Guardando Cliente.");
+            ObjectMapper mapper = new ObjectMapper();
+            Cliente categoria = mapper.readValue(entity, Cliente.class);
+            clienteService.add(categoria);
         } catch (Exception ex) {
             Logger.getLogger(ClienteRestService.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return entity;
     }
 
     @PUT
     @Path("/actualizar-cliente")
-    @Consumes("application/json")
-    public void updateUser(Cliente entity) {
+    public void updateUser(@RequestBody String entity) {
         try {
-            userService.update(entity);
+            System.out.println("actualizar Cliente.");
+            ObjectMapper mapper = new ObjectMapper();
+            Cliente cliente = mapper.readValue(entity, Cliente.class);
+            clienteService.update(cliente);
         } catch (Exception ex) {
             Logger.getLogger(ClienteRestService.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -72,7 +90,7 @@ public class ClienteRestService {
     @Path("/borrar-cliente/{id}")
     public void removeUser(@PathParam("id") Integer id) {
         try {
-            userService.delete(id);
+            clienteService.delete(id);
         } catch (Exception ex) {
             Logger.getLogger(ClienteRestService.class.getName()).log(Level.SEVERE, null, ex);
         }

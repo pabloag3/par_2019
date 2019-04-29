@@ -206,9 +206,10 @@ public class JdbcCategoriaRepository implements CategoriaRepository<Categoria, I
      * @throws Exception
      */
     @Override
-    public Collection<Categoria> findByDescripcion(String descripcion) throws Exception {
-        Collection<Categoria> retValue = new ArrayList();
-        Connection c = null;
+    public Collection<Categoria> findByDescripcion(String descripcion) 
+            throws Exception { Collection<Categoria> retValue = new ArrayList();
+        
+            Connection c = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         try {

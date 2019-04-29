@@ -17,18 +17,18 @@ public interface ReadOnlyRepository<TE, T> {
      * @param id
      * @return
      */
-    boolean contains(T id);
+    boolean contains(T id) throws Exception;
 
     /**
      *
      * @param id
      * @return
      */
-    Entity get(T id);
+    Entity get(T id) throws Exception;
 
     /**
      *
      * @return
      */
-    Collection<TE> getAll();
+    Collection<TE> getAll() throws Exception;
 }
