@@ -32,8 +32,7 @@ public class ProductoRestService {
     @Path("/traer-productos")
     public Response getProductos() {
         try {
-            ArrayList<Producto> productos = new ArrayList<>();
-            productos = (ArrayList) productoService.getAll();
+            ArrayList<Producto> productos = (ArrayList) productoService.getAll();
             ObjectMapper mapper = new ObjectMapper();
             String resp = mapper.writeValueAsString(productos);
             return Response.ok(resp).header("Content-Type: aplication/json; charset=utf-8", "*").build();

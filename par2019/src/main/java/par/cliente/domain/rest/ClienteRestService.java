@@ -17,7 +17,6 @@ import javax.ws.rs.core.Response;
 import org.springframework.web.bind.annotation.RequestBody;
 import par.cliente.domain.model.entity.Cliente;
 import par.cliente.domain.repository.JdbcClienteRepository;
-import par.cliente.domain.service.ClienteService;
 import par.cliente.domain.service.ClienteServiceImpl;
 
 /**
@@ -34,8 +33,7 @@ public class ClienteRestService {
     @Path("/traer-clientes")
     public Response getUsers() {
         try {
-            ArrayList<Cliente> clientes = new ArrayList<>();
-            clientes = (ArrayList) clienteService.getAll();
+            ArrayList<Cliente> clientes = (ArrayList) clienteService.getAll();
             ObjectMapper mapper = new ObjectMapper();
             String resp = mapper.writeValueAsString(clientes);
             return Response.ok(resp).header("Content-Type: aplication/json; charset=utf-8", "*").build();
