@@ -1,5 +1,6 @@
 package par.transaccion.domain.rest;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -75,7 +76,7 @@ public class TransaccionRestService {
     public void updateUser(@RequestBody String entity) {
         try {
             System.out.println("actualizar Categoria.");
-            ObjectMapper mapper = new Transaccion();
+            ObjectMapper mapper = new ObjectMapper();
             Transaccion transaccion = mapper.readValue(entity, Transaccion.class);
             transaccionService.update(transaccion);
         } catch (Exception ex) {
