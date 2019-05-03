@@ -28,6 +28,7 @@ import par.producto.domain.service.ProductoServiceImpl;
 public class ProductoRestService {
     private final ProductoServiceImpl productoService = new ProductoServiceImpl(new JdbcProductoRepository());
 
+    @GET
     @Path("/traer-productos")
     public Response getProductos() {
         try {
