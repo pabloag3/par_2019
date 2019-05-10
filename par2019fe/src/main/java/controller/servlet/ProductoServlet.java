@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package par.servlet;
+package controller.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,20 +14,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import par.categoria.domain.model.entity.Categoria;
-import par.categoria.domain.repository.JdbcCategoriaRepository;
-import par.categoria.domain.service.CategoriaServiceImpl;
-import par.producto.domain.model.entity.Producto;
-import par.producto.domain.repository.JdbcProductoRepository;
-import par.producto.domain.service.ProductoServiceImpl;
+import bean.producto.domain.model.entity.Producto;
+
 
 /**
  *
  * @author Perez
  */
 public class ProductoServlet extends HttpServlet {
-    private final ProductoServiceImpl productoService = new ProductoServiceImpl(new JdbcProductoRepository());
-    private final CategoriaServiceImpl categoriaService = new CategoriaServiceImpl(new JdbcCategoriaRepository());
+    //private final ProductoServiceImpl productoService = new ProductoServiceImpl(new JdbcProductoRepository());
+    //private final CategoriaServiceImpl categoriaService = new CategoriaServiceImpl(new JdbcCategoriaRepository());
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -88,6 +84,11 @@ public class ProductoServlet extends HttpServlet {
         processRequest(request, response);
     }
 
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String valor = request.getParameterValues("valor")[0];
+        System.out.println("Hola ".concat( valor));
+    }
     /**
      * Returns a short description of the servlet.
      *
@@ -99,7 +100,10 @@ public class ProductoServlet extends HttpServlet {
     }// </editor-fold>
 
     private void traerProductos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, Exception  {
-        ArrayList<Producto> productos = (ArrayList) productoService.getAll();
+        //ArrayList<Producto> productos = (ArrayList) productoService.getAll();
+        ArrayList<Producto> productos = new ArrayList<>();
+        Producto prod1 = new Producto((Integer) 1, "jabon", 1, Long.valueOf( 5000), Long.valueOf(10));
+        productos.add(prod1);
         String vista =
         "<!DOCTYPE html>" +
         "<html>" +
@@ -129,12 +133,12 @@ public class ProductoServlet extends HttpServlet {
 	"		</thead>" +
 	"		<tbody>    ";          
         for(Producto prod : productos) {
-            Categoria cat = (Categoria) categoriaService.findById(prod.getIdCategoria());
+            //Categoria cat = (Categoria) categoriaService.findById(prod.getIdCategoria());
             vista +=
             "               <tr>" +
             "                   <td>" + prod.getId() + "</td>" +
             "			<td>" + prod.getDescripcion() + "</td>" +
-            "			<td>" + cat.getDescripcion() + "</td>" +
+            "			<td>" + prod.getIdCategoria() + "</td>" +
             "			<td>" + prod.getPrecioUnit() + "</td>" +
             "			<td>" + prod.getCantidad() + "</td>" +
             "                </tr>"; 
