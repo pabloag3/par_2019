@@ -12,30 +12,35 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Página Principal</title>
     </head>
-    
     <body>
-        <div id="superior">
+        <section id="superior">
             <div id="titulo">
-                <h1>Inicio Parzon!</h1>
+                <dd>
+                    <h1 >Inicio Parzon!</h1>
+                </dd>
             </div>
-            <div id="longin">
-                <button>Longin</button>
+            <div id="login">
+                <p>Usuario</p>
+                <button>Login</button>
             </div>
-        </div>
+        </section>
+        <br/><br/><br/><br/>
         <br/>
-        <div>
-            </center>
-                <input class="buscadorProducto" placeholder="Buscar Productos en Parzon"><button>Buscar</button>
-                <br/>
-                <div id="principalBtn">
-                    <form id="formularioProducto" action="productos" method="get">
-                        <button type="submit">Ir a productos</button>
-                    </form>
-                    <form id="formularioCarrito" action="/productos" method="get">
-                        <button type="submit">Ir a Carrito</button>
-                    </form>
-                </div>
-            </center>
-        </div>
+        <hr>
+        <section id="medio">
+            <input class="buscadorProducto" placeholder="Buscar Productos en Parzon">
+            <dd>
+                <button>Buscar</button></input>
+            </dd>
+            <br/><br/>
+            <div id="principalBtn">
+                <form id="formularioProducto" action="productos" method="get">
+                    <button type="submit">Ir a productos</button>
+                </form>
+                <form id="formularioCarrito" action="/productos" method="get">
+                    <dd><button type="submit">Ir a Carrito</button></dd>
+                </form>
+            </div>
+        </section>
     </body>
 </html>
