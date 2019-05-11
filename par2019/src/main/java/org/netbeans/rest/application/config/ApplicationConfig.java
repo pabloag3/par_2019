@@ -30,10 +30,6 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(org.glassfish.jersey.server.wadl.internal.WadlResource.class);
-        resources.add(par.categoria.domain.rest.CategoriaRestService.class);
-        resources.add(par.cliente.domain.rest.ClienteRestService.class);
-        resources.add(par.producto.domain.rest.ProductoRestService.class);
-        resources.add(par.transaccion.domain.rest.TransaccionRestService.class);
     }
     
 }

@@ -31,6 +31,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
+        <welcome-file>jsp/vistas/admin/agregarProducto.jsp</welcome-file>
         <welcome-file>jsp/home.jsp</welcome-file>
     </welcome-file-list>
 </web-app>
