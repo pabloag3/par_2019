@@ -27,3 +27,7 @@ div#principalBtn {
     margin-right: auto;
     width: 8em
 }
+.buscarProducto {
+    border-radius: 5px;
+    border:aqua
+}
