@@ -16,11 +16,14 @@ div#principalBtn {
 #formularioCarrito {
     float: left;
 }
-h1#titulo {
-    margin-top: 0;
-    padding-top: 11px;
-    padding-right: 25px;
+#titulo {
+    float: left;
 }
-div#login {
-    min-width: 350px;
+#login {
+    float: right
+}
+#medio {
+    margin-left: auto;
+    margin-right: auto;
+    width: 8em
 }
