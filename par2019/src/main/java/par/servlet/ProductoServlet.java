@@ -67,8 +67,16 @@ public class ProductoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            //processRequest(request, response);
-            traerProductos(request, response);
+            /*
+                traer todos
+                buscar por categoria
+                buscar por producto
+            */
+            if(request.getServletPath().equals("/productos/listar-productos"))
+                traerProductos(request, response);
+            else if(request.getServletPath().equals("/productos"))
+                processRequest(request, response);
+
         } catch (Exception ex) {
             Logger.getLogger(ProductoServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -103,13 +111,11 @@ public class ProductoServlet extends HttpServlet {
         String vista =
         "<!DOCTYPE html>" +
         "<html>" +
-	"<head>" +
-	"	<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" +
-	"	<title>Productos</title>" +
-	"</head>" +
-	"<body>" +
-                "<h3>Servlet ProductoServlet at " + request.getContextPath() + "</h1>"+
-                "<h3>Servlet ProductoServlet at " + request.getServletPath() + "</h1>"+
+            "<head>" +
+            "	<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" +
+            "	<title>Productos</title>" +
+            "</head>" +
+            "<body>" +
                 "<div>" +
                     "<label>Buscar por Producto</label>" +
                     "<input type=\"text\" placeholder=\"Nombre Producto\"/>" +
@@ -118,30 +124,31 @@ public class ProductoServlet extends HttpServlet {
                     "<label>Buscar por Categoria</label>" +
                     "<input type=\"text\" placeholder=\"Categoria\"/>" +
                 "</div>" +
-	"	<h1>Lista de Productos</h1>" +
-	"	<table >" +
-	"		<thead border=\"1\">" +
-	"                   <th>Codigo</th>" +
-	"                   <th>Nombre</th>" +
-	"                   <th>Categoria</th>" +
-	"                   <th>Precio</th>" +
-	"                   <th>Cantidad</th>" +
-	"		</thead>" +
-	"		<tbody>    ";          
+                "<h1>Lista de Productos</h1>" +
+                "<table >" +
+                    "<thead border=\"1\">" +
+                        "<th>Codigo</th>" +
+                        "<th>Nombre</th>" +
+                        "<th>Categoria</th>" +
+                        "<th>Precio</th>" +
+                        "<th>Cantidad</th>" +
+                    "</thead>" +
+                    "<tbody>";          
         for(Producto prod : productos) {
             Categoria cat = (Categoria) categoriaService.findById(prod.getIdCategoria());
             vista +=
-            "               <tr>" +
-            "                   <td>" + prod.getId() + "</td>" +
-            "			<td>" + prod.getDescripcion() + "</td>" +
-            "			<td>" + cat.getDescripcion() + "</td>" +
-            "			<td>" + prod.getPrecioUnit() + "</td>" +
-            "			<td>" + prod.getCantidad() + "</td>" +
-            "                </tr>"; 
+                        "<tr>" +
+                        "<td>" + prod.getId() + "</td>" +
+                        "<td>" + prod.getDescripcion() + "</td>" +
+                        "<td>" + cat.getDescripcion() + "</td>" +
+                        "<td>" + prod.getPrecioUnit() + "</td>" +
+                        "<td>" + prod.getCantidad() + "</td>" +
+                        "</tr>"; 
         }
-        vista += "      </tbody>" +
-	"           </table>" +
-	"       </body>   " +
+        vista +=
+                    "</tbody>" +
+                "</table>" +
+            "</body>   " +
         "</html>";
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
