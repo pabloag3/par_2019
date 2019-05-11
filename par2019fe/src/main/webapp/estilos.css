@@ -1,0 +1,26 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 11-may-2019, 15:07:52
+    Author     : Porfirio Perez
+*/
+div#principalBtn {
+    position: absolute;
+}
+#formularioProducto {
+    float: left;
+}
+#formularioCarrito {
+    float: left;
+}
+h1#titulo {
+    margin-top: 0;
+    padding-top: 11px;
+    padding-right: 25px;
+}
+div#login {
+    min-width: 350px;
+}
