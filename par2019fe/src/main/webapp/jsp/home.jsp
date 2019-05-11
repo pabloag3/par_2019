@@ -16,7 +16,7 @@
     <body>
         <div id="superior">
             <div id="titulo">
-                <h1 >Inicio Parzon!</h1>
+                <h1>Inicio Parzon!</h1>
             </div>
             <div id="longin">
                 <button>Longin</button>
