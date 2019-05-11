@@ -1,6 +1,5 @@
 package par.categoria.domain.rest;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -33,9 +32,7 @@ public class CategoriaRestService {
     @Path("/traer-categorias")
     public Response getCategories() {
         try {
-            ArrayList<Categoria> categorias = new ArrayList<>();
-            //categorias.add(new Categoria(1,"hola"));
-            categorias = (ArrayList) categoriaService.getAll();
+            ArrayList<Categoria> categorias = (ArrayList) categoriaService.getAll();
             ObjectMapper mapper = new ObjectMapper();
             String resp = mapper.writeValueAsString(categorias);
             return Response.ok(resp).header("Content-Type: aplication/json; charset=utf-8", "*").build();
