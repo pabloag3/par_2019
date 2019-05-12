@@ -61,15 +61,15 @@
             <label>Buscar por Categoria</label>
             <input type="text" placeholder="Categoria"/>
         </div>
-            <h1>Lista de Productos</h1>
-            <table>
-                <thead border=1>
-                   <th>Codigo</th>
-                   <th>Nombre</th>
-                   <th>Categoria</th>
-                   <th>Precio</th>
-                   <th>Cantidad</th>
-                </thead>
+        <h1>Lista de Productos</h1>
+        <table>
+            <thead border=1>
+               <th>Codigo</th>
+               <th>Nombre</th>
+               <th>Categoria</th>
+               <th>Precio</th>
+               <th>Cantidad</th>
+            </thead>
             <tbody>
                 <% 
                     ArrayList<Producto> productos = new ArrayList<>();
@@ -91,9 +91,6 @@
                  </tr>
                 <% } %>
             </tbody>
-	           </table>
-	       </body>   
-      </html>
-        
-    </body>
+        </table>
+    </body>   
 </html>

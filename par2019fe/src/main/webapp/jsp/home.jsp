@@ -16,7 +16,7 @@
         <section id="superior">
             <div id="titulo">
                 <dd>
-                    <h1 >Inicio Parzon!</h1>
+                    <h1>Inicio Parzon!</h1>
                 </dd>
             </div>
             <div id="login">
