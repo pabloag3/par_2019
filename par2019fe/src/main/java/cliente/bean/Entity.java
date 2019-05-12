@@ -1,13 +1,14 @@
-package bean.categoria.domain.model.entity;
+package cliente.bean;
 
 /**
  *
- * @author PabloAgHP
+ * @author Porfirio Perez
+ * @param <T>
  */
 public abstract class Entity<T> {
 
     T id;
-    String descripcion;
+    String nombre;
 
     /**
      *
@@ -29,16 +30,16 @@ public abstract class Entity<T> {
      *
      * @return
      */
-    public String getDescripcion() {
-        return descripcion;
+    public String getNombre() {
+        return nombre;
     }
 
     /**
      *
      * @param nombre
      */
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
 }

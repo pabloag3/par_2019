@@ -1,4 +1,4 @@
-package bean.producto.domain.model.entity;
+package categoria.bean;
 
 /**
  *

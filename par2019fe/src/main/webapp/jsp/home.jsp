@@ -21,7 +21,12 @@
             </div>
             <div id="login">
                 <p>Usuario</p>
-                <button>Login</button>
+                <form id="loginBtn" action="clientes/login" method="get">
+                    <button>Login</button>
+                </form>
+                <from id="loginRgtr" action="clientes/registrar" method="get">
+                    <button>Registrar</button>
+                </from>
             </div>
         </section>
         <br/><br/><br/><br/>
