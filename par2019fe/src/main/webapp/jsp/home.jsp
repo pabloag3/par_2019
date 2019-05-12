@@ -28,10 +28,17 @@
         <br/>
         <hr>
         <section id="medio">
-            <input class="buscadorProducto" placeholder="Buscar Productos en Parzon">
-            <dd>
-                <button>Buscar</button></input>
-            </dd>
+            <div class="buscador">
+                <input class="buscadorProducto" placeholder="Buscar Productos">
+                <br/>
+                <br/>
+            </div>
+            
+            <div id="principalBuscar">
+                <form id="formularioProducto" action="productos" method="get">
+                    <button type="submit">Buscar</button>
+                </form>
+            </div>
             <br/><br/>
             <div id="principalBtn">
                 <form id="formularioProducto" action="productos" method="get">
