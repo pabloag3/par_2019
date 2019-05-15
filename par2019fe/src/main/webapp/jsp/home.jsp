@@ -21,17 +21,29 @@
             </div>
             <div id="login">
                 <p>Usuario</p>
-                <button>Login</button>
+                <form id="loginBtn" action="clientes/login" method="get">
+                    <button>Login</button>
+                </form>
+                <from id="loginRgtr" action="clientes/registrar" method="get">
+                    <button>Registrar</button>
+                </from>
             </div>
         </section>
         <br/><br/><br/><br/>
         <br/>
         <hr>
         <section id="medio">
-            <input class="buscadorProducto" placeholder="Buscar Productos en Parzon">
-            <dd>
-                <button>Buscar</button></input>
-            </dd>
+            <div class="buscador">
+                <input class="buscadorProducto" placeholder="Buscar Productos">
+                <br/>
+                <br/>
+            </div>
+            
+            <div id="principalBuscar">
+                <form id="formularioProducto" action="productos" method="get">
+                    <button type="submit">Buscar</button>
+                </form>
+            </div>
             <br/><br/>
             <div id="principalBtn">
                 <form id="formularioProducto" action="productos" method="get">

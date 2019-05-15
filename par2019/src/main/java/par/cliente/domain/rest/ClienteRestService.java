@@ -21,6 +21,7 @@ import par.cliente.domain.service.ClienteServiceImpl;
 /**
  *
  * @author Pablo Aguilar
+ * @author Porfirio Perez
  */
 @Path("/clientes")
 @Consumes("application/json")

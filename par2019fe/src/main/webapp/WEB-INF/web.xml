@@ -24,6 +24,8 @@
     <servlet-mapping>
         <servlet-name>ClienteServlet</servlet-name>
         <url-pattern>/clientes</url-pattern>
+        <url-pattern>/clientes/login</url-pattern>
+        <url-pattern>/clientes/registrar</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProductoServlet</servlet-name>
@@ -35,9 +37,6 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>jsp/vistas/admin/agregarModificarProducto.jsp</welcome-file>
-        <welcome-file>jsp/vistas/productos/listaProducto.jsp</welcome-file>
         <welcome-file>jsp/home.jsp</welcome-file>
-        <welcome-file>jsp/vistas/admin/agregarProducto.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

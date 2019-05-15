@@ -25,9 +25,34 @@ div#principalBtn {
 #medio {
     margin-left: auto;
     margin-right: auto;
-    width: 8em
+    width: max-content
 }
-.buscarProducto {
+.buscadorProducto {
+    border:aqua;
+    padding-left: 60px;
+    padding-right: 20px;
+    height: 40px;
+    width: 220px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom-width: 20px;
+    margin-bottom: 20px;
+}
+
+.buscador {
+    border: 1px solid #2196F3;
     border-radius: 5px;
-    border:aqua
+    border-bottom-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    width: 240px;
+    height: 60px;
+    border-left-width: 2px;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+.principalBuscar {
+    margin-left: auto;
+    margin-right: auto;
+    width: max-content
 }

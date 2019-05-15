@@ -1,4 +1,4 @@
-package bean.producto.domain.model.entity;
+package cliente.bean;
 
 /**
  *
@@ -11,11 +11,11 @@ public abstract class BaseEntity<T> extends Entity<T> {
     /**
      *
      * @param id
-     * @param descripcion
+     * @param nombre
      */
-    public BaseEntity(T id, String descripcion) {
+    public BaseEntity(T id, String nombre) {
         super.id = id;
-        super.descripcion = descripcion;
+        super.nombre = nombre;
         isModified = false;
     }
 
