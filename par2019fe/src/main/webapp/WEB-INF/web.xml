@@ -4,14 +4,14 @@
         <servlet-name>UsuarioServlet</servlet-name>
         <servlet-class>controller.servlet.UsuarioServlet</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>UsuarioServlet</servlet-name>
-        <url-pattern>/UsuarioServlet</url-pattern>
-    </servlet-mapping>
     <servlet>
         <servlet-name>ProductoServlet</servlet-name>
         <servlet-class>controller.servlet.ProductoServlet</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>UsuarioServlet</servlet-name>
+        <url-pattern>/UsuarioServlet</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>ClienteServlet</servlet-name>
         <servlet-class>controller.servlet.ClienteServlet</servlet-class>
@@ -24,6 +24,12 @@
     <servlet-mapping>
         <servlet-name>ClienteServlet</servlet-name>
         <url-pattern>/clientes</url-pattern>
+        <url-pattern>/clientes/login</url-pattern>
+        <url-pattern>/clientes/registrar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductoServlet</servlet-name>
+        <url-pattern>/ProductoServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

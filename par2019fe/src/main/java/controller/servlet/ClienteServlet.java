@@ -33,14 +33,6 @@ public class ClienteServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ClienteServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ClienteServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
         }
     }
 
@@ -55,10 +47,13 @@ public class ClienteServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String path = request.getContextPath();
-        StringBuffer pathCompleto = request.getRequestURL();
-        System.out.println(path + " contexto: "+ pathCompleto);
+        //String path = request.getContextPath();
+        //StringBuffer pathCompleto = request.getRequestURL();
+        //System.out.println(path + " contexto: "+ pathCompleto);
+        String ser = request.getServletPath();
+        
         vistaLogin(request, response);
+        
     }
 
     /**
@@ -90,33 +85,7 @@ public class ClienteServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println(
-                "<!DOCTYPE html>" +
-                "<html>" +
-                    "<head>" +
-                        "<title>Start Page</title>" +
-                        "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" +
-                        "</head>" +
-                    "<body style=\"text-align: center;\">" +
-                        "<form>" +
-                            "<label><h1>Formulario Login</h1></label>" +
-                            "<div id='usuario'>" +
-                                    "<label>Usuario: </label>" +
-                                    "<input type=\"text\" placeholder=\"Usuario\">" +
-                            "</div>" +
-                            "<div id=\"contrasenha\">" +
-                                    "<label>Contraseña: </label>" +
-                                    "<input type=\"password\" placeholder=\"Contraseña\">" +
-                            "</div>" +
-                            "<br/>" +
-                            "<div>" +
-                                "<input type=\"button\" value=\"Crear Usuario\"/>" +
-                                "<input type=\"button\" value=\"Ingresar Usuario\"/>" +
-                                "<br/>" +
-                                "<input type=\"button\" value=\"cancelar\"/>" +
-                            "</div>" +
-                        "</form>" +
-                    "</body>" +
-                "</html>"
+                "<!DOCTYPE html>"
             );
         }
     }   
