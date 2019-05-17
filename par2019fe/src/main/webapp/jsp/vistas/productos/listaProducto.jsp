@@ -5,6 +5,8 @@
     Author     : Porfirio Perez
 --%>
 
+<%@page import="controller.servlet.ProductoServlet"%>
+<%@page import="modelos.ProductoModelo"%>
 <%@page import="producto.bean.Producto"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -15,6 +17,12 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <%
+            ProductoServlet crl = new ProductoServlet();
+            ArrayList<Producto> productos = crl.getProductos();
+            //Producto pro = new Producto((Integer)1, "Computadora", 1, (Long.parseLong("5")), (Long.parseLong("10")));
+            //productos.add(pro);
+        %>
         <section id="superior">
             <div id="titulo">
                 <dd>
@@ -46,15 +54,19 @@
                    <th>Cantidad</th>
                 </thead>
                 <tbody>
-                    <% 
+                    <!--
+                    <%
+                        /*
                         ArrayList<Producto> productos = new ArrayList<>();
                         Producto pro = new Producto((Integer)1, "Computadora", 1, (Long.parseLong("5")), (Long.parseLong("10")));
                         productos.add(pro);
+*/
                     %>
                     <%  
                         for(Producto prod : productos) { 
                         //Categoria cat = (Categoria) categoriaService.findById(prod.getIdCategoria()); 
                     %>
+                    
                     <tr>
                         <td> <%= prod.getId() %> </td>
                         <td> <%= prod.getDescripcion() %> </td>

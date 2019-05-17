@@ -38,7 +38,5 @@
     </session-config>
     <welcome-file-list>
         <welcome-file>jsp/home.jsp</welcome-file>
-        <welcome-file>jsp/vistas/cliente/ClienteLogin.jsp</welcome-file>
-        <welcome-file>jsp/vistas/cliente/ClienteRegistrar.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

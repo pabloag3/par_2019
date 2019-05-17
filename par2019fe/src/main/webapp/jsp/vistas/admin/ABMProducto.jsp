@@ -1,7 +1,8 @@
 <%-- 
     Document   : agregarModificarProducto
     Created on : May 11, 2019, 3:48:24 PM
-    Author     : tatoa
+    Author     : Pablo Aguilar
+    Author     : Porfirio Perez
 --%>
 
 <%@page import="java.util.ArrayList"%>

@@ -10,10 +10,13 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelos.ProductoModelo;
 import producto.bean.Producto;
 
 
@@ -24,33 +27,16 @@ import producto.bean.Producto;
 public class ProductoServlet extends HttpServlet {
     //private final ProductoServiceImpl productoService = new ProductoServiceImpl(new JdbcProductoRepository());
     //private final CategoriaServiceImpl categoriaService = new CategoriaServiceImpl(new JdbcCategoriaRepository());
+    ArrayList<Producto> productos;
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ProductoServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ProductoServlet at " + request.getContextPath() + "</h1>");
-            out.println("<h1>Servlet ProductoServlet at " + request.getServletPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+    public ArrayList<Producto> getProductos() {
+        return productos;
     }
 
+    public void setProductos(ArrayList<Producto> productos) {
+        this.productos = productos;
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -81,26 +67,28 @@ public class ProductoServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
     }
-
-    @Override
-    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String valor = request.getParameterValues("valor")[0];
-        System.out.println("Hola ".concat( valor));
-    }
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
     private void traerProductos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, Exception  {
-        //ArrayList<Producto> productos = (ArrayList) productoService.getAll();
+        String uri = request.getServletPath();
+        String url = "";
+        if (uri.contains("/productos")){
+            url = "/jsp/vistas/productos/listaProducto.jsp";
+            ProductoModelo mo = new ProductoModelo();
+            //productos = mo.traerProducto( (Integer) 1);
+            Producto producto = mo.traerProducto( (Integer) 1);
+
+            System.out.println("controller.servlet.ProductoServlet.traerProductos()" + producto.toString());
+        }
+            
+
+        ServletContext sc = this.getServletContext();
+        RequestDispatcher rd = sc.getRequestDispatcher(url);
+        rd.forward(request, response);
+        
+        /*        
+//ArrayList<Producto> productos = (ArrayList) productoService.getAll();
         ArrayList<Producto> productos = new ArrayList<>();
         Producto prod1 = new Producto((Integer) 1, "jabon", 1, Long.valueOf( 5000), Long.valueOf(10));
         productos.add(prod1);
@@ -151,6 +139,6 @@ public class ProductoServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             out.println(vista);
         }
-    }
+*/    }
 
 }

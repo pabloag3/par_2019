@@ -1,7 +1,7 @@
 <%-- 
     Document   : ClienteRegistrar
     Created on : 12-may-2019, 0:40:22
-    Author     : Perez
+    Author     : Porfirio Perez
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
