@@ -1,11 +1,12 @@
 <%-- 
     Document   : agregarModificarProducto
     Created on : May 11, 2019, 3:48:24 PM
-    Author     : tatoa
+    Author     : Pablo Aguilar
+    Author     : Porfirio Perez
 --%>
 
 <%@page import="java.util.ArrayList"%>
-<%@page import="bean.producto.domain.model.entity.Producto"%>
+<%@page import="producto.bean.Producto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
