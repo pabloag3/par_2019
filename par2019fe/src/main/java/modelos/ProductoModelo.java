@@ -5,6 +5,7 @@ package modelos;
 import producto.bean.Producto;
 import java.util.ArrayList;
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
@@ -37,13 +38,16 @@ public class ProductoModelo {
         ArrayList<Producto> cli = target.request().get(ArrayList.class);
         return cli;
     }
-    
+
     // GET
-    public Producto traerProducto(Integer id) {
+    public void traerProducto(Integer id) {
         ResteasyClient client = new ResteasyClientBuilder().build();
         ResteasyWebTarget target = client.target(UriBuilder.fromPath(path + "/traer-producto/" + id ));
-        Producto pro = (Producto) target.request().get().getEntity();
-        return pro;
+        Response res = target.request(MediaType.APPLICATION_JSON).get();
+        Object prod = res.getEntity();
+        //String prod = resp.readEntity(String.class);
+        System.out.println("hola" + prod);
+        //return prod;
     }
 
     // PUT

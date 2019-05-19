@@ -71,7 +71,9 @@ public class ProductoServlet extends HttpServlet {
             url = "/jsp/vistas/productos/listaProducto.jsp";
             ProductoModelo mo = new ProductoModelo();
             //productos = mo.traerProducto( (Integer) 1);
-            Producto producto = mo.traerProducto( (Integer) 1);
+            mo.traerProducto( (Integer) 1);
+            Producto producto = null;
+            //Producto producto = mo.traerProducto( (Integer) 1);
 
             System.out.println("controller.servlet.ProductoServlet.traerProductos()" + producto.toString());
         }

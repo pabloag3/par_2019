@@ -53,8 +53,8 @@ public class ProductoRestService {
             return Response.ok(resp).header("Content-Type: aplication/json; charset=utf-8", "*").build();
         } catch (Exception ex) {
             Logger.getLogger(ProductoRestService.class.getName()).log(Level.SEVERE, null, ex);
+            return Response.status(Response.Status.NOT_FOUND).header("Content-Type: text/html; charset=utf-8", "*").build();
         }
-        return Response.ok(entity).build();
     }
 
     @POST
