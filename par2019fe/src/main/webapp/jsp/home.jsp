@@ -46,7 +46,7 @@
             </div>
             <br/><br/>
             <div id="principalBtn">
-                <form id="formularioProducto" action="productos" method="get">
+                <form id="formularioProducto" action="productos/listar-productos" method="get">
                     <button type="submit">Ir a productos</button>
                 </form>
                 <form id="formularioCarrito" action="/productos" method="get">

@@ -30,21 +30,20 @@ public class ProductoModelo {
         clienteResponse.close();
     }
 
- 
-    // GET
-    public Producto traerProducto(Integer id) {
-        ResteasyClient client = new ResteasyClientBuilder().build();
-        ResteasyWebTarget target = client.target(UriBuilder.fromPath(path + "/traer-producto/" + id ));
-        Producto cli = (Producto) target.request().get().getEntity();
-        return cli;
-    }
-
     // GET
     public ArrayList<Producto> traerProductos() {
         ResteasyClient client = new ResteasyClientBuilder().build();
         ResteasyWebTarget target = client.target(UriBuilder.fromPath(path + "/traer-productos"));
         ArrayList<Producto> cli = target.request().get(ArrayList.class);
         return cli;
+    }
+    
+    // GET
+    public Producto traerProducto(Integer id) {
+        ResteasyClient client = new ResteasyClientBuilder().build();
+        ResteasyWebTarget target = client.target(UriBuilder.fromPath(path + "/traer-producto/" + id ));
+        Producto pro = (Producto) target.request().get().getEntity();
+        return pro;
     }
 
     // PUT

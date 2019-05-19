@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller.servlet;
 
 import java.io.IOException;
@@ -54,7 +49,6 @@ public class ProductoServlet extends HttpServlet {
         } catch (Exception ex) {
             Logger.getLogger(ProductoServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
 
     /**
@@ -73,7 +67,7 @@ public class ProductoServlet extends HttpServlet {
     private void traerProductos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, Exception  {
         String uri = request.getServletPath();
         String url = "";
-        if (uri.contains("/productos")){
+        if (uri.contains("/listar-productos")){
             url = "/jsp/vistas/productos/listaProducto.jsp";
             ProductoModelo mo = new ProductoModelo();
             //productos = mo.traerProducto( (Integer) 1);

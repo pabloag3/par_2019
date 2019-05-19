@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelos;
 
 import cliente.bean.Cliente;
@@ -14,14 +9,12 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 
-
-
 /**
  *
  * @author Perez
  */
 public class ClienteModelo {
-    final String path = "http://localhost:8080/parzon/clientes"; 
+    final String path = "http://localhost:8084/par2019/parzon/clientes"; 
 
     ResteasyClient client = new ResteasyClientBuilder().build();
     ResteasyWebTarget target;
@@ -37,14 +30,14 @@ public class ClienteModelo {
 
  
     // GET
-    public Cliente traerCliene(Integer id) {
+    public Cliente traerCliente(Integer id) {
         target = client.target(UriBuilder.fromPath(path + "/traer-cliente/" + id ));
         Cliente cli = (Cliente) target.request().get().getEntity();
         return cli;
     }
 
     // GET
-    public ArrayList<Cliente> traerClienes() {
+    public ArrayList<Cliente> traerClientes() {
         ArrayList<Cliente> cli = target.request().get(ArrayList.class);
         return cli;
     }
