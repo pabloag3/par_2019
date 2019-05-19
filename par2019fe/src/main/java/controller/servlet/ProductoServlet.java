@@ -17,12 +17,11 @@ import producto.bean.Producto;
 
 /**
  *
- * @author Perez
+ * @author Porfirio Perez
  */
 public class ProductoServlet extends HttpServlet {
-    //private final ProductoServiceImpl productoService = new ProductoServiceImpl(new JdbcProductoRepository());
-    //private final CategoriaServiceImpl categoriaService = new CategoriaServiceImpl(new JdbcCategoriaRepository());
-    ArrayList<Producto> productos;
+    ProductoModelo mo = new ProductoModelo();
+    ArrayList<Producto> productos = new ArrayList<Producto>();
 
     public ArrayList<Producto> getProductos() {
         return productos;
@@ -67,74 +66,29 @@ public class ProductoServlet extends HttpServlet {
     private void traerProductos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, Exception  {
         String uri = request.getServletPath();
         String url = "";
-        if (uri.contains("/listar-productos")){
+        if (uri.contains("/listar-productos")) {
             url = "/jsp/vistas/productos/listaProducto.jsp";
-            ProductoModelo mo = new ProductoModelo();
-            //productos = mo.traerProducto( (Integer) 1);
-            mo.traerProducto( (Integer) 1);
-            Producto producto = null;
-            //Producto producto = mo.traerProducto( (Integer) 1);
-
-            System.out.println("controller.servlet.ProductoServlet.traerProductos()" + producto.toString());
+            productos = mo.traerProductos();
         }
-            
-
+        request.setAttribute("productos", productos);
         ServletContext sc = this.getServletContext();
         RequestDispatcher rd = sc.getRequestDispatcher(url);
         rd.forward(request, response);
-        
-        /*        
-//ArrayList<Producto> productos = (ArrayList) productoService.getAll();
-        ArrayList<Producto> productos = new ArrayList<>();
-        Producto prod1 = new Producto((Integer) 1, "jabon", 1, Long.valueOf( 5000), Long.valueOf(10));
-        productos.add(prod1);
-        String vista =
-        "<!DOCTYPE html>" +
-        "<html>" +
-	"<head>" +
-	"	<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" +
-	"	<title>Productos</title>" +
-	"</head>" +
-	"<body>" +
-                "<h3>Servlet ProductoServlet at " + request.getContextPath() + "</h1>"+
-                "<h3>Servlet ProductoServlet at " + request.getServletPath() + "</h1>"+
-                "<div>" +
-                    "<label>Buscar por Producto</label>" +
-                    "<input type=\"text\" placeholder=\"Nombre Producto\"/>" +
-                    "<br/>" +
-                    "<br/>" +
-                    "<label>Buscar por Categoria</label>" +
-                    "<input type=\"text\" placeholder=\"Categoria\"/>" +
-                "</div>" +
-	"	<h1>Lista de Productos</h1>" +
-	"	<table >" +
-	"		<thead border=\"1\">" +
-	"                   <th>Codigo</th>" +
-	"                   <th>Nombre</th>" +
-	"                   <th>Categoria</th>" +
-	"                   <th>Precio</th>" +
-	"                   <th>Cantidad</th>" +
-	"		</thead>" +
-	"		<tbody>    ";          
-        for(Producto prod : productos) {
-            //Categoria cat = (Categoria) categoriaService.findById(prod.getIdCategoria());
-            vista +=
-            "               <tr>" +
-            "                   <td>" + prod.getId() + "</td>" +
-            "			<td>" + prod.getDescripcion() + "</td>" +
-            "			<td>" + prod.getIdCategoria() + "</td>" +
-            "			<td>" + prod.getPrecioUnit() + "</td>" +
-            "			<td>" + prod.getCantidad() + "</td>" +
-            "                </tr>"; 
-        }
-        vista += "      </tbody>" +
-	"           </table>" +
-	"       </body>   " +
-        "</html>";
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            out.println(vista);
-        }
-*/    }
+    }
 
+    private void traerProductosDescripcion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, Exception  {
+        String uri = request.getServletPath();
+        String descri = request.getParameter("descripcion");
+        String cat = request.getParameter("categoria");
+
+        String url = "";
+        if (uri.contains("/listar-producto")) {
+            url = "/jsp/vistas/productos/listaProducto.jsp";
+            productos = mo.traerProductos(descri, cat);
+            request.setAttribute("productos", productos);
+        }
+        ServletContext sc = this.getServletContext();
+        RequestDispatcher rd = sc.getRequestDispatcher(url);
+        rd.forward(request, response);
+    }
 }

@@ -27,9 +27,9 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
      * @return true if already exist, else false
      */
     @Override
-    public boolean containsDescripcion(String descripcion) {
+    public boolean containsDescripcion(String descripcion, String categoria) {
         try {
-            return this.findByDescripcion(descripcion).size() > 0;
+            return this.findByDescripcion(descripcion, categoria).size() > 0;
         } catch (Exception ex) {
             //Exception Handler
         }
@@ -214,7 +214,7 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
 
         try {
             c = DBUtils.getConnection();
-            pstmt = c.prepareStatement("SELECT * FROM producto");
+            pstmt = c.prepareStatement("SELECT * FROM producto order by descripcion");
 
             rs = pstmt.executeQuery();
 
@@ -253,7 +253,7 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
      * @throws Exception
      */
     @Override
-    public Collection<Producto> findByDescripcion(String descripcion) throws Exception {
+    public Collection<Producto> findByDescripcion(String descripcion, String categoriaDescrip) throws Exception {
         Collection<Producto> retValue = new ArrayList();
 
         Connection c = null;
@@ -261,13 +261,30 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
         ResultSet rs = null;
 
         try {
+            String query;
             c = DBUtils.getConnection();
-            pstmt = c.prepareStatement("SELECT * FROM producto WHERE descripcion = ?");
-
-            pstmt.setString(1, descripcion);
-
+            if(categoriaDescrip == null || categoriaDescrip.equals("")) {
+                query = "SELECT * FROM producto WHERE like lower('?%') order by producto.descripcion;";
+            } else if(descripcion == null || descripcion.equals("")) {
+                query = "SELECT * FROM producto WHERE like lower('?%') order by producto.descripcion;";
+            } else {
+                query = "select p from public.producto p join " +
+                        "public.categoria c" +
+                        "on p.id_categoria = c.id_categoria " +
+                        "where p.descripcion like lower('?t%')and " +
+                        "c.descripcion like lower('?%') order by p.descripcion;";
+                
+            }
+            pstmt = c.prepareStatement(query);
+            if(descripcion == null || descripcion.equals(""))
+                pstmt.setString(1, categoriaDescrip);
+            else if(categoriaDescrip == null || categoriaDescrip.equals(""))
+                pstmt.setString(1, descripcion);
+            else {
+                pstmt.setString(1, descripcion);
+                pstmt.setString(2, categoriaDescrip);
+            }
             rs = pstmt.executeQuery();
-
             if (rs.next()) {
                 retValue.add(new Producto(rs.getInt("id_producto"), 
                         rs.getString("descripcion"), 
