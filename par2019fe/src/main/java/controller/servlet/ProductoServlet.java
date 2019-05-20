@@ -1,5 +1,6 @@
 package controller.servlet;
 
+import categoria.bean.Categoria;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import producto.bean.Producto;
 public class ProductoServlet extends HttpServlet {
     ProductoModelo mo = new ProductoModelo();
     List<Producto> productos = new ArrayList<Producto>();
-    
+    List<Categoria> categorias = new ArrayList<Categoria>();
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -62,8 +63,10 @@ public class ProductoServlet extends HttpServlet {
         if (uri.contains("/listar-productos")) {
             url = "/jsp/vistas/productos/listaProducto.jsp";
             productos = mo.traerProductos();
+            categorias = mo.traerCategorias();
         }
         request.setAttribute("productos", productos);
+        request.setAttribute("categorias", categorias);
         ServletContext sc = this.getServletContext();
         RequestDispatcher rd = sc.getRequestDispatcher(url);
         rd.forward(request, response);
@@ -78,8 +81,9 @@ public class ProductoServlet extends HttpServlet {
         if (uri.contains("/listar-producto")) {
             url = "/jsp/vistas/productos/listaProducto.jsp";
             productos = mo.traerProductos(descri, cat);
-            request.setAttribute("productos", productos);
         }
+        request.setAttribute("productos", productos);
+        request.setAttribute("categorias", categorias);
         ServletContext sc = this.getServletContext();
         RequestDispatcher rd = sc.getRequestDispatcher(url);
         rd.forward(request, response);

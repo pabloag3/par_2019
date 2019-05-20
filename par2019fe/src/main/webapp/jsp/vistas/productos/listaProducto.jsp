@@ -5,6 +5,7 @@
     Author     : Porfirio Perez
 --%>
 
+<%@page import="categoria.bean.Categoria"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="com.fasterxml.jackson.databind.JsonNode"%>
 <%@page import="com.fasterxml.jackson.databind.ObjectMapper"%>
@@ -25,9 +26,11 @@
     </head>
     <body>
         <%
-            List<Producto> productos = new ArrayList<Producto>();          
+            //ProductoModelo mo = new ProductoModelo();
+            List<Producto> productos;
+            List<Categoria> categorias;
             productos = (List<Producto>) request.getAttribute("productos");
-            Iterator<Producto> it = productos.iterator();
+            categorias = (List<Categoria>) request.getAttribute("categorias");
         %>
         <section id="superior">
             <div id="titulo">
@@ -47,7 +50,8 @@
         <br/>
         <hr>
         <section id="medio">
-            <input class="buscadorProducto" placeholder="Buscar Productos en Parzon">
+            <input class="buscadorProducto" placeholder="Buscar Productos">
+            <input class="buscadorCategoria" placeholder="Buscar Categoria">
             <dd>
                 <button>Buscar</button>
             </dd>
@@ -58,18 +62,20 @@
                    <th>Categoria</th>
                    <th>Precio</th>
                    <th>Cantidad</th>
+                   <th>Agregar Carrito</th>
                 </thead>
                 <tbody>
                     <%
-                        int longitud = productos.size();
-                        for(int i = 0 ; i <longitud ; i++) {                            
+                        for(Producto prod: productos) {
+                            String catego = categorias.get(prod.getIdCategoria()).getDescripcion();
                     %>
                     <tr>
-                        <td> <%= productos.get(i).getId() %> </td>
-                        <td> <%= productos.get(i).getDescripcion() %> </td>
-                        <td> <%= productos.get(i).getIdCategoria() %> </td>
-                        <td> <%= productos.get(i).getPrecioUnit() %> </td>
-                        <td> <button>Agregar al carrito<input hidden="true" action="eliminarProducto/{<%= productos.get(i).getId() %>}" method="post"></button></td>
+                        <td> <%= prod.getId() %> </td>
+                        <td> <%= prod.getDescripcion() %> </td>
+                        <td> <%= catego %> </td>
+                        <td> <%= prod.getPrecioUnit() %> </td>
+                        <td> <input name="cantidad" placeholder="cantidad"> </td>
+                        <td> <button>Agregar al carrito<input hidden="true" action="eliminarProducto/{<%= prod.getId() %>}" method="post"></button></td>
                      </tr>
                     <% } %>
                 </tbody>
