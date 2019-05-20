@@ -2,6 +2,7 @@ package par.producto.domain.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.Consumes;
@@ -34,7 +35,7 @@ public class ProductoRestService {
     @Path("/traer-productos")
     public Response getProductos() {
         try {
-            ArrayList<Producto> productos = (ArrayList) productoService.getAll();
+            List<Producto> productos = (ArrayList) productoService.getAll();
             ObjectMapper mapper = new ObjectMapper();
             String resp = mapper.writeValueAsString(productos);
             return Response.ok(resp).header("Content-Type: aplication/json; charset=utf-8", "*").build();

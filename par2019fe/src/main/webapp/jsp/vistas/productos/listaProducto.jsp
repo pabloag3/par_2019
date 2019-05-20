@@ -5,6 +5,12 @@
     Author     : Porfirio Perez
 --%>
 
+<%@page import="java.util.Iterator"%>
+<%@page import="com.fasterxml.jackson.databind.JsonNode"%>
+<%@page import="com.fasterxml.jackson.databind.ObjectMapper"%>
+<%@page import="com.fasterxml.jackson.core.type.TypeReference"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.LinkedHashMap"%>
 <%@page import="java.lang.Object"%>
 <%@page import="controller.servlet.ProductoServlet"%>
 <%@page import="modelos.ProductoModelo"%>
@@ -19,10 +25,9 @@
     </head>
     <body>
         <%
-            ArrayList<Producto> productos = new ArrayList<>();
-            productos = (ArrayList) request.getAttribute("productos");
-            //Producto pro = productos.get(0);
-            System.out.println("className.methodName()" + productos.toString());
+            List<Producto> productos = new ArrayList<Producto>();          
+            productos = (List<Producto>) request.getAttribute("productos");
+            Iterator<Producto> it = productos.iterator();
         %>
         <section id="superior">
             <div id="titulo">
@@ -56,15 +61,15 @@
                 </thead>
                 <tbody>
                     <%
-                        for(Producto prod : productos) {
-                            System.out.println(prod.toString());
+                        int longitud = productos.size();
+                        for(int i = 0 ; i <longitud ; i++) {                            
                     %>
                     <tr>
-                        <td> <%= prod.getId() %> </td>
-                        <td> <%= prod.getDescripcion() %> </td>
-                        <td> <%= prod.getIdCategoria() %> </td>
-                        <td> <%= prod.getPrecioUnit() %> </td>
-                        <td> <button>Agregar al carrito<input hidden="true" action="eliminarProducto/{<%= prod.getId() %>}" method="post"></button></td>
+                        <td> <%= productos.get(i).getId() %> </td>
+                        <td> <%= productos.get(i).getDescripcion() %> </td>
+                        <td> <%= productos.get(i).getIdCategoria() %> </td>
+                        <td> <%= productos.get(i).getPrecioUnit() %> </td>
+                        <td> <button>Agregar al carrito<input hidden="true" action="eliminarProducto/{<%= productos.get(i).getId() %>}" method="post"></button></td>
                      </tr>
                     <% } %>
                 </tbody>
