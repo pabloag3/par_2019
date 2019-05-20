@@ -16,7 +16,7 @@ public class Conexion {
     
     public static String jdbcconexion = "jdbc:postgresql://localhost:5432/ecomerce";
     public static String usuariodb = "postgres";
-    public static String contrasenhadb = "QAZwsx123plm";
+    public static String contrasenhadb = "postgres";
     public static BasicConnectionPool basicCPoll;
 
     public Conexion() throws SQLException {

@@ -21,6 +21,7 @@ import par.categoria.domain.service.CategoriaServiceImpl;
 /**
  *
  * @author Pablo Aguilar
+ * @author Porfirio Perez
  */
 @Path("/categorias")
 @Consumes("application/json")

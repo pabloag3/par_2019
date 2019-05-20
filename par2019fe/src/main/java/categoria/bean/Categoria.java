@@ -14,7 +14,7 @@ public class Categoria extends BaseEntity<Integer> {
         super(id, descripcion);
     }
 
-      /**
+    /**
      * Overridden toString() method that return String presentation of the
      * Object
      *
