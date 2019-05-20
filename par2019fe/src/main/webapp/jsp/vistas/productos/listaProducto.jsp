@@ -5,6 +5,7 @@
     Author     : Porfirio Perez
 --%>
 
+<%@page import="java.lang.Object"%>
 <%@page import="controller.servlet.ProductoServlet"%>
 <%@page import="modelos.ProductoModelo"%>
 <%@page import="producto.bean.Producto"%>
@@ -14,14 +15,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Listas de Productos.</title>
     </head>
     <body>
         <%
-            ProductoServlet crl = new ProductoServlet();
-            ArrayList<Producto> productos = crl.getProductos();
-            //Producto pro = new Producto((Integer)1, "Computadora", 1, (Long.parseLong("5")), (Long.parseLong("10")));
-            //productos.add(pro);
+            ArrayList<Producto> productos = new ArrayList<>();
+            productos = (ArrayList) request.getAttribute("productos");
+            //Producto pro = productos.get(0);
+            System.out.println("className.methodName()" + productos.toString());
         %>
         <section id="superior">
             <div id="titulo">
@@ -54,19 +55,10 @@
                    <th>Cantidad</th>
                 </thead>
                 <tbody>
-                    <!--
                     <%
-                        /*
-                        ArrayList<Producto> productos = new ArrayList<>();
-                        Producto pro = new Producto((Integer)1, "Computadora", 1, (Long.parseLong("5")), (Long.parseLong("10")));
-                        productos.add(pro);
-*/
+                        for(Producto prod : productos) {
+                            System.out.println(prod.toString());
                     %>
-                    <%  
-                        for(Producto prod : productos) { 
-                        //Categoria cat = (Categoria) categoriaService.findById(prod.getIdCategoria()); 
-                    %>
-                    
                     <tr>
                         <td> <%= prod.getId() %> </td>
                         <td> <%= prod.getDescripcion() %> </td>

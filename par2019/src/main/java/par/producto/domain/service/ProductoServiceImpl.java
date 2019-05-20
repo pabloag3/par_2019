@@ -43,8 +43,8 @@ public class ProductoServiceImpl extends BaseService<Producto, Integer>
      * @throws Exception
      */
     @Override
-    public Collection<Producto> findByDescripcion(String descripcion) throws Exception {
-        return productoRepository.findByDescripcion(descripcion);
+    public Collection<Producto> findByDescripcion(String descripcion, String categoria) throws Exception {
+        return productoRepository.findByDescripcion(descripcion, categoria);
     }
 
     /**

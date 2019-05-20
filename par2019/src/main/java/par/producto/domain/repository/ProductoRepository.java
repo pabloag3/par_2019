@@ -15,7 +15,7 @@ public interface ProductoRepository<Producto, Integer> extends Repository<Produc
      * @param descripcion
      * @return
      */
-    boolean containsDescripcion(String descripcion);
+    boolean containsDescripcion(String descripcion, String categoria);
 
     /**
      *
@@ -23,6 +23,6 @@ public interface ProductoRepository<Producto, Integer> extends Repository<Produc
      * @return
      * @throws Exception
      */
-    public Collection<Producto> findByDescripcion(String descripcion) throws Exception;
+    public Collection<Producto> findByDescripcion(String descripcion, String categoria) throws Exception;
     
 }

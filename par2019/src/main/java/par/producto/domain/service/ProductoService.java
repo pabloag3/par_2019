@@ -48,7 +48,7 @@ public interface ProductoService {
      * @return
      * @throws Exception
      */
-    public Collection<Producto> findByDescripcion(String descripcion) throws Exception;
+    public Collection<Producto> findByDescripcion(String descripcion, String categoria) throws Exception;
 
     /**
      *
