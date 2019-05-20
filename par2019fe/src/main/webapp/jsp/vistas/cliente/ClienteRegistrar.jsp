@@ -14,30 +14,36 @@
     <body>
         <form>
             <label><h1>Registro de Cliente</h1></label>
-            <div id="nombre">
-                <label>Nombre</label>
+            <div id="nombre" name="nombre">
+                <label>Nombre: </label>
                 <input type="text" placeholder="Nombre">
             </div>
-            <div id="apellido">
-                <label>Apellido</label>
+            <div id="apellido" name="apellido">
+                <label>Apellido: </label>
                 <input type="text" placeholder="Apellido">
             </div>
-            <div id="email">
-                <label>Email</label>
+            <div id="email" name="email">
+                <label>Email: </label>
                 <input type="text" placeholder="Email">
             </div>
             <div id="contrasenha">
                 <label>Contraseña: </label>
                 <input type="password" placeholder="Contraseña">
             </div>
-            <div id="tipo_cliente" hidden="true">
+            <div id="tipo_cliente" hidden="true" name="passwd">
                 <input type="password" value="1">
             </div>
             <br/>
             <div>
-                <input type="button" value="Crear Usuario"/>
-                <input type="button" value="Ingresar Usuario"/>
-                <input type="button" value="cancelar"/>
+                <form id="loginRgtr" action="agregar" method="post">
+                    <button>Registrar usuario</button>
+                </form>
+                <form id="loginBtn" action="login" method="get">
+                    <button>Ya tengo una cuenta</button>
+                </form>
+                <form id="loginCancelar" onclick="history.back()" method="get">
+                    <button>Cancelar</button>
+                </form>
             </div>
         </form>
     </body>

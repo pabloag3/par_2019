@@ -24,9 +24,15 @@
             </div>
             <br/>
             <div>
-                <input type="button" value="Crear Usuario"/>
-                <input type="button" value="Ingresar Usuario"/>
-                <input type="button" value="cancelar"/>
+                <form id="loginRgtr" action="login" method="get">
+                    <button>Iniciar sesión</button>
+                </form>
+                <form id="loginBtn" action="clientes/registrar" method="get">
+                    <button>Crear usuario</button>
+                </form>
+                <form id="loginCancelar" onclick="history.back()" method="get">
+                    <button>Cancelar</button>
+                </form>
             </div>
         </form>
     </body>

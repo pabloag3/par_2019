@@ -1,5 +1,6 @@
 package controller.servlet;
 
+import cliente.bean.Cliente;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -8,12 +9,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelos.ClienteModelo;
 
 /**
  *
  * @author Perez
  */
 public class ClienteServlet extends HttpServlet {
+    
+    ClienteModelo modelo = new ClienteModelo();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -50,7 +54,6 @@ public class ClienteServlet extends HttpServlet {
             url = "/jsp/vistas/cliente/ClienteLogin.jsp";
         else if (uri.contains("registrar"))
             url = "/jsp/vistas/cliente/ClienteRegistrar.jsp";
-        vistaLogin(request, response);
         ServletContext sc = this.getServletContext();
         RequestDispatcher rd = sc.getRequestDispatcher(url);
         rd.forward(request, response);
@@ -66,8 +69,17 @@ public class ClienteServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String uri = request.getServletPath();
         
-        vistaLogin(request, response);
+        if (uri.contains("agregar")) {
+            String nombre = request.getParameter("nombre");
+            String apellido = request.getParameter("apellido");
+            String email = request.getParameter("email");
+            String loginName = nombre + apellido;
+            String contrasenha = request.getParameter("contrasenha");
+            Cliente nuevoCliente = new Cliente(nombre, apellido, email, loginName, contrasenha, 0);
+            modelo.agregar(nuevoCliente);
+        }
     }
 
     /**
@@ -79,8 +91,4 @@ public class ClienteServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    protected void vistaLogin (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }   
 }

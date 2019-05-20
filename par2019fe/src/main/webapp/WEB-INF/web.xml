@@ -26,6 +26,7 @@
         <url-pattern>/clientes</url-pattern>
         <url-pattern>/clientes/login</url-pattern>
         <url-pattern>/clientes/registrar</url-pattern>
+        <url-pattern>/clientes/registrar/agregar</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProductoServlet</servlet-name>
