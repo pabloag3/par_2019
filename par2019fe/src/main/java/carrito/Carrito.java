@@ -7,7 +7,7 @@ import producto.bean.Producto;
  *
  * @author Pablo Aguilar
  */
-public class carrito {
+public class Carrito {
     
     private ArrayList<Producto> items = new ArrayList<>();
     
