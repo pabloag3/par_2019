@@ -13,8 +13,7 @@ public abstract class BaseEntity<T> extends Entity<T> {
      * @param id
      * @param nombre
      */
-    public BaseEntity(T id, String nombre) {
-        super.id = id;
+    public BaseEntity(String nombre) {
         super.nombre = nombre;
         isModified = false;
     }

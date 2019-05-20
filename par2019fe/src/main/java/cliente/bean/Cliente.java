@@ -13,7 +13,7 @@ public class Cliente extends BaseEntity<Integer> {
     private int tipoCliente;
     
     public Cliente() {
-        super(0, "");
+        super("");
     }
     
     /**
@@ -26,8 +26,8 @@ public class Cliente extends BaseEntity<Integer> {
      * @param passwd
      * @param tipoCliente
      */
-    public Cliente(Integer id, String nombre, String apellido, String email, String loginName, String passwd, int tipoCliente) {
-        super(id, nombre);
+    public Cliente(String nombre, String apellido, String email, String loginName, String passwd, int tipoCliente) {
+        super(nombre);
         this.apellido = apellido;
         this.email = email;
         this.loginName = loginName;

@@ -24,9 +24,9 @@
                 <form id="loginBtn" action="clientes/login" method="get">
                     <button>Login</button>
                 </form>
-                <from id="loginRgtr" action="clientes/registrar" method="get">
+                <form id="loginRgtr" action="clientes/registrar" method="get">
                     <button>Registrar</button>
-                </from>
+                </form>
             </div>
         </section>
         <br/><br/><br/><br/>
