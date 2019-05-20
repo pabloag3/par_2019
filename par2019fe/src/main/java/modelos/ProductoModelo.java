@@ -4,6 +4,7 @@ package modelos;
 
 import producto.bean.Producto;
 import java.util.ArrayList;
+import java.util.List;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -35,17 +36,17 @@ public class ProductoModelo {
     }
 
     // GET
-    public ArrayList<Producto> traerProductos() {
+    public List<Producto> traerProductos() {
         Client client = ClientBuilder.newClient().register(new JacksonFeature());
-        ArrayList<Producto> prods = client.target(path + "/traer-productos")
-                .request(MediaType.APPLICATION_JSON).get(ArrayList.class);
+        List<Producto> prods = client.target(path + "/traer-productos")
+                .request(MediaType.APPLICATION_JSON).get(List.class);
         return prods;
     }
 
     //GET
-    public ArrayList<Producto> traerProductos(String des, String cat) throws Exception {
+    public List<Producto> traerProductos(String des, String cat) throws Exception {
         Client client = ClientBuilder.newClient().register(new JacksonFeature());
-        ArrayList<Producto> prod = client.target(path + "/traer-producto?des=" + des + "&cat=" + cat)
+        List<Producto> prod = client.target(path + "/traer-producto?des=" + des + "&cat=" + cat)
                 .request(MediaType.APPLICATION_JSON).get(ArrayList.class);
         return prod;
     }

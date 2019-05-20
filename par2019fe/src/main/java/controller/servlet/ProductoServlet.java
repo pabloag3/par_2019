@@ -3,6 +3,7 @@ package controller.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -21,15 +22,7 @@ import producto.bean.Producto;
  */
 public class ProductoServlet extends HttpServlet {
     ProductoModelo mo = new ProductoModelo();
-    ArrayList<Producto> productos = new ArrayList<Producto>();
-
-    public ArrayList<Producto> getProductos() {
-        return productos;
-    }
-
-    public void setProductos(ArrayList<Producto> productos) {
-        this.productos = productos;
-    }
+    List<Producto> productos = new ArrayList<Producto>();
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
