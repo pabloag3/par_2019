@@ -15,13 +15,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;
-import org.jboss.resteasy.client.jaxrs.ResteasyClient;
-import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
-import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
-
 
 /**
  *
@@ -33,17 +27,20 @@ public class ProductoModelo {
 
     public ProductoModelo() {
     }
+    
     // POST
     public void agregar(Producto nuevoProducto) {
-        ResteasyClient client = new ResteasyClientBuilder().build();
-        ResteasyWebTarget target = client.target(UriBuilder.fromPath(path + "/agregar-cliente"));
-        Response clienteResponse =  target.request().post(Entity.entity(nuevoProducto, "application/json") );
-        System.out.println("HTTP code: " + clienteResponse.getStatus());
-        clienteResponse.close();
+        
+        Client client = ClientBuilder.newClient().register(new JacksonFeature());
+        client.target(path + "/agregar-producto").
+                request(MediaType.APPLICATION_JSON).
+                post(Entity.entity(nuevoProducto, MediaType.APPLICATION_JSON));
+        
     }
 
     // GET
     public List<Producto> traerProductos() {
+        
         Client client = ClientBuilder.newClient().register(new JacksonFeature());
         List<LinkedHashMap> prods = client.target(path + "/traer-productos")
                 .request(MediaType.APPLICATION_JSON).get(List.class);
@@ -54,6 +51,7 @@ public class ProductoModelo {
 
     //GET
     public List<Producto> traerProductos(String des, String cat) throws Exception {
+        
         Client client = ClientBuilder.newClient().register(new JacksonFeature());
         List<LinkedHashMap> prods = client.target(path + "/traer-producto?des=" + des + "&cat=" + cat)
                 .request(MediaType.APPLICATION_JSON).get(List.class);
@@ -62,19 +60,19 @@ public class ProductoModelo {
     }
 
     // PUT
-    public void actualizarProducto(Producto actualizarProducto) {
-        ResteasyClient client = new ResteasyClientBuilder().build();
-        ResteasyWebTarget target = client.target(UriBuilder.fromPath(path + "/actualizar-cliente"));
-        Response clienteResponse = target.request().put(Entity.entity(actualizarProducto, "application/json"));
-        clienteResponse.close();
+    public void actualizarProducto(Producto producto) {
+        
+        Client client = ClientBuilder.newClient().register(new JacksonFeature());
+        client.target(path + "/actualizar-producto").request(MediaType.APPLICATION_JSON).put(Entity.entity(producto, MediaType.APPLICATION_JSON));
+        
     }
 
     // DELETE
     public void borrarProducto(Integer id) {
-        ResteasyClient client = new ResteasyClientBuilder().build();
-        ResteasyWebTarget target = client.target(UriBuilder.fromPath(path + "/borrar-cliente/" + id));
-        Response clienteResponse = target.request().delete();
-        clienteResponse.close();
+        
+        Client client = ClientBuilder.newClient().register(new JacksonFeature());
+        client.target(path + "/borrar-producto/{" + id + "}").request(MediaType.APPLICATION_JSON).delete();
+        
     }
 
     //Bloque Categoria
