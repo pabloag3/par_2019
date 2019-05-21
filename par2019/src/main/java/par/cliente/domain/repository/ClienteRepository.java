@@ -41,4 +41,13 @@ public interface ClienteRepository<Cliente, Integer> extends Repository<Cliente,
      * @throws Exception
      */
     public Collection<Cliente> findByLoginName(String loginName) throws Exception;
+
+    /**
+     * 
+     * @param loginName
+     * @param pass
+     * @return
+     * @throws Exception 
+     */
+    public Cliente findByLoginNamePass(String loginName, String pass) throws Exception;
 }

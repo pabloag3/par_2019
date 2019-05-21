@@ -4,6 +4,7 @@
     Author     : Perez
 --%>
 
+<%@page import="cliente.bean.Cliente"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,15 +13,22 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	</head>
     <body>
-        <form>
+        <%
+            String usu = "";
+            if(request.getAttribute("cliente") != null){
+                Cliente cli =(Cliente) request.getAttribute("cliente");
+                usu = cli.getLoginName();
+            }
+        %>    
+        <form action="ingresar">
             <label><h1>Login</h1></label>
             <div id="usuario">
-                <label>Usuario: </label>
-                <input type="text" placeholder="Usuario">
+                <label>Usuario: <%=usu%></label>
+                <input type="text" placeholder="Usuario" name="usu">
             </div>
             <div id="contrasenha">
                 <label>Contraseña: </label>
-                <input type="password" placeholder="Contraseña">
+                <input type="password" placeholder="Contraseña" name="pass">
             </div>
             <br/>
             <div>

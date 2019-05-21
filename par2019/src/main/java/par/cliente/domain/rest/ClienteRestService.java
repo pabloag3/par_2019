@@ -12,6 +12,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import org.springframework.web.bind.annotation.RequestBody;
 import par.cliente.domain.model.entity.Cliente;
@@ -44,11 +45,11 @@ public class ClienteRestService {
     }
 
     @GET
-    @Path("/traer-cliente/{id}")
-    public Response getUser(@PathParam("id") Integer id) {
+    @Path("/traer-cliente")
+    public Response getUser(@QueryParam("usuario") String usu, @QueryParam("contra") String contra) {
         Cliente entity = null;
         try {
-            entity = (Cliente) clienteService.findById(id);
+            entity = (Cliente) clienteService.findByLoginNamePass(usu, contra);
             ObjectMapper mapper = new ObjectMapper();
             String resp = mapper.writeValueAsString(entity);
             return Response.ok(resp).header("Content-Type: aplication/json; charset=utf-8", "*").build();
