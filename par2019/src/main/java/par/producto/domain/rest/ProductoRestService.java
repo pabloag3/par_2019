@@ -60,6 +60,21 @@ public class ProductoRestService {
             return Response.status(Response.Status.NOT_FOUND).header("Content-Type: text/html; charset=utf-8", "*").build();
         }
     }
+    
+    @GET
+    @Path("/traer-producto/{id}")
+    public Response getProduct(@PathParam("id") Integer id) {
+        Producto entity = null;
+        try {
+            entity = (Producto) productoService.findById(id);
+            ObjectMapper mapper = new ObjectMapper();
+            String resp = mapper.writeValueAsString(entity);
+            return Response.ok(resp).header("Content-Type: aplication/json; charset=utf-8", "*").build();
+        } catch (Exception ex) {
+            Logger.getLogger(ProductoRestService.class.getName()).log(Level.SEVERE, null, ex);
+            return Response.status(Response.Status.NOT_FOUND).header("Content-Type: text/html; charset=utf-8", "*").build();
+        }
+    }
 
     @POST
     @Path("/agregar-producto")

@@ -35,7 +35,7 @@
             </div>
             <br/>
             <div>
-                <form id="loginRgtr" action="agregar" method="post">
+                <form id="loginRgtr" action="registrar" method="post">
                     <button>Registrar usuario</button>
                 </form>
                 <form id="loginBtn" action="login" method="get">
