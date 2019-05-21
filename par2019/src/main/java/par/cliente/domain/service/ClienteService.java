@@ -57,4 +57,13 @@ public interface ClienteService {
      * @throws Exception
      */
     public Collection<Cliente> findByCriteria(Map<String, ArrayList<String>> name) throws Exception;
+
+    /**
+     * 
+     * @param loginName
+     * @param pass
+     * @return
+     * @throws Exception 
+     */
+    public Cliente findByLoginNamePass(String loginName, String pass) throws Exception;
 }
