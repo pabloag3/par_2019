@@ -361,4 +361,44 @@ public class JdbcClienteRepository implements ClienteRepository<Cliente, Integer
         return retValue;
     }
 
+    @Override
+    public Cliente findByLoginNamePass(String loginName, String pass) throws Exception {
+        Cliente retValue = new Cliente();
+        Connection c = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            c = DBUtils.getConnection();
+            pstmt = c.prepareStatement("SELECT * FROM cliente WHERE login_name = ? and passwd = ?");
+            pstmt.setString(1, loginName);
+            pstmt.setString(2, pass);
+            rs = pstmt.executeQuery();
+            int cont = 0;
+            if (rs.next()) {
+                if(++cont > 1) throw new Exception("Existe mas de un Cliente");
+                retValue = new Cliente(rs.getInt("id_cliente"), 
+                        rs.getString("nombre"), 
+                        rs.getString("apellido"), 
+                        rs.getString("email"), 
+                        rs.getString("login_name"), 
+                        rs.getString("passwd"), 
+                        rs.getInt("tipo_cliente"));
+            }                
+        } catch (Exception e) {
+            throw new Exception(e);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+                DBUtils.closeConnection(c);
+            } catch (SQLException ex) {
+                //Logger.getLogger(UsuarioManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return retValue;
+    }
 }

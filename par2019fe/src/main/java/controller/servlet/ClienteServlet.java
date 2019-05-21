@@ -16,7 +16,7 @@ import modelos.ClienteModelo;
  * @author Perez
  */
 public class ClienteServlet extends HttpServlet {
-    
+    Cliente cliente;
     ClienteModelo modelo = new ClienteModelo();
 
     /**
@@ -50,10 +50,20 @@ public class ClienteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String uri = request.getServletPath();
         String url = "";
-        if (uri.contains("login"))
+        if(uri.contains("login")) {
+            
             url = "/jsp/vistas/cliente/ClienteLogin.jsp";
-        else if (uri.contains("registrar"))
+        } else if(uri.contains("registrar"))
             url = "/jsp/vistas/cliente/ClienteRegistrar.jsp";
+        else if(uri.contains("ingresar")) {
+            cliente = traerCliente(request, response);
+            if(cliente.getId() != 0) {
+                //response.sendRedirect("jsp/home.jsp");
+                request.setAttribute("cliente", cliente);
+                url = "/jsp/home.jsp";
+            } else
+                url = "/jsp/vistas/cliente/ClienteLogin.jsp";
+        }
         ServletContext sc = this.getServletContext();
         RequestDispatcher rd = sc.getRequestDispatcher(url);
         rd.forward(request, response);
@@ -70,7 +80,6 @@ public class ClienteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String uri = request.getServletPath();
-        
         if (uri.contains("agregar")) {
             String nombre = request.getParameter("nombre");
             String apellido = request.getParameter("apellido");
@@ -91,4 +100,12 @@ public class ClienteServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private Cliente traerCliente(HttpServletRequest request, HttpServletResponse response) {
+        Cliente cli;
+        String loginName = request.getParameter("usu");
+        String contrasenha = request.getParameter("pass"); 
+        cli = modelo.traerCliente(loginName, contrasenha);
+        return cli;
+    }
 }

@@ -4,6 +4,7 @@
     Author     : Pablo Aguilar
     Author     : Porfirio Perez
 --%>
+<%@page import="cliente.bean.Cliente"%>
 <link rel="stylesheet" type="text/css" href="estilos.css"/>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,6 +14,13 @@
         <title>Página Principal</title>
     </head>
     <body>
+        <%
+            String usu = "";
+            if(request.getAttribute("cliente") != null){
+                Cliente cli =(Cliente) request.getAttribute("cliente");
+                usu = cli.getLoginName();
+            }
+        %> 
         <section id="superior">
             <div id="titulo">
                 <dd>
@@ -20,7 +28,7 @@
                 </dd>
             </div>
             <div id="login">
-                <p>Usuario</p>
+                <p>Usuario:<%=usu%> </p>
                 <form id="loginBtn" action="clientes/login" method="get">
                     <button>Login</button>
                 </form>

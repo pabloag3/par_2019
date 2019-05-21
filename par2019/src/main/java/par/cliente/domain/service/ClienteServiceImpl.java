@@ -102,4 +102,8 @@ public class ClienteServiceImpl extends BaseService<Cliente, Integer>
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
+    public Cliente findByLoginNamePass(String loginName, String pass)  throws Exception {
+        return clienteRepository.findByLoginNamePass(loginName, pass);
+    }
 }
