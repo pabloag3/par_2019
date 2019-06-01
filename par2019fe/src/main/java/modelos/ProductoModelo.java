@@ -48,6 +48,15 @@ public class ProductoModelo {
         List<Producto> listProduct = castearProducto(prods);
         return listProduct;
     }
+    
+    //GET
+    public Producto traerProducto(Integer id) {
+        
+        Client client = ClientBuilder.newClient().register(new JacksonFeature());
+        Producto producto = client.target(path + "/traer-productos/{" + id + "}")
+                .request(MediaType.APPLICATION_JSON).get(Producto.class);
+        return producto;
+    }
 
     //GET
     public List<Producto> traerProductos(String des, String cat) throws Exception {

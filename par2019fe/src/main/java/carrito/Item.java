@@ -19,19 +19,19 @@ public class Item {
             this.cantidad = cantidad;
     }
 
-    public Producto getProduct() {
+    public Producto getProducto() {
             return producto;
     }
 
-    public void setProduct(Producto producto) {
+    public void setProducto(Producto producto) {
             this.producto = producto;
     }
 
-    public int getQuantity() {
+    public int getCantidad() {
             return cantidad;
     }
 
-    public void setQuantity(int cantidad) {
+    public void setCantidad(int cantidad) {
             this.cantidad = cantidad;
     }
     

@@ -50,11 +50,15 @@
         <br/>
         <hr>
         <section id="medio">
+            <br/>
             <input class="buscadorProducto" placeholder="Buscar Productos">
             <input class="buscadorCategoria" placeholder="Buscar Categoria">
+            <br/>
+            <br/>
             <dd>
                 <button>Buscar</button>
             </dd>
+            <br/>
             <table>
                 <thead border=1>
                    <th>Codigo</th>
@@ -75,7 +79,11 @@
                         <td> <%= catego %> </td>
                         <td> <%= prod.getPrecioUnit() %> </td>
                         <td> <input name="cantidad" placeholder="cantidad"> </td>
-                        <td> <button>Agregar al carrito<input hidden="true" action="eliminarProducto/{<%= prod.getId() %>}" method="post"></button></td>
+                        <td> 
+                            <form id="formularioCarrito" action="carrito/agregar-producto?descripcion=<%= prod.getDescripcion()%>" method="get">
+                                <button type="submit">Agregar al carrito</button>
+                            </form>
+                        </td>
                      </tr>
                     <% } %>
                 </tbody>
