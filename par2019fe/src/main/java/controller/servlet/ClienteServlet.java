@@ -51,7 +51,6 @@ public class ClienteServlet extends HttpServlet {
         String uri = request.getServletPath();
         String url = "";
         if(uri.contains("login")) {
-            
             url = "/jsp/vistas/cliente/ClienteLogin.jsp";
         } else if(uri.contains("registrar"))
             url = "/jsp/vistas/cliente/ClienteRegistrar.jsp";

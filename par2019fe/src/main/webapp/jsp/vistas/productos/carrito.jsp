@@ -34,9 +34,7 @@
                 %>
                 <tr>
                     <td> 
-                        <form action="carrito/eliminar/{=<%= item.getProducto().getId() %>}" method="get"> 
-                            <button>Eliminar</button>
-                        </form>
+                        <a href="${pageContext.request.contextPath}/carrito/eliminar?codigo=<%= item.getProducto().getId() %>">Eliminar</a>
                     </td>
                     <td> <%= item.getProducto().getDescripcion() %> </td>
                     <td> <%= item.getProducto().getPrecioUnit() %> </td>
@@ -45,7 +43,7 @@
                 <% } %>
 		<tr>
                     <td colspan="3" align="right">Total</td>
-                    <td><%= out.write(Long.toString(total)) %> </td>
+                    <td><%= total %> </td>
 		</tr>
             </tbody>
 	</table>

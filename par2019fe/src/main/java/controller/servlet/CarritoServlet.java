@@ -64,17 +64,23 @@ public class CarritoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
-        String action = request.getParameter("action");
-        if (action == null) {
-            doGetDesplegarCarrito(request, response);
-        } else {
-            if (action.equalsIgnoreCase("comprar")) {
-                doGetComprar(request, response);
-            } else if (action.contains("eliminar")) {
+        try {
+            String aux = request.getPathInfo();
+            String url = "";
+            if (aux.contains("listar-carrito")) {
+                url = "/jsp/vistas/productos/carrito.jsp";
+                ServletContext sc = this.getServletContext();
+                RequestDispatcher rd = sc.getRequestDispatcher(url);
+                rd.forward(request, response);
+            } else if (aux.contains("agregar")) {
+                doGetAgregar(request, response);
+            } else if (aux.contains("eliminar")) {
                 doGetRemove(request, response);
             }
+        } catch (Exception e) {
+            System.out.println(e);
         }
+        
     }
 
     /**
@@ -105,25 +111,26 @@ public class CarritoServlet extends HttpServlet {
         request.getRequestDispatcher("jsp/vistas/productos/carrito.jsp").forward(request, response);
     }
 
-    private void doGetComprar(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void doGetAgregar(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ProductoModelo mo = new ProductoModelo();
         HttpSession session = request.getSession();
         if (session.getAttribute("carrito") == null) { // si no hay un carrito en la sesion, instancia uno nuevo
-            List<Item> carrito = new ArrayList<Item>();
-            carrito.add(new Item(mo.traerProducto(Integer.parseInt(request.getParameter("id"))), 1));
+            List<Item> carrito = new ArrayList<>();
+            carrito.add(new Item(mo.traerProducto(Integer.parseInt(request.getParameter("codigo"))), Integer.parseInt(request.getParameter("cantidad"))));
             session.setAttribute("carrito", carrito);
         } else {
             List<Item> carrito = (List<Item>) session.getAttribute("carrito");
             int index = siExiste(request.getParameter("id"), carrito);
-            if (index == -1) {
-                carrito.add(new Item(mo.traerProducto(Integer.parseInt(request.getParameter("id"))), 1));
-            } else {
-                int quantity = carrito.get(index).getCantidad() + 1;
+            if (index == -1) { // si no existe el producto en la lista, inserta el producto con la cantidad ingresada
+                carrito.add(new Item(mo.traerProducto(Integer.parseInt(request.getParameter("id"))),
+                        Integer.parseInt(request.getParameter("cantidad"))));
+            } else { // si existe el producto, suma la cantidad ingresada a la cantidad actual del producto
+                int quantity = carrito.get(index).getCantidad() + Integer.parseInt(request.getParameter("cantidad"));
                 carrito.get(index).setCantidad(quantity);
             }
             session.setAttribute("carrito", carrito);
         }
-        response.sendRedirect("carrito");
+        response.sendRedirect("/par2019fe/carrito/listar-carrito");
     }
 
     protected void doGetRemove(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -132,7 +139,7 @@ public class CarritoServlet extends HttpServlet {
         int index = siExiste(request.getParameter("id"), carrito);
         carrito.remove(index);
         session.setAttribute("carrito", carrito);
-        response.sendRedirect("carrito");
+        response.sendRedirect("/par2019fe/carrito/listar-carrito");
     }
     
     private int siExiste(String id, List<Item> carrito) {
@@ -142,6 +149,10 @@ public class CarritoServlet extends HttpServlet {
             }
         }
         return -1;
+    }
+
+    private void doGetListar(HttpServletRequest request, HttpServletResponse response) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

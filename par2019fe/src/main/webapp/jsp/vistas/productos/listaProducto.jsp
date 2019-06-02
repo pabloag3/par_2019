@@ -59,13 +59,14 @@
                 <button>Buscar</button>
             </dd>
             <br/>
+            <form>
             <table>
                 <thead border=1>
                    <th>Codigo</th>
                    <th>Nombre</th>
                    <th>Categoria</th>
                    <th>Precio</th>
-                   <th>Cantidad</th>
+                   <!-- <th>Cantidad</th> -->
                    <th>Agregar Carrito</th>
                 </thead>
                 <tbody>
@@ -78,16 +79,15 @@
                         <td> <%= prod.getDescripcion() %> </td>
                         <td> <%= catego %> </td>
                         <td> <%= prod.getPrecioUnit() %> </td>
-                        <td> <input name="cantidad" placeholder="cantidad"> </td>
+                        <td> <input name="canti" placeholder="1" disabled="true"> </td>
                         <td> 
-                            <form id="formularioCarrito" action="carrito/agregar-producto?descripcion=<%= prod.getDescripcion()%>" method="get">
-                                <button type="submit">Agregar al carrito</button>
-                            </form>
+                            <a href="${pageContext.request.contextPath}/carrito/agregar?codigo=<%= prod.getId()%>&cantidad=1">Comprar</a>
                         </td>
                      </tr>
                     <% } %>
                 </tbody>
             </table>
+            </form>
         </section>
     </body>
 </html>
