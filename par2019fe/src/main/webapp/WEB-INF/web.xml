@@ -24,6 +24,7 @@
         <servlet-name>ProductoServlet</servlet-name>
         <url-pattern>/productos/*</url-pattern>
         <url-pattern>/productos/listar-productos</url-pattern>
+        <url-pattern>/productos/productos</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ClienteServlet</servlet-name>
@@ -31,7 +32,9 @@
         <url-pattern>/clientes/login</url-pattern>
         <url-pattern>/clientes/registrar</url-pattern>
         <url-pattern>/clientes/registrar/agregar</url-pattern>
+        <url-pattern>/clientes/registrar/ingresar</url-pattern>
         <url-pattern>/clientes/ingresar</url-pattern>
+        <url-pattern>/clientes/cancelar</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProductoServlet</servlet-name>

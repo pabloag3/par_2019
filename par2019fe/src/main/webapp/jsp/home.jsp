@@ -15,12 +15,18 @@
     </head>
     <body>
         <%
+            String mensaje = "";
             String usu = "";
-            if(request.getAttribute("cliente") != null){
-                Cliente cli =(Cliente) request.getAttribute("cliente");
+            HttpSession sesion = request.getSession();
+            if(sesion.getAttribute("cliente") != null){
+                mensaje = "Usuario loqueado";
+                Cliente cli =(Cliente) sesion.getAttribute("cliente");
                 usu = cli.getLoginName();
+            } else if(request.getAttribute("error") == "error"){
+                mensaje = "No existe elnombre de usuario o la contraseña";
             }
-        %> 
+            request.setAttribute("mensaje", mensaje);
+        %>
         <section id="superior">
             <div id="titulo">
                 <dd>
@@ -41,17 +47,17 @@
         <br/>
         <hr>
         <section id="medio">
-            <div class="buscador">
-                <input class="buscadorProducto" placeholder="Buscar Productos">
-                <br/>
-                <br/>
-            </div>
-            <div id="principalBuscar">
-                <form id="formularioProducto" action="productos" method="get">
+            <form id="formularioProducto" action="productos" method="get">
+                <div class="buscador">
+                    <input class="buscadorProducto" placeholder="Buscar Productos" name="descripcion">
+                    <br/>
+                    <br/>
+                </div>
+                <div id="principalBuscar">
                     <button type="submit">Buscar</button>
-                </form>
-            </div>
-            <br/><br/>
+                </div>
+            </form>
+            <br/><br/><br/><br/><br/><br/><br/><br/>
             <div id="principalBtn">
                 <form id="formularioProducto" action="productos/listar-productos" method="get">
                     <button type="submit">Ir a productos</button>

@@ -12,39 +12,37 @@
         <title>Registro</title>
     </head>
     <body>
-        <form>
+        <form name="formularioRegistrar" action="registrar/agregar" method="post">
             <label><h1>Registro de Cliente</h1></label>
-            <div id="nombre" name="nombre">
+            <div id="nombre" >
                 <label>Nombre: </label>
-                <input type="text" placeholder="Nombre">
+                <input type="text" placeholder="Nombre" name="nombre">
             </div>
-            <div id="apellido" name="apellido">
+            <div id="apellido">
                 <label>Apellido: </label>
-                <input type="text" placeholder="Apellido">
+                <input type="text" placeholder="Apellido" name="apellido">
             </div>
-            <div id="email" name="email">
+            <div id="email">
                 <label>Email: </label>
-                <input type="text" placeholder="Email">
+                <input type="text" placeholder="Email" name="email">
             </div>
             <div id="contrasenha">
                 <label>Contraseña: </label>
-                <input type="password" placeholder="Contraseña">
+                <input type="password" placeholder="Contraseña" name="contrasenha">
             </div>
-            <div id="tipo_cliente" hidden="true" name="passwd">
+            <div id="tipo_cliente" hidden="true" name="tipo_client">
                 <input type="password" value="1">
             </div>
-            <br/>
-            <div>
-                <form id="loginRgtr" action="registrar" method="post">
-                    <button>Registrar usuario</button>
-                </form>
-                <form id="loginBtn" action="login" method="get">
-                    <button>Ya tengo una cuenta</button>
-                </form>
-                <form id="loginCancelar" onclick="history.back()" method="get">
-                    <button>Cancelar</button>
-                </form>
-            </div>
+            <input type = "submit" value = "Crear usuario" />
         </form>
+        <br/>
+        <div>
+            <form id="loginBtn" action="login" method="get">
+                <button>Ya tengo una cuenta</button>
+            </form>
+            <form id="loginCancelar" action="cancelar" method="get">
+                <button>Cancelar</button>
+            </form>
+        </div>
     </body>
 </html>

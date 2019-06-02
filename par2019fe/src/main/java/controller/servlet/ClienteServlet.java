@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import modelos.ClienteModelo;
 
 /**
@@ -16,6 +17,7 @@ import modelos.ClienteModelo;
  * @author Perez
  */
 public class ClienteServlet extends HttpServlet {
+    HttpSession sesion;
     Cliente cliente;
     ClienteModelo modelo = new ClienteModelo();
 
@@ -52,20 +54,31 @@ public class ClienteServlet extends HttpServlet {
         String url = "";
         if(uri.contains("login")) {
             url = "/jsp/vistas/cliente/ClienteLogin.jsp";
-        } else if(uri.contains("registrar"))
-            url = "/jsp/vistas/cliente/ClienteRegistrar.jsp";
-        else if(uri.contains("ingresar")) {
+            ServletContext sc = this.getServletContext();
+            RequestDispatcher rd = sc.getRequestDispatcher(url);
+            rd.forward(request, response);
+        } else if(uri.contains("ingresar")) {
             cliente = traerCliente(request, response);
             if(cliente.getId() != 0) {
-                //response.sendRedirect("jsp/home.jsp");
-                request.setAttribute("cliente", cliente);
-                url = "/jsp/home.jsp";
-            } else
+                sesion = request.getSession(true);
+                //request.setAttribute("cliente", cliente);
+                sesion.setAttribute("cliente", cliente);
+                response.sendRedirect("/par2019fe/");
+            } else {
                 url = "/jsp/vistas/cliente/ClienteLogin.jsp";
+                request.setAttribute("error", "error");
+                ServletContext sc = this.getServletContext();
+                RequestDispatcher rd = sc.getRequestDispatcher(url);
+                rd.forward(request, response);
+            }
+        }  else if(uri.contains("registrar")) {
+            url = "/jsp/vistas/cliente/ClienteRegistrar.jsp";
+            ServletContext sc = this.getServletContext();
+            RequestDispatcher rd = sc.getRequestDispatcher(url);
+            rd.forward(request, response);
+        }else if(uri.contains("cancelar")) {
+            response.sendRedirect("/par2019fe/");
         }
-        ServletContext sc = this.getServletContext();
-        RequestDispatcher rd = sc.getRequestDispatcher(url);
-        rd.forward(request, response);
     }
 
     /**
@@ -85,8 +98,17 @@ public class ClienteServlet extends HttpServlet {
             String email = request.getParameter("email");
             String loginName = nombre + apellido;
             String contrasenha = request.getParameter("contrasenha");
-            Cliente nuevoCliente = new Cliente(nombre, apellido, email, loginName, contrasenha, 0);
-            modelo.agregar(nuevoCliente);
+            String url;
+            if(!"".equals(nombre) && !"".equals(apellido) && !"".equals(email) && !"".equals(contrasenha)) {
+                Cliente nuevoCliente = new Cliente(nombre, apellido, email, loginName, contrasenha, 0);
+                modelo.agregar(nuevoCliente);
+                url = "/jsp/vistas/cliente/ClienteLogin.jsp";
+                ServletContext sc = this.getServletContext();
+                RequestDispatcher rd = sc.getRequestDispatcher(url);
+                rd.forward(request, response);
+            } else {
+                response.sendRedirect("/par2019fe/");
+            }
         }
     }
 

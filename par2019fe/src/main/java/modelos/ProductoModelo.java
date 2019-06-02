@@ -42,7 +42,6 @@ public class ProductoModelo {
 
     // GET
     public List<Producto> traerProductos() {
-        
         Client client = ClientBuilder.newClient().register(new JacksonFeature());
         List<LinkedHashMap> prods = client.target(path + "/traer-productos")
                 .request(MediaType.APPLICATION_JSON).get(List.class);
@@ -63,7 +62,6 @@ public class ProductoModelo {
 
     //GET
     public List<Producto> traerProductos(String des, String cat) throws Exception {
-        
         Client client = ClientBuilder.newClient().register(new JacksonFeature());
         List<LinkedHashMap> prods = client.target(path + "/traer-producto?des=" + des + "&cat=" + cat)
                 .request(MediaType.APPLICATION_JSON).get(List.class);
@@ -73,10 +71,8 @@ public class ProductoModelo {
 
     // PUT
     public void actualizarProducto(Producto producto) {
-        
         Client client = ClientBuilder.newClient().register(new JacksonFeature());
         client.target(path + "/actualizar-producto").request(MediaType.APPLICATION_JSON).put(Entity.entity(producto, MediaType.APPLICATION_JSON));
-        
     }
 
     // DELETE

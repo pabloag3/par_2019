@@ -64,6 +64,8 @@ public class ProductoServlet extends HttpServlet {
             url = "/jsp/vistas/productos/listaProducto.jsp";
             productos = mo.traerProductos();
             categorias = mo.traerCategorias();
+        } else if(uri.contains("/productos")) {
+            traerProductosDescripcion(request, response);
         }
         request.setAttribute("productos", productos);
         request.setAttribute("categorias", categorias);
@@ -81,6 +83,10 @@ public class ProductoServlet extends HttpServlet {
         if (uri.contains("/listar-producto")) {
             url = "/jsp/vistas/productos/listaProducto.jsp";
             productos = mo.traerProductos(descri, cat);
+        } else if(uri.contains("/productos")) {
+            productos = mo.traerProductos(descri, cat);
+            categorias = mo.traerCategorias();
+            url = "/jsp/vistas/productos/listaProducto.jsp";
         }
         request.setAttribute("productos", productos);
         request.setAttribute("categorias", categorias);
