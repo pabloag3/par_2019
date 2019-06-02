@@ -62,7 +62,7 @@
                 <form id="formularioProducto" action="productos/listar-productos" method="get">
                     <button type="submit">Ir a productos</button>
                 </form>
-                <form id="formularioCarrito" action="/productos" method="get">
+                <form id="formularioCarrito" action="carrito/listar-carrito" method="get">
                     <dd><button type="submit">Ir a Carrito</button></dd>
                 </form>
             </div>

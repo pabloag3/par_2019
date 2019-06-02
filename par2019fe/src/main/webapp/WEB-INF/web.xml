@@ -22,7 +22,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>ProductoServlet</servlet-name>
-        <url-pattern>/productos</url-pattern>
+        <url-pattern>/productos/*</url-pattern>
         <url-pattern>/productos/listar-productos</url-pattern>
         <url-pattern>/productos/productos</url-pattern>
     </servlet-mapping>
@@ -43,8 +43,7 @@
     <servlet-mapping>
         <servlet-name>CarritoServlet</servlet-name>
         <url-pattern>/carrito</url-pattern>
-        <url-pattern>/carrito/agregar-producto</url-pattern>
-        <url-pattern>/carrito/eliminar</url-pattern>
+        <url-pattern>/carrito/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

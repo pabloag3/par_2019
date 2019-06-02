@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import java.io.InputStream;
 import producto.bean.Producto;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -15,6 +16,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
 /**
@@ -51,8 +53,10 @@ public class ProductoModelo {
     //GET
     public Producto traerProducto(Integer id) {
         Client client = ClientBuilder.newClient().register(new JacksonFeature());
-        Producto producto = client.target(path + "/traer-productos/{" + id + "}")
-                .request(MediaType.APPLICATION_JSON).get(Producto.class);
+        LinkedHashMap is = client.target(path + "/traer-producto/"+ id).request(MediaType.APPLICATION_JSON).get(LinkedHashMap.class);
+        List<LinkedHashMap> list = new ArrayList<>();
+        list.add(is);
+        Producto producto = castearProducto(list).get(0);
         return producto;
     }
 
