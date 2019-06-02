@@ -26,12 +26,10 @@ public class ProductoModelo {
     
     // POST
     public void agregar(Producto nuevoProducto) {
-        
         Client client = ClientBuilder.newClient().register(new JacksonFeature());
         client.target(path + "/agregar-producto").
                 request(MediaType.APPLICATION_JSON).
                 post(Entity.entity(nuevoProducto, MediaType.APPLICATION_JSON));
-        
     }
 
     // GET

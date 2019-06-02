@@ -5,6 +5,7 @@
     Author     : Porfirio Perez
 --%>
 
+<%@page import="cliente.bean.Cliente"%>
 <%@page import="categoria.bean.Categoria"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="com.fasterxml.jackson.databind.JsonNode"%>
@@ -17,6 +18,7 @@
 <%@page import="modelos.ProductoModelo"%>
 <%@page import="producto.bean.Producto"%>
 <%@page import="java.util.ArrayList"%>
+<link rel="stylesheet" type="text/css" href="estilos.css"/>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -26,7 +28,14 @@
     </head>
     <body>
         <%
-            //ProductoModelo mo = new ProductoModelo();
+            boolean ocultar = false;
+            String usu = "";
+            HttpSession sesion = request.getSession();
+            if(sesion.getAttribute("cliente") != null) {
+                ocultar = true;
+                Cliente cli =(Cliente) sesion.getAttribute("cliente");
+                usu = cli.getLoginName();
+            }
             List<Producto> productos;
             List<Categoria> categorias;
             productos = (List<Producto>) request.getAttribute("productos");
@@ -35,12 +44,17 @@
         <section id="superior">
             <div id="titulo">
                 <dd>
-                    <h1>Inicio Parzon!</h1>
+                    <a class="inicio" href="home"><h1>Inicio Parzon!</h1></a>
                 </dd>
             </div>
             <div id="login">
-                <p>Usuario</p>
-                <button>Login</button>
+                <p>Usuario:<%=usu%></p>
+                <form id="loginBtn" action="login" method="get">
+                    <button hidden= <%= ocultar %> >Login</button>
+                </form>
+                <form id="loginRgtr" action="registrar" method="get">
+                    <button hidden= <%= ocultar %> >Registrar</button>
+                </form>
                 <form id="formularioCarrito" action="/productos" method="get">
                     <dd><button type="submit">Ir a Carrito</button></dd>
                 </form>
@@ -51,18 +65,18 @@
         <hr>
         <section id="medio">
             <br/>
-            <input class="buscadorProducto" placeholder="Buscar Productos">
-            <input class="buscadorCategoria" placeholder="Buscar Categoria">
-            <br/>
-            <br/>
-            <dd>
-                <button>Buscar</button>
-            </dd>
-            <br/>
-            <form>
+            <form action="productos" method="get">
+                <input name="descripcion" class="buscadorProducto" placeholder="Buscar Productos">
+                <input name="categoria" class="buscadorCategoria" placeholder="Buscar Categoria">
+                <br/>
+                <br/>
+                <dd>
+                    <button type="submit">Buscar</button>
+                </dd>
+                <br/>
+            </form>
             <table>
                 <thead border=1>
-                   <th>Codigo</th>
                    <th>Nombre</th>
                    <th>Categoria</th>
                    <th>Precio</th>
@@ -75,12 +89,11 @@
                             String catego = categorias.get(prod.getIdCategoria()).getDescripcion();
                     %>
                     <tr>
-                        <td> <%= prod.getId() %> </td>
                         <td> <%= prod.getDescripcion() %> </td>
                         <td> <%= catego %> </td>
                         <td> <%= prod.getPrecioUnit() %> </td>
                         <td> <input name="canti" placeholder="1" disabled="true"> </td>
-                        <td> 
+                        <td>
                             <a href="${pageContext.request.contextPath}/carrito/agregar?codigo=<%= prod.getId()%>&cantidad=1">Comprar</a>
                         </td>
                      </tr>
