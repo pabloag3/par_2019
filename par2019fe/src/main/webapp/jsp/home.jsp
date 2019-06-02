@@ -15,17 +15,12 @@
     </head>
     <body>
         <%
-            String mensaje = "";
             String usu = "";
             HttpSession sesion = request.getSession();
             if(sesion.getAttribute("cliente") != null){
-                mensaje = "Usuario loqueado";
                 Cliente cli =(Cliente) sesion.getAttribute("cliente");
                 usu = cli.getLoginName();
-            } else if(request.getAttribute("error") == "error"){
-                mensaje = "No existe elnombre de usuario o la contraseña";
             }
-            request.setAttribute("mensaje", mensaje);
         %>
         <section id="superior">
             <div id="titulo">

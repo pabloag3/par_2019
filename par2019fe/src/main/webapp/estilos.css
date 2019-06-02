@@ -27,6 +27,17 @@ div#principalBtn {
     margin-right: auto;
     width: max-content
 }
+.buscadorCategoria {
+    border:aqua;
+    padding-left: 60px;
+    padding-right: 20px;
+    height: 40px;
+    width: 220px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom-width: 20px;
+    margin-bottom: 20px;
+}
 .buscadorProducto {
     border:aqua;
     padding-left: 60px;

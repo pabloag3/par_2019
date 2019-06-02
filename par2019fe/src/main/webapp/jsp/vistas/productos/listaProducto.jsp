@@ -5,6 +5,7 @@
     Author     : Porfirio Perez
 --%>
 
+<%@page import="cliente.bean.Cliente"%>
 <%@page import="categoria.bean.Categoria"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="com.fasterxml.jackson.databind.JsonNode"%>
@@ -17,6 +18,7 @@
 <%@page import="modelos.ProductoModelo"%>
 <%@page import="producto.bean.Producto"%>
 <%@page import="java.util.ArrayList"%>
+<link rel="stylesheet" type="text/css" href="estilos.css"/>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -26,6 +28,12 @@
     </head>
     <body>
         <%
+            String usu = "";
+            HttpSession sesion = request.getSession();
+            if(sesion.getAttribute("cliente") != null){
+                Cliente cli =(Cliente) sesion.getAttribute("cliente");
+                usu = cli.getLoginName();
+            }
             //ProductoModelo mo = new ProductoModelo();
             List<Producto> productos;
             List<Categoria> categorias;
@@ -39,8 +47,13 @@
                 </dd>
             </div>
             <div id="login">
-                <p>Usuario</p>
-                <button>Login</button>
+                <p>Usuario:<%=usu%></p>
+                <form id="loginBtn" action="login" method="get">
+                    <button>Login</button>
+                </form>
+                <form id="loginRgtr" action="registrar" method="get">
+                    <button>Registrar</button>
+                </form>
                 <form id="formularioCarrito" action="/productos" method="get">
                     <dd><button type="submit">Ir a Carrito</button></dd>
                 </form>
@@ -51,15 +64,16 @@
         <hr>
         <section id="medio">
             <br/>
-            <input class="buscadorProducto" placeholder="Buscar Productos">
-            <input class="buscadorCategoria" placeholder="Buscar Categoria">
-            <br/>
-            <br/>
-            <dd>
-                <button>Buscar</button>
-            </dd>
-            <br/>
-            <form>
+            <form action="productos" method="get">
+                <input name="descripcion" class="buscadorProducto" placeholder="Buscar Productos">
+                <input name="categoria" class="buscadorCategoria" placeholder="Buscar Categoria">
+                <br/>
+                <br/>
+                <dd>
+                    <button type="submit">Buscar</button>
+                </dd>
+                <br/>
+            </form>
             <table>
                 <thead border=1>
                    <th>Codigo</th>

@@ -2,7 +2,6 @@ package controller.servlet;
 
 import categoria.bean.Categoria;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -37,8 +36,14 @@ public class ProductoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            //processRequest(request, response);
-            traerProductos(request, response);
+            String uri = request.getServletPath();
+            if (uri.contains("/login")) {
+                response.sendRedirect("/par2019fe/clientes/login");
+            } else if (uri.contains("/registrar")) {
+                response.sendRedirect("/par2019fe/clientes/registrar");
+            }else if (uri.contains("/listar-productos") || uri.contains("/productos")) {
+                traerProductos(request, response);
+            }
         } catch (Exception ex) {
             Logger.getLogger(ProductoServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

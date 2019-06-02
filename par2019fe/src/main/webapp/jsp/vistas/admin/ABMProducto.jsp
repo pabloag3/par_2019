@@ -5,8 +5,10 @@
     Author     : Porfirio Perez
 --%>
 
+<%@page import="cliente.bean.Cliente"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="producto.bean.Producto"%>
+<link rel="stylesheet" type="text/css" href="estilos.css"/>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,6 +17,14 @@
         <title>ABM Productos</title>
     </head>
     <body>
+        <%
+            String usu = "";
+            HttpSession sesion = request.getSession();
+            if(sesion.getAttribute("cliente") != null){
+                Cliente cli =(Cliente) sesion.getAttribute("cliente");
+                usu = cli.getLoginName();
+            }
+        %>
         <h1>PRODUCTOS: Agregar, modificar y eliminar</h1>
         <form action="guardarProducto" method="post">
             <div id="row1">

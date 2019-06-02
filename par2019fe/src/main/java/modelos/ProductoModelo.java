@@ -3,11 +3,6 @@
 package modelos;
 
 import categoria.bean.Categoria;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import java.io.InputStream;
 import producto.bean.Producto;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -16,7 +11,6 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
 /**

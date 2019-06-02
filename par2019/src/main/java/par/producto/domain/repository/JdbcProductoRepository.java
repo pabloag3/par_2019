@@ -264,16 +264,18 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
         try {
             String query;
             c = DBUtils.getConnection();
-            if(categoriaDescrip == null || "null".equals(categoriaDescrip) || categoriaDescrip.equals("")) {
-                query = "SELECT * FROM producto WHERE producto.descripcion like lower('%" + descripcion + "%') order by producto.descripcion;";
-            } else if(descripcion == null || "null".equals(descripcion) || descripcion.equals("")) {
-                query = "select p from public.producto p join " +
-                        "public.categoria c" +
+            if((categoriaDescrip == null || "null".equals(categoriaDescrip) || categoriaDescrip.equals("")) && !(descripcion == null || "null".equals(descripcion) || descripcion.equals(""))) {
+                query = "SELECT * FROM producto WHERE descripcion like lower('%" + descripcion + "%') order by descripcion;";
+            } else if((descripcion == null || "null".equals(descripcion) || descripcion.equals("")) && !((categoriaDescrip == null || "null".equals(categoriaDescrip) || categoriaDescrip.equals("")))) {
+                query = "select p.* from public.producto p join " +
+                        "public.categoria c " +
                         "on p.id_categoria = c.id_categoria " +
                         "where c.descripcion like lower('%" + categoriaDescrip + "%') order by p.descripcion;";;
+            } else if((descripcion == null || "null".equals(descripcion) || descripcion.equals("")) && ((categoriaDescrip == null || "null".equals(categoriaDescrip) || categoriaDescrip.equals("")))) {
+                query = "SELECT * FROM producto WHERE descripcion order by descripcion;";
             } else {
-                query = "select p from public.producto p join " +
-                        "public.categoria c" +
+                query = "select p.* from public.producto p join " +
+                        "public.categoria c " +
                         "on p.id_categoria = c.id_categoria " +
                         "where p.descripcion like lower('%" + descripcion + "%')and " +
                         "c.descripcion like lower('%" + categoriaDescrip + "%') order by p.descripcion;";
