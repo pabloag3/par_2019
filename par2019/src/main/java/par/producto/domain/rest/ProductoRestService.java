@@ -49,9 +49,9 @@ public class ProductoRestService {
     @Path("/traer-producto")
     public Response getProduct(@DefaultValue("") @QueryParam("des") String descripcion,
                                 @DefaultValue("")@QueryParam("cat") String categoria) {
-        Producto entity = null;
+        List<Producto> entity = null;
         try {
-            entity = (Producto) productoService.findByDescripcion(descripcion, categoria);
+            entity = (List<Producto>) productoService.findByDescripcion(descripcion, categoria);
             ObjectMapper mapper = new ObjectMapper();
             String resp = mapper.writeValueAsString(entity);
             return Response.ok(resp).header("Content-Type: aplication/json; charset=utf-8", "*").build();
