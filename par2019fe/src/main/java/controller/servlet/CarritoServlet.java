@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller.servlet;
 
 import carrito.Item;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -18,39 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import modelos.ProductoModelo;
-import producto.bean.Producto;
 
 /**
  *
  * @author tatoa
  */
 public class CarritoServlet extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CarritoServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CarritoServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -76,11 +43,16 @@ public class CarritoServlet extends HttpServlet {
                 doGetAgregar(request, response);
             } else if (aux.contains("eliminar")) {
                 doGetRemove(request, response);
+            } else if (aux.contains("vaciar-carrito")) {
+                doGetLimpiarCarrito(request, response);
+            } else if (aux.contains("comprar")) {
+                doGetComprar(request, response);
+            } else if (aux.contains("ver-facturas")) {
+                doGetVerFacturas(request, response);
             }
         } catch (Exception e) {
             System.out.println(e);
         }
-        
     }
 
     /**
@@ -94,7 +66,11 @@ public class CarritoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String aux = request.getPathInfo();
+        String url = "";
+        if (aux.contains("confirmar-compra")) {
+            doPostComprar(request, response);
+        }
     }
 
     /**
@@ -107,10 +83,6 @@ public class CarritoServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void doGetDesplegarCarrito(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("jsp/vistas/productos/carrito.jsp").forward(request, response);
-    }
-
     private void doGetAgregar(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ProductoModelo mo = new ProductoModelo();
         HttpSession session = request.getSession();
@@ -120,9 +92,10 @@ public class CarritoServlet extends HttpServlet {
             session.setAttribute("carrito", carrito);
         } else {
             List<Item> carrito = (List<Item>) session.getAttribute("carrito");
-            int index = siExiste(request.getParameter("id"), carrito);
+            String aux = request.getParameter("codigo");
+            int index = siExiste(aux, carrito);
             if (index == -1) { // si no existe el producto en la lista, inserta el producto con la cantidad ingresada
-                carrito.add(new Item(mo.traerProducto(Integer.parseInt(request.getParameter("id"))),
+                carrito.add(new Item(mo.traerProducto(Integer.parseInt(request.getParameter("codigo"))),
                         Integer.parseInt(request.getParameter("cantidad"))));
             } else { // si existe el producto, suma la cantidad ingresada a la cantidad actual del producto
                 int quantity = carrito.get(index).getCantidad() + Integer.parseInt(request.getParameter("cantidad"));
@@ -136,7 +109,7 @@ public class CarritoServlet extends HttpServlet {
     protected void doGetRemove(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         List<Item> carrito = (List<Item>) session.getAttribute("carrito");
-        int index = siExiste(request.getParameter("id"), carrito);
+        int index = siExiste(request.getParameter("codigo"), carrito);
         carrito.remove(index);
         session.setAttribute("carrito", carrito);
         response.sendRedirect("/par2019fe/carrito/listar-carrito");
@@ -144,15 +117,49 @@ public class CarritoServlet extends HttpServlet {
     
     private int siExiste(String id, List<Item> carrito) {
         for (int i = 0; i < carrito.size(); i++) {
-            if (carrito.get(i).getProducto().getId().equals(id)) {
+            if (carrito.get(i).getProducto().getId() == Integer.parseInt(id)) {
                     return i;
             }
         }
         return -1;
     }
+    
+    private void doGetLimpiarCarrito(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
+        List<Item> carrito = new ArrayList<>();
+        session.setAttribute("carrito", carrito);
+        response.sendRedirect("/par2019fe/carrito/listar-carrito");
+    }
 
-    private void doGetListar(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void doGetComprar(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("cliente") == null) {
+            response.sendRedirect("/par2019fe/clientes/login");
+        } else {
+            if (session.getAttribute("carrito") == null) {
+                response.sendRedirect("/par2019fe/carrito/listar-carrito");
+            } else {
+                String url = "/jsp/vistas/cliente/confirmarCompraProductos.jsp";
+                ServletContext sc = this.getServletContext();
+                RequestDispatcher rd = sc.getRequestDispatcher(url);
+                rd.forward(request, response);
+            }
+        }
+    }
+
+    private void doGetVerFacturas(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession sesion = request.getSession(); 
+        if (sesion.getAttribute("cliente") == null){
+            response.sendRedirect("/par2019fe/clientes/login");
+        } else {
+            
+        }
+    }
+
+    private void doPostComprar(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession sesion = request.getSession(); 
+        List<Item> carrito = (List<Item>) sesion.getAttribute("carrito");
+        
     }
 
 }

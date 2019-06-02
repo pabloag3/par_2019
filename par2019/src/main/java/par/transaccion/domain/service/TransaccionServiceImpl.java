@@ -2,6 +2,7 @@ package par.transaccion.domain.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import par.transaccion.domain.model.entity.Entity;
 import par.transaccion.domain.model.entity.Transaccion;
@@ -34,26 +35,6 @@ public class TransaccionServiceImpl extends BaseService<Transaccion, Integer>
 
     /**
      *
-     * @param transaccion
-     * @throws Exception
-     */
-    @Override
-    public void update(Transaccion transaccion) throws Exception {
-        transaccionRepository.update(transaccion);
-    }
-
-    /**
-     *
-     * @param id
-     * @throws Exception
-     */
-    @Override
-    public void delete(Integer id) throws Exception {
-        transaccionRepository.remove(id);
-    }
-
-    /**
-     *
      * @param id
      * @return
      * @throws Exception
@@ -72,6 +53,10 @@ public class TransaccionServiceImpl extends BaseService<Transaccion, Integer>
     @Override
     public Collection<Transaccion> findByCriteria(Map<String, ArrayList<String>> name) throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public List<Transaccion> findCabecerasPorCliente(int cliente) throws Exception {
+        return transaccionRepository.findCabeceras(cliente);
     }
 
 }
