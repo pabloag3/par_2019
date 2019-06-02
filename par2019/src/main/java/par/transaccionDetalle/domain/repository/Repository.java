@@ -1,4 +1,4 @@
-package par.transaccion.domain.repository;
+package par.transaccionDetalle.domain.repository;
 
 /**
  *
@@ -12,6 +12,6 @@ public interface Repository<TE, T> extends ReadOnlyRepository<TE, T> {
      *
      * @param entity
      */
-    int add(TE entity) throws Exception;
+    void add(TE entity) throws Exception;
 
 }
