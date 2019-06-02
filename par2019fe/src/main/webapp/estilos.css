@@ -67,3 +67,14 @@ div#principalBtn {
     margin-right: auto;
     width: max-content
 }
+a {
+    color: black;
+}
+a #login {
+    color: black;
+    text-decoration: none;
+}
+a .login {
+    color: black;
+    text-decoration: none;
+}

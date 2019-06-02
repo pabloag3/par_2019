@@ -28,13 +28,14 @@
     </head>
     <body>
         <%
+            boolean ocultar = false;
             String usu = "";
             HttpSession sesion = request.getSession();
-            if(sesion.getAttribute("cliente") != null){
+            if(sesion.getAttribute("cliente") != null) {
+                ocultar = true;
                 Cliente cli =(Cliente) sesion.getAttribute("cliente");
                 usu = cli.getLoginName();
             }
-            //ProductoModelo mo = new ProductoModelo();
             List<Producto> productos;
             List<Categoria> categorias;
             productos = (List<Producto>) request.getAttribute("productos");
@@ -43,16 +44,16 @@
         <section id="superior">
             <div id="titulo">
                 <dd>
-                    <h1>Inicio Parzon!</h1>
+                    <a class="inicio" href="home"><h1>Inicio Parzon!</h1></a>
                 </dd>
             </div>
             <div id="login">
                 <p>Usuario:<%=usu%></p>
                 <form id="loginBtn" action="login" method="get">
-                    <button>Login</button>
+                    <button hidden= <%= ocultar %> >Login</button>
                 </form>
                 <form id="loginRgtr" action="registrar" method="get">
-                    <button>Registrar</button>
+                    <button hidden= <%= ocultar %> >Registrar</button>
                 </form>
                 <form id="formularioCarrito" action="/productos" method="get">
                     <dd><button type="submit">Ir a Carrito</button></dd>
@@ -76,7 +77,6 @@
             </form>
             <table>
                 <thead border=1>
-                   <th>Codigo</th>
                    <th>Nombre</th>
                    <th>Categoria</th>
                    <th>Precio</th>
@@ -89,12 +89,11 @@
                             String catego = categorias.get(prod.getIdCategoria()).getDescripcion();
                     %>
                     <tr>
-                        <td> <%= prod.getId() %> </td>
                         <td> <%= prod.getDescripcion() %> </td>
                         <td> <%= catego %> </td>
                         <td> <%= prod.getPrecioUnit() %> </td>
                         <td> <input name="canti" placeholder="1" disabled="true"> </td>
-                        <td> 
+                        <td>
                             <a href="${pageContext.request.contextPath}/carrito/agregar?codigo=<%= prod.getId()%>&cantidad=1">Comprar</a>
                         </td>
                      </tr>

@@ -57,6 +57,8 @@ public class ClienteServlet extends HttpServlet {
             ServletContext sc = this.getServletContext();
             RequestDispatcher rd = sc.getRequestDispatcher(url);
             rd.forward(request, response);
+        } else if(uri.contains("home")) {
+            response.sendRedirect("/par2019fe/");
         } else if(uri.contains("ingresar")) {
             cliente = traerCliente(request, response);
             if(cliente.getId() != 0) {
@@ -76,7 +78,7 @@ public class ClienteServlet extends HttpServlet {
             ServletContext sc = this.getServletContext();
             RequestDispatcher rd = sc.getRequestDispatcher(url);
             rd.forward(request, response);
-        }else if(uri.contains("cancelar")) {
+        } else if(uri.contains("cancelar")) {
             response.sendRedirect("/par2019fe/");
         }
     }
@@ -100,7 +102,7 @@ public class ClienteServlet extends HttpServlet {
             String contrasenha = request.getParameter("contrasenha");
             String url;
             if(!"".equals(nombre) && !"".equals(apellido) && !"".equals(email) && !"".equals(contrasenha)) {
-                Cliente nuevoCliente = new Cliente(nombre, apellido, email, loginName, contrasenha, 0);
+                Cliente nuevoCliente = new Cliente(nombre, apellido, email, loginName, contrasenha, 1);
                 modelo.agregar(nuevoCliente);
                 url = "/jsp/vistas/cliente/ClienteLogin.jsp";
                 ServletContext sc = this.getServletContext();

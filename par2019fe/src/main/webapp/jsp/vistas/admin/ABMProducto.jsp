@@ -1,107 +1,117 @@
 <%-- 
-    Document   : agregarModificarProducto
-    Created on : May 11, 2019, 3:48:24 PM
+    Document   : listaProducto
+    Created on : 09/05/2019, 09:15:23 PM
     Author     : Pablo Aguilar
     Author     : Porfirio Perez
 --%>
 
 <%@page import="cliente.bean.Cliente"%>
-<%@page import="java.util.ArrayList"%>
+<%@page import="categoria.bean.Categoria"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="com.fasterxml.jackson.databind.JsonNode"%>
+<%@page import="com.fasterxml.jackson.databind.ObjectMapper"%>
+<%@page import="com.fasterxml.jackson.core.type.TypeReference"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.LinkedHashMap"%>
+<%@page import="java.lang.Object"%>
+<%@page import="controller.servlet.ProductoServlet"%>
+<%@page import="modelos.ProductoModelo"%>
 <%@page import="producto.bean.Producto"%>
+<%@page import="java.util.ArrayList"%>
 <link rel="stylesheet" type="text/css" href="estilos.css"/>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>ABM Productos</title>
+        <title>Administracion de Productos.</title>
     </head>
     <body>
         <%
+            boolean ocultar = false;
             String usu = "";
             HttpSession sesion = request.getSession();
             if(sesion.getAttribute("cliente") != null){
+                ocultar = true;
                 Cliente cli =(Cliente) sesion.getAttribute("cliente");
                 usu = cli.getLoginName();
             }
+            //ProductoModelo mo = new ProductoModelo();
+            List<Producto> productos;
+            List<Categoria> categorias;
+            productos = (List<Producto>) request.getAttribute("productos");
+            categorias = (List<Categoria>) request.getAttribute("categorias");
         %>
-        <h1>PRODUCTOS: Agregar, modificar y eliminar</h1>
-        <form action="guardarProducto" method="post">
-            <div id="row1">
-                <div class="col1">
-                    <label>Descripcion:</label>
-                </div>
-                <div class="col2">
-                    <input type="text" name="Descripcion" id="descripcion">
-                </div>
+        <section id="superior">
+            <div id="titulo">
+                <dd>
+                    <a class="inicio" href="home"><h1>Inicio Parzon!</h1></a>
+                </dd>
             </div>
-            <div id="row1">
-                <div class="col1">
-                    <label>Categoria</label>
-                </div>
-                <div class="col2">
-                    <select name="categorias"> <!-- agregar lista -->
-                        <option value="1">Windows Vista</option> 
-                    </select>
-                </div>
+            <div id="login">
+                <p>Usuario:<%=usu%></p>
+                <form id="loginBtn" action="login" method="get">
+                    <button hidden= <%= ocultar %> >Login</button>
+                </form>
+                <form id="loginRgtr" action="registrar" method="get">
+                    <button hidden= <%= ocultar %> >Registrar</button>
+                </form>
+                <form id="formularioCarrito" action="/productos" method="get">
+                    <dd><button type="submit">Ir a Carrito</button></dd>
+                </form>
             </div>
-            <div id="row1">
-                <div class="col1">
-                    <label>Precio unitario:</label>
-                </div>
-                <div class="col2">
-                    <input type="number" name="precioUnit" id="precioUnit">
-                </div>
-            </div>
-            <div id="row1">
-                <div class="col1">
-                    <label>Cantidad:</label>
-                </div>
-                <div class="col2">
-                    <input type="number" name="cantidad" id="cantidad">
-                </div>
-            </div>
-            <input type="submit" value="Submit">
-        </form>
-        
-        <div>
-            <label>Buscar por Producto</label>
-            <input type="text" placeholder="Nombre Producto"/>
+        </section>
+        <br/><br/><br/><br/>
+        <br/>
+        <hr>
+        <section id="medio">
             <br/>
-            <br/>
-            <label>Buscar por Categoria</label>
-            <input type="text" placeholder="Categoria"/>
-        </div>
-        <h1>Lista de Productos</h1>
-        <table>
-            <thead border=1>
-               <th>Codigo</th>
-               <th>Nombre</th>
-               <th>Categoria</th>
-               <th>Precio</th>
-               <th>Cantidad</th>
-            </thead>
-            <tbody>
-                <% 
-                    ArrayList<Producto> productos = new ArrayList<>();
-                    Producto pro = new Producto((Integer)1, "Computadora", 1, (Long.parseLong("5")), (Long.parseLong("10")));
-                    productos.add(pro);
-                %>
-                <%  
-                    for(Producto prod : productos) { 
-                    //Categoria cat = (Categoria) categoriaService.findById(prod.getIdCategoria()); 
-                %>
-                <tr>
-                    <td> <%= prod.getId() %> </td>
-                    <td> <%= prod.getDescripcion() %> </td>
-                    <td> <%= prod.getIdCategoria() %> </td>
-                    <td> <%= prod.getPrecioUnit() %> </td>
-                    <td> <%= prod.getCantidad() %> </td>
-                    <td> <button>Modificar</button></td>
-                    <td> <button>Eliminar<input hidden="true" action="eliminarProducto/{<%= prod.getId() %>}" method="post"></button></td>
-                 </tr>
-                <% } %>
-            </tbody>
-        </table>
-    </body>   
+            <h2>Administracion de Productos.</h2>
+            <form action="admin/busqueda" method="get">
+                <input name="descripcion" class="buscadorProducto" placeholder="Buscar Productos">
+                <input name="categoria" class="buscadorCategoria" placeholder="Buscar Categoria">
+                <br/>
+                <br/>
+                <dd>
+                    <button type="submit">Buscar</button>
+                </dd>
+                <br/>
+            </form>
+            <form action="${pageContext.request.contextPath}/productos/admin/agregar" method="get">
+                <button type="submit">Nuevo Producto</button>
+            </form>
+            <table>
+                <thead border=1>
+                   <th>Codigo</th>
+                   <th>Nombre</th>
+                   <th>Categoria</th>
+                   <th>Precio</th>
+                   <th>Cantidad</th>
+                   <th>Modificar Producto</th>
+                   <th>Eliminar Producto</th>
+                </thead>
+                <tbody>
+                    <%
+                        for(Producto prod: productos) {
+                            String catego = categorias.get(prod.getIdCategoria()).getDescripcion();
+                    %>
+                    <tr>
+                        <td> <%= prod.getId() %> </td>
+                        <td> <%= prod.getDescripcion() %> </td>
+                        <td> <%= catego %> </td>
+                        <td> <%= prod.getPrecioUnit() %> </td>
+                        <td> <%= prod.getCantidad() %> </td>
+                        <td> 
+                            <a href="${pageContext.request.contextPath}/productos/admin/modificar?codigo=<%= prod.getId()%>">Modificar</a>
+                        </td>
+                        <td> 
+                            <a href="${pageContext.request.contextPath}/productos/admin/eliminar?codigo=<%= prod.getId()%>">Eliminar</a>
+                        </td>
+                     </tr>
+                    <% } %>
+                </tbody>
+            </table>
+            </form>
+        </section>
+    </body>
 </html>
