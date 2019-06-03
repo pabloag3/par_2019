@@ -1,7 +1,8 @@
-package par.transaccion.domain.service;
+package par.transaccionDetalle.domain.service;
 
+import par.transaccionDetalle.domain.service.*;
 import java.util.Collection;
-import par.transaccion.domain.repository.Repository;
+import par.transaccionDetalle.domain.repository.Repository;
 
 /**
  *
@@ -23,8 +24,8 @@ public abstract class BaseService<TE, T> extends ReadOnlyBaseService<TE, T> {
      * @param entity
      * @throws Exception
      */
-    public int add(TE entity) throws Exception {
-        return _repository.add(entity);
+    public void add(TE entity) throws Exception {
+        _repository.add(entity);
     }
 
     /**

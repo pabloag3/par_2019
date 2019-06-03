@@ -24,6 +24,14 @@
         <servlet-name>ProductoServlet</servlet-name>
         <url-pattern>/productos</url-pattern>
         <url-pattern>/productos/listar-productos</url-pattern>
+        <url-pattern>/productos/productos</url-pattern>
+        <url-pattern>/productos/login</url-pattern>
+        <url-pattern>/productos/registrar</url-pattern>
+        <url-pattern>/productos/admin</url-pattern>
+        <url-pattern>/productos/admin/agregar</url-pattern>
+        <url-pattern>/productos/admin/busqueda</url-pattern>
+        <url-pattern>/productos/admin/cargar</url-pattern>
+        <url-pattern>/productos/admin/modificar</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ClienteServlet</servlet-name>
@@ -31,7 +39,17 @@
         <url-pattern>/clientes/login</url-pattern>
         <url-pattern>/clientes/registrar</url-pattern>
         <url-pattern>/clientes/registrar/agregar</url-pattern>
+        <url-pattern>/clientes/registrar/ingresar</url-pattern>
         <url-pattern>/clientes/ingresar</url-pattern>
+        <url-pattern>/clientes/cancelar</url-pattern>
+        <url-pattern>/login</url-pattern>
+        <url-pattern>/registrar</url-pattern>
+        <url-pattern>/cancelar</url-pattern>
+        <url-pattern>/home</url-pattern>
+        <url-pattern>/productos/home</url-pattern>
+        <url-pattern>/productos/admin/home</url-pattern>
+        <url-pattern>/productos/admin/cancelar</url-pattern>
+        <url-pattern>/productos/admin/eliminar</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProductoServlet</servlet-name>
@@ -40,8 +58,7 @@
     <servlet-mapping>
         <servlet-name>CarritoServlet</servlet-name>
         <url-pattern>/carrito</url-pattern>
-        <url-pattern>/carrito/agregar-producto</url-pattern>
-        <url-pattern>/carrito/eliminar</url-pattern>
+        <url-pattern>/carrito/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

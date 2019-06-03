@@ -35,10 +35,10 @@
                 <form id="loginRgtr" action="login" method="get">
                     <button>Iniciar sesión</button>
                 </form>
-                <form id="loginBtn" action="clientes/registrar" method="get">
+                <form id="loginBtn" action="registrar" method="get">
                     <button>Crear usuario</button>
                 </form>
-                <form id="loginCancelar" onclick="history.back()" method="get">
+                <form id="loginCancelar" action="cancelar" method="get">
                     <button>Cancelar</button>
                 </form>
             </div>

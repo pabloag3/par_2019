@@ -1,20 +1,19 @@
 <%-- 
-    Document   : carrito
-    Created on : May 20, 2019, 3:36:45 PM
+    Document   : confirmarCompraProductos
+    Created on : Jun 2, 2019, 5:36:43 PM
     Author     : tatoa
 --%>
 
-<%@page import="java.util.ArrayList"%>
 <%@page import="cliente.bean.Cliente"%>
 <%@page import="carrito.Item"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<link rel="stylesheet" type="text/css" href="estilos.css"/>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Carrito de compra</title>
+        <title>JSP Page</title>
     </head>
     <body>
         <%
@@ -34,18 +33,15 @@
                 </dd>
             </div>
             <div id="login">
-                <p>Usuario: <%= usu %> </p>
+                <p>Usuario: <%=usu%> </p>
                 <form id="loginBtn" action="clientes/login" method="get">
-                    <button hidden=<%= ocultar %> >Login</button>
+                    <button>Login</button>
                 </form>
                 <form id="loginRgtr" action="clientes/registrar" method="get">
-                    <button hidden=<%= ocultar %>>Registrar</button>
+                    <button>Registrar</button>
                 </form>
             </div>
         </section>
-        <br/><br/><br/><br/>
-        <br/>
-        <hr>
         <table cellpadding="2" cellspacing="2" border="1">
             <thead border="1">
                 <th>Opcion</th>
@@ -80,18 +76,28 @@
 		<tr>
                     <td colspan="3" align="right">Total</td>
                     <td><%= total %> </td>
+                    <%
+                        session.setAttribute("total", total);
+                    %>
 		</tr>
             </tbody>
 	</table>
-            <div id="principalBtn">
-                <form action="carrito/vaciar-carrito" method="get">
-                    <button type="submit">Vaciar carrito</button>
+                <form name="confirmarCompra" action="carrito/confirmar-compra" method="post">
+                    <div id="direccion" >
+                        <label>Direccion: </label>
+                        <input type="text" placeholder="Direccion" required="true" name="direccion">
+                    </div>
+                    <div id="nro_tarjeta">
+                        <label>Numero de tarjeta </label>
+                        <input type="number" placeholder="Numero de tarjeta" name="nro_tarjeta">
+                    </div>
+                    <div>
+                        <input type="radio" name="medio_pago" value="0" required="true" checked="true">Efectivo<br>
+                    </div>
+                    <div>
+                        <input type="radio" name="medio_pago" value="1" required="true">Tarjeta de credito<br>
+                    </div>
+                    <input type = "submit" value = "Confirmar compra" />
                 </form>
-                <form action="comprar" method="get">
-                    <dd><button type="submit">Comprar</button></dd>
-                </form><form action="ver-compras" method="get">
-                    <dd><button type="submit">Ver mis compras</button></dd>
-                </form>
-            </div> 
     </body>
 </html>

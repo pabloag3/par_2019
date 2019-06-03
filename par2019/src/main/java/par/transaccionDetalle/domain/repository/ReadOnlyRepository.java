@@ -1,9 +1,8 @@
-package par.transaccion.domain.repository;
+package par.transaccionDetalle.domain.repository;
 
 import java.util.Collection;
 import java.util.List;
-import par.transaccion.domain.model.entity.Entity;
-import par.transaccion.domain.model.entity.Transaccion;
+import par.transaccionDetalle.domain.model.entity.Entity;
 
 /**
  *
@@ -36,9 +35,10 @@ public interface ReadOnlyRepository<TE, T> {
     
     /**
      * 
-     * @param idCliente
+     * @param cabecera
      * @return
      * @throws Exception 
      */
-    List<Transaccion> findCabeceras(int idCliente) throws Exception;
+    List<TE> transaccionesDetallePorCabecera(int cabecera) throws Exception;
+    
 }

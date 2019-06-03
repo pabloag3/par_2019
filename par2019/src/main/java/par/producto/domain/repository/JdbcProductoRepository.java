@@ -248,6 +248,7 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
     /**
      *
      * @param nombre
+     * @param categoriaDescrip
      * @param apellido
      * @return
      * @throws Exception
@@ -263,34 +264,32 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
         try {
             String query;
             c = DBUtils.getConnection();
-            if(categoriaDescrip == null || categoriaDescrip.equals("")) {
-                query = "SELECT * FROM producto WHERE like lower('?%') order by producto.descripcion;";
-            } else if(descripcion == null || descripcion.equals("")) {
-                query = "SELECT * FROM producto WHERE like lower('?%') order by producto.descripcion;";
-            } else {
-                query = "select p from public.producto p join " +
-                        "public.categoria c" +
+            if((categoriaDescrip == null || "null".equals(categoriaDescrip) || categoriaDescrip.equals("")) && !(descripcion == null || "null".equals(descripcion) || descripcion.equals(""))) {
+                query = "SELECT * FROM producto WHERE descripcion like lower('%" + descripcion + "%') order by descripcion;";
+            } else if((descripcion == null || "null".equals(descripcion) || descripcion.equals("")) && !((categoriaDescrip == null || "null".equals(categoriaDescrip) || categoriaDescrip.equals("")))) {
+                query = "select p.* from public.producto p join " +
+                        "public.categoria c " +
                         "on p.id_categoria = c.id_categoria " +
-                        "where p.descripcion like lower('?t%')and " +
-                        "c.descripcion like lower('?%') order by p.descripcion;";
-                
+                        "where c.descripcion like lower('%" + categoriaDescrip + "%') order by p.descripcion;";;
+            } else if((descripcion == null || "null".equals(descripcion) || descripcion.equals("")) && ((categoriaDescrip == null || "null".equals(categoriaDescrip) || categoriaDescrip.equals("")))) {
+                query = "SELECT * FROM producto WHERE descripcion order by descripcion;";
+            } else {
+                query = "select p.* from public.producto p join " +
+                        "public.categoria c " +
+                        "on p.id_categoria = c.id_categoria " +
+                        "where p.descripcion like lower('%" + descripcion + "%')and " +
+                        "c.descripcion like lower('%" + categoriaDescrip + "%') order by p.descripcion;";
             }
             pstmt = c.prepareStatement(query);
-            if(descripcion == null || descripcion.equals(""))
-                pstmt.setString(1, categoriaDescrip);
-            else if(categoriaDescrip == null || categoriaDescrip.equals(""))
-                pstmt.setString(1, descripcion);
-            else {
-                pstmt.setString(1, descripcion);
-                pstmt.setString(2, categoriaDescrip);
-            }
             rs = pstmt.executeQuery();
-            if (rs.next()) {
-                retValue.add(new Producto(rs.getInt("id_producto"), 
-                        rs.getString("descripcion"), 
-                        rs.getInt("id_categoria"), 
-                        rs.getLong("precio_unit"), 
-                        rs.getLong("cantidad")));
+            while(rs.next()) {
+                retValue.add(
+                    new Producto(rs.getInt("id_producto"), 
+                    rs.getString("descripcion"), 
+                    rs.getInt("id_categoria"), 
+                    rs.getLong("precio_unit"), 
+                    rs.getLong("cantidad"))
+                );
             }
 
         } catch (Exception e) {

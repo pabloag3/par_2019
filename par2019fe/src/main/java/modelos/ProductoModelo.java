@@ -3,10 +3,6 @@
 package modelos;
 
 import categoria.bean.Categoria;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import producto.bean.Producto;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -30,17 +26,14 @@ public class ProductoModelo {
     
     // POST
     public void agregar(Producto nuevoProducto) {
-        
         Client client = ClientBuilder.newClient().register(new JacksonFeature());
         client.target(path + "/agregar-producto").
                 request(MediaType.APPLICATION_JSON).
                 post(Entity.entity(nuevoProducto, MediaType.APPLICATION_JSON));
-        
     }
 
     // GET
     public List<Producto> traerProductos() {
-        
         Client client = ClientBuilder.newClient().register(new JacksonFeature());
         List<LinkedHashMap> prods = client.target(path + "/traer-productos")
                 .request(MediaType.APPLICATION_JSON).get(List.class);
@@ -51,16 +44,16 @@ public class ProductoModelo {
     
     //GET
     public Producto traerProducto(Integer id) {
-        
         Client client = ClientBuilder.newClient().register(new JacksonFeature());
-        Producto producto = client.target(path + "/traer-productos/{" + id + "}")
-                .request(MediaType.APPLICATION_JSON).get(Producto.class);
+        LinkedHashMap is = client.target(path + "/traer-producto/"+ id).request(MediaType.APPLICATION_JSON).get(LinkedHashMap.class);
+        List<LinkedHashMap> list = new ArrayList<>();
+        list.add(is);
+        Producto producto = castearProducto(list).get(0);
         return producto;
     }
 
     //GET
     public List<Producto> traerProductos(String des, String cat) throws Exception {
-        
         Client client = ClientBuilder.newClient().register(new JacksonFeature());
         List<LinkedHashMap> prods = client.target(path + "/traer-producto?des=" + des + "&cat=" + cat)
                 .request(MediaType.APPLICATION_JSON).get(List.class);
@@ -70,10 +63,8 @@ public class ProductoModelo {
 
     // PUT
     public void actualizarProducto(Producto producto) {
-        
         Client client = ClientBuilder.newClient().register(new JacksonFeature());
         client.target(path + "/actualizar-producto").request(MediaType.APPLICATION_JSON).put(Entity.entity(producto, MediaType.APPLICATION_JSON));
-        
     }
 
     // DELETE

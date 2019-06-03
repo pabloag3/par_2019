@@ -16,15 +16,16 @@
     <body>
         <%
             String usu = "";
-            if(request.getAttribute("cliente") != null){
-                Cliente cli =(Cliente) request.getAttribute("cliente");
+            HttpSession sesion = request.getSession();
+            if(sesion.getAttribute("cliente") != null){
+                Cliente cli =(Cliente) sesion.getAttribute("cliente");
                 usu = cli.getLoginName();
             }
-        %> 
+        %>
         <section id="superior">
             <div id="titulo">
                 <dd>
-                    <h1>Inicio Parzon!</h1>
+                    <a class="inicio" href="home"><h1>Inicio Parzon!</h1></a>
                 </dd>
             </div>
             <div id="login">
@@ -41,23 +42,22 @@
         <br/>
         <hr>
         <section id="medio">
-            <div class="buscador">
-                <input class="buscadorProducto" placeholder="Buscar Productos">
-                <br/>
-                <br/>
-            </div>
-            
-            <div id="principalBuscar">
-                <form id="formularioProducto" action="productos" method="get">
+            <form id="formularioProducto" action="productos" method="get">
+                <div class="buscador">
+                    <input class="buscadorProducto" placeholder="Buscar Productos" name="descripcion">
+                    <br/>
+                    <br/>
+                </div>
+                <div id="principalBuscar">
                     <button type="submit">Buscar</button>
-                </form>
-            </div>
-            <br/><br/>
+                </div>
+            </form>
+            <br/><br/><br/><br/><br/><br/><br/><br/>
             <div id="principalBtn">
                 <form id="formularioProducto" action="productos/listar-productos" method="get">
                     <button type="submit">Ir a productos</button>
                 </form>
-                <form id="formularioCarrito" action="/productos" method="get">
+                <form id="formularioCarrito" action="carrito/listar-carrito" method="get">
                     <dd><button type="submit">Ir a Carrito</button></dd>
                 </form>
             </div>
