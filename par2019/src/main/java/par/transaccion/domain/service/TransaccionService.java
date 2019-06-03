@@ -18,7 +18,7 @@ public interface TransaccionService {
      * @param transaccion
      * @throws Exception
      */
-    public void add(Transaccion transaccion) throws Exception;
+    public int add(Transaccion transaccion) throws Exception;
     /**
      *
      * @param id

@@ -1,8 +1,11 @@
 package controller.servlet;
 
 import carrito.Item;
+import cliente.bean.Cliente;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -12,12 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import modelos.ProductoModelo;
+import modelos.TransaccionModelo;
+import transaccion.bean.Transaccion;
 
 /**
  *
  * @author tatoa
  */
 public class CarritoServlet extends HttpServlet {
+    
+    TransaccionModelo mo = new TransaccionModelo();
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -152,14 +159,30 @@ public class CarritoServlet extends HttpServlet {
         if (sesion.getAttribute("cliente") == null){
             response.sendRedirect("/par2019fe/clientes/login");
         } else {
-            
+                       
         }
     }
 
     private void doPostComprar(HttpServletRequest request, HttpServletResponse response) {
         HttpSession sesion = request.getSession(); 
         List<Item> carrito = (List<Item>) sesion.getAttribute("carrito");
+        Cliente cli =(Cliente) sesion.getAttribute("cliente");
+        int usu = cli.getId();
         
+        // insercion de la transaccion
+        Transaccion trans = new Transaccion();
+        Calendar fecha = new GregorianCalendar();
+        trans.setFecha(fecha);
+        trans.setIdCliente(usu);
+        trans.setTotal(usu);
+        trans.setDireccionEnvio(request.getParameter("direccion"));
+        trans.setIdMedioPago(Integer.valueOf(request.getParameter("medio_pago")));
+        if (Integer.valueOf(request.getParameter("medio_pago")) == 0) {
+            trans.setNroTarjeta(Long.valueOf(0));
+        } else {
+            trans.setNroTarjeta(Long.valueOf(request.getParameter("nro_tarjeta")));
+        }
+        trans.setEstado("E"); 
     }
 
 }

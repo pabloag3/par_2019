@@ -33,7 +33,7 @@
                 </dd>
             </div>
             <div id="login">
-                <p>Usuario:<%=usu%> </p>
+                <p>Usuario: <%=usu%> </p>
                 <form id="loginBtn" action="clientes/login" method="get">
                     <button>Login</button>
                 </form>
@@ -89,10 +89,10 @@
                         <input type="number" placeholder="Numero de tarjeta" name="nro_tarjeta">
                     </div>
                     <div>
-                        <input type="radio" name="tipo_pago" value="0" required="true" checked="true">Efectivo<br>
+                        <input type="radio" name="medio_pago" value="0" required="true" checked="true">Efectivo<br>
                     </div>
                     <div>
-                        <input type="radio" name="tipo_pago" value="1" required="true">Tarjeta de credito<br>
+                        <input type="radio" name="medio_pago" value="1" required="true">Tarjeta de credito<br>
                     </div>
                     <input type = "submit" value = "Confirmar compra" />
                 </form>

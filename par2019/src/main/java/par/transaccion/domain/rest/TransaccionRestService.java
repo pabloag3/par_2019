@@ -1,7 +1,6 @@
 package par.transaccion.domain.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -55,6 +54,19 @@ public class TransaccionRestService {
         return Response.ok(entity).build();
     }
     
-    
+    @POST
+    @Path("/agregar-transaccion")
+    public int addTransaccion(@RequestBody String entity) {
+        int id = 0;
+        try {
+            System.out.println("Guardando Transaccion.");
+            ObjectMapper mapper = new ObjectMapper();
+            Transaccion transaccion = mapper.readValue(entity, Transaccion.class);
+            id = transaccionService.add(transaccion);
+        } catch (Exception ex) {
+            Logger.getLogger(TransaccionRestService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return id;
+    }
 
 }

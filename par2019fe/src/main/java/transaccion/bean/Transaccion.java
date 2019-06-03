@@ -1,6 +1,7 @@
 package transaccion.bean;
 
 import java.sql.Date;
+import java.util.Calendar;
 
 /**
  *
@@ -114,6 +115,10 @@ public class Transaccion extends BaseEntity<Integer> {
                 .append(", idMedioPago: ").append(idMedioPago)
                 .append(", nroTarjeta: ").append(nroTarjeta)
                 .append(", estado: ").append(estado).append("}").toString();
+    }
+
+    public void setFecha(Calendar fecha) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

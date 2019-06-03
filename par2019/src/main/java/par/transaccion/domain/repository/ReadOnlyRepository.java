@@ -7,7 +7,7 @@ import par.transaccion.domain.model.entity.Transaccion;
 
 /**
  *
- * @author Sourabh Sharma
+ * @author Pablo Aguilar
  * @param <TE>
  * @param <T>
  */

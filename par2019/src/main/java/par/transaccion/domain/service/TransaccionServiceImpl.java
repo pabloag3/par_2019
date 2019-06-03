@@ -29,8 +29,8 @@ public class TransaccionServiceImpl extends BaseService<Transaccion, Integer>
     }
 
     @Override
-    public void add(Transaccion transaccion) throws Exception {        
-        super.add(transaccion);
+    public int add(Transaccion transaccion) throws Exception {        
+        return super.add(transaccion);
     }
 
     /**

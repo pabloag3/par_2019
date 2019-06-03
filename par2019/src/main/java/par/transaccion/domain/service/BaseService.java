@@ -23,8 +23,8 @@ public abstract class BaseService<TE, T> extends ReadOnlyBaseService<TE, T> {
      * @param entity
      * @throws Exception
      */
-    public void add(TE entity) throws Exception {
-        _repository.add(entity);
+    public int add(TE entity) throws Exception {
+        return _repository.add(entity);
     }
 
     /**

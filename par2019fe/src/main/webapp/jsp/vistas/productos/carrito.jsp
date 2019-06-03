@@ -34,7 +34,7 @@
                 </dd>
             </div>
             <div id="login">
-                <p>Usuario:<%= usu %> </p>
+                <p>Usuario: <%= usu %> </p>
                 <form id="loginBtn" action="clientes/login" method="get">
                     <button hidden=<%= ocultar %> >Login</button>
                 </form>
