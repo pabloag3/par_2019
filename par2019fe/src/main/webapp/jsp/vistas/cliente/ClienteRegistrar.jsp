@@ -16,19 +16,19 @@
             <label><h1>Registro de Cliente</h1></label>
             <div id="nombre" >
                 <label>Nombre: </label>
-                <input type="text" placeholder="Nombre" name="nombre">
+                <input type="text" placeholder="Nombre" name="nombre" required="true">
             </div>
             <div id="apellido">
                 <label>Apellido: </label>
-                <input type="text" placeholder="Apellido" name="apellido">
+                <input type="text" placeholder="Apellido" name="apellido" required="true">
             </div>
             <div id="email">
                 <label>Email: </label>
-                <input type="text" placeholder="Email" name="email">
+                <input type="text" placeholder="Email" name="email" required="true">
             </div>
             <div id="contrasenha">
                 <label>Contraseña: </label>
-                <input type="password" placeholder="Contraseña" name="contrasenha">
+                <input type="password" placeholder="Contraseña" name="contrasenha" required="true">
             </div>
             <div id="tipo_cliente" hidden="true" name="tipo_client">
                 <input type="password" value="1">

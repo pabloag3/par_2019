@@ -24,6 +24,7 @@ import par.producto.domain.service.ProductoServiceImpl;
 /**
  *
  * @author Pablo Aguilar
+ * @author Porfirio Perez
  */
 @Path("/productos")
 @Consumes("application/json")

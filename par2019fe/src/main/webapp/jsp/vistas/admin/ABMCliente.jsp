@@ -1,6 +1,6 @@
 <%-- 
-    Document   : listaProducto
-    Created on : 09/05/2019, 09:15:23 PM
+    Document   : ABMCliente
+    Created on : 02-jun-2019, 21:33:31
     Author     : Pablo Aguilar
     Author     : Porfirio Perez
 --%>
@@ -37,10 +37,8 @@
                 usu = cli.getLoginName();
             }
             //ProductoModelo mo = new ProductoModelo();
-            List<Producto> productos;
-            List<Categoria> categorias;
-            productos = (List<Producto>) request.getAttribute("productos");
-            categorias = (List<Categoria>) request.getAttribute("categorias");
+            List<Cliente> clientes;
+            clientes = (List<Cliente>) request.getAttribute("clientes");
         %>
         <section id="superior">
             <div id="titulo">
@@ -66,46 +64,37 @@
         <hr>
         <section id="medio">
             <br/>
-            <h2>Administracion de Productos.</h2>
-            <form action="admin/busqueda" method="get">
-                <input name="descripcion" class="buscadorProducto" placeholder="Buscar Productos">
-                <input name="categoria" class="buscadorCategoria" placeholder="Buscar Categoria">
-                <br/>
-                <br/>
-                <dd>
-                    <button type="submit">Buscar</button>
-                </dd>
-                <br/>
-            </form>
+            <h2>Administracion de Clientes.</h2>
             <form action="${pageContext.request.contextPath}/productos/admin/agregar" method="get">
-                <button type="submit">Nuevo Producto</button>
+                <button type="submit">Nuevo Administrador</button>
             </form>
             <table>
                 <thead border=1>
                    <th>Codigo</th>
                    <th>Nombre</th>
-                   <th>Categoria</th>
-                   <th>Precio</th>
-                   <th>Cantidad</th>
-                   <th>Modificar Producto</th>
-                   <th>Eliminar Producto</th>
+                   <th>Apellido</th>
+                   <th>Email</th>
+                   <th>Login Nombre</th>
+                   <th>Tipo Cliente</th>
+                   <th>Modificar Cliente</th>
+                   <th>Eliminar Cliente</th>
                 </thead>
                 <tbody>
                     <%
-                        for(Producto prod: productos) {
-                            String catego = categorias.get(prod.getIdCategoria()).getDescripcion();
+                        for(Cliente clien: clientes) {
                     %>
                     <tr>
-                        <td> <%= prod.getId() %> </td>
-                        <td> <%= prod.getDescripcion() %> </td>
-                        <td> <%= catego %> </td>
-                        <td> <%= prod.getPrecioUnit() %> </td>
-                        <td> <%= prod.getCantidad() %> </td>
+                        <td> <%= clien.getId() %> </td>
+                        <td> <%= clien.getNombre() %> </td>
+                        <td> <%= clien.getApellido() %> </td>
+                        <td> <%= clien.getEmail() %> </td>
+                        <td> <%= clien.getLoginName() %> </td>
+                        <td> <%= clien.getTipoCliente()%> </td>
                         <td> 
-                            <a href="${pageContext.request.contextPath}/productos/admin/modificar?codigo=<%= prod.getId()%>">Modificar</a>
+                            <a href="${pageContext.request.contextPath}/clientes/admin/modificar?codigo=<%= clien.getId()%>">Modificar</a>
                         </td>
-                        <td> 
-                            <a href="admin/eliminar?codigo=<%= prod.getId()%>">Eliminar</a>
+                        <td>
+                            <a href="admin/eliminar?codigo=<%= clien.getId()%>">Eliminar</a>
                         </td>
                      </tr>
                     <% } %>

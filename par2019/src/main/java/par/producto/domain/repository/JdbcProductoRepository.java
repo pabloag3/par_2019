@@ -247,9 +247,7 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
 
     /**
      *
-     * @param nombre
      * @param categoriaDescrip
-     * @param apellido
      * @return
      * @throws Exception
      */

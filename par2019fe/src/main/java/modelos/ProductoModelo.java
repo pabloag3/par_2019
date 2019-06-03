@@ -69,9 +69,8 @@ public class ProductoModelo {
 
     // DELETE
     public void borrarProducto(Integer id) {
-        
         Client client = ClientBuilder.newClient().register(new JacksonFeature());
-        client.target(path + "/borrar-producto/{" + id + "}").request(MediaType.APPLICATION_JSON).delete();
+        client.target(path + "/borrar-producto/" + id).request(MediaType.APPLICATION_JSON).delete();
         
     }
 
