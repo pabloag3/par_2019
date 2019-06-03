@@ -89,8 +89,8 @@
                 </form>
                 <form action="comprar" method="get">
                     <dd><button type="submit">Comprar</button></dd>
-                </form><form action="carrito/ver-facturas" method="get">
-                    <dd><button type="submit">Ver facturas</button></dd>
+                </form><form action="ver-compras" method="get">
+                    <dd><button type="submit">Ver mis compras</button></dd>
                 </form>
             </div> 
     </body>

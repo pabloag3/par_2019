@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import modelos.ProductoModelo;
 import modelos.TransaccionModelo;
 import transaccion.bean.Transaccion;
+import transaccionDetalle.bean.TransaccionDetalle;
 
 /**
  *
@@ -54,7 +55,7 @@ public class CarritoServlet extends HttpServlet {
                 doGetLimpiarCarrito(request, response);
             } else if (aux.contains("comprar")) {
                 doGetComprar(request, response);
-            } else if (aux.contains("ver-facturas")) {
+            } else if (aux.contains("ver-compras")) {
                 doGetVerFacturas(request, response);
             }
         } catch (Exception e) {
@@ -154,12 +155,15 @@ public class CarritoServlet extends HttpServlet {
         }
     }
 
-    private void doGetVerFacturas(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void doGetVerFacturas(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession sesion = request.getSession(); 
         if (sesion.getAttribute("cliente") == null){
             response.sendRedirect("/par2019fe/clientes/login");
         } else {
-                       
+            String url = "/jsp/vistas/cliente/listarCompras.jsp";
+            ServletContext sc = this.getServletContext();
+            RequestDispatcher rd = sc.getRequestDispatcher(url);
+            rd.forward(request, response);
         }
     }
 
@@ -174,7 +178,7 @@ public class CarritoServlet extends HttpServlet {
         Calendar fecha = new GregorianCalendar();
         trans.setFecha(fecha);
         trans.setIdCliente(usu);
-        trans.setTotal(usu);
+        trans.setTotal((Long)sesion.getAttribute("total"));
         trans.setDireccionEnvio(request.getParameter("direccion"));
         trans.setIdMedioPago(Integer.valueOf(request.getParameter("medio_pago")));
         if (Integer.valueOf(request.getParameter("medio_pago")) == 0) {
@@ -183,6 +187,19 @@ public class CarritoServlet extends HttpServlet {
             trans.setNroTarjeta(Long.valueOf(request.getParameter("nro_tarjeta")));
         }
         trans.setEstado("E"); 
+        mo.agregarTransaccion(trans);
+        
+        TransaccionDetalle td = new TransaccionDetalle();
+        //insercion de detalles de transaccions
+        for (int i = 0; i < carrito.size(); i++) {
+            td.setIdCabecera(i);
+            td.setItem(i);
+            td.setIdProducto(carrito.get(i).getProducto().getId());
+            td.setCantidad(carrito.get(i).getCantidad());
+            td.setPrecio(carrito.get(i).getProducto().getPrecioUnit());
+            td.setSubTotal(carrito.get(i).getProducto().getPrecioUnit() * carrito.get(i).getCantidad());
+            mo.agregarTransaccionDetalle(td);
+        }
     }
 
 }

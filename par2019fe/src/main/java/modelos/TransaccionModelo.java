@@ -10,6 +10,7 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import transaccion.bean.Transaccion;
+import transaccionDetalle.bean.TransaccionDetalle;
 
 /**
  *
@@ -30,13 +31,13 @@ public class TransaccionModelo {
     }
 
     // POST
-    public int agregar(Transaccion nuevaTransaccion) {
-        int id = 0;
+    public void agregarTransaccion(Transaccion nuevaTransaccion) {
+//        int id = 0;
         Client client = ClientBuilder.newClient().register(new JacksonFeature());
-        id = client.target(path + "/agregar-transaccion").
+        client.target(path + "/agregar-transaccion").
                 request(MediaType.APPLICATION_JSON).
                 post(Entity.entity(nuevaTransaccion, MediaType.APPLICATION_JSON));
-        return id;
+//        return id;
     }
 
     private List<Transaccion> castearTransacciones(List<LinkedHashMap> transac) {
@@ -54,6 +55,16 @@ public class TransaccionModelo {
             transacciones.add(transaccion);
         }
         return transacciones;
+    }
+    
+    // POST
+    public void agregarTransaccionDetalle(TransaccionDetalle nuevaTransaccionDetalle) {
+//        int id = 0;
+        Client client = ClientBuilder.newClient().register(new JacksonFeature());
+        client.target(path + "/agregar-transaccion").
+                request(MediaType.APPLICATION_JSON).
+                post(Entity.entity(nuevaTransaccionDetalle, MediaType.APPLICATION_JSON));
+//        return id;
     }
     
 }

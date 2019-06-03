@@ -76,6 +76,9 @@
 		<tr>
                     <td colspan="3" align="right">Total</td>
                     <td><%= total %> </td>
+                    <%
+                        session.setAttribute("total", total);
+                    %>
 		</tr>
             </tbody>
 	</table>

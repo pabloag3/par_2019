@@ -68,5 +68,18 @@ public class TransaccionRestService {
         }
         return id;
     }
+    
+     @POST
+    @Path("/agregar-transaccion-detalle")
+    public void addTransaccionDetalle(@RequestBody String entity) {
+        try {
+            System.out.println("Guardando Detalle de Transaccion.");
+            ObjectMapper mapper = new ObjectMapper();
+            TransaccionDetalle transaccionDetalle = mapper.readValue(entity, TransaccionDetalle.class);
+            transaccionDetalleService.add(transaccionDetalle);
+        } catch (Exception ex) {
+            Logger.getLogger(TransaccionRestService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
 }
