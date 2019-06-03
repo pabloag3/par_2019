@@ -24,6 +24,7 @@ public class ProductoServlet extends HttpServlet {
     ProductoModelo mo = new ProductoModelo();
     List<Producto> productos = new ArrayList<Producto>();
     List<Categoria> categorias = new ArrayList<Categoria>();
+    int contar = 0;
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -48,6 +49,7 @@ public class ProductoServlet extends HttpServlet {
                     irAgregarModificar(request, response);
                 } else if(uri.contains("eliminar")) {
                     eliminarProducto(request, response);
+                    administracionProducto(request, response);
                 } else {
                     administracionProducto(request, response);
                     traerProductos(request, response);
@@ -105,6 +107,7 @@ public class ProductoServlet extends HttpServlet {
         RequestDispatcher rd = sc.getRequestDispatcher(url);
         rd.forward(request, response);
     }
+
     private void traerProductosDescripcion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, Exception  {
         String uri = request.getServletPath();
         String descri = request.getParameter("descripcion");
@@ -117,6 +120,8 @@ public class ProductoServlet extends HttpServlet {
             url = "/jsp/vistas/admin/ABMProducto.jsp";
             productos = mo.traerProductos(descri, cat);
             categorias = mo.traerCategorias();
+            if(++contar >=2)
+                response.sendRedirect("/par2019fe/productos/admin");
         } else if(uri.contains("/productos")) {
             productos = mo.traerProductos(descri, cat);
             categorias = mo.traerCategorias();
@@ -128,6 +133,7 @@ public class ProductoServlet extends HttpServlet {
         RequestDispatcher rd = sc.getRequestDispatcher(url);
         rd.forward(request, response);
     }
+
     private void administracionProducto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, Exception  {
         Cliente cli = (Cliente) request.getSession().getAttribute("cliente");
         if(cli != null && cli.getTipoCliente() == 0) {

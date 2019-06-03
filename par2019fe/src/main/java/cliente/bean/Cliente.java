@@ -1,8 +1,8 @@
 package cliente.bean;
 
 /**
- *
- * @author PabloAgHP
+ * @author Porfirio Perez
+ * @author Pablo Aguilar
  */
 public class Cliente extends BaseEntity<Integer> {
 

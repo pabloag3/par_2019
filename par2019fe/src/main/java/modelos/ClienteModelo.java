@@ -1,6 +1,8 @@
 package modelos;
 
 import cliente.bean.Cliente;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -10,7 +12,8 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 
 /**
  *
- * @author Perez
+ * @author Porfirio Perez
+ * @author Pablo Aguilar
  */
 public class ClienteModelo {
     final String path = "http://localhost:8084/par2019/parzon/clientes";
@@ -18,8 +21,7 @@ public class ClienteModelo {
     // POST
     public void agregar(Cliente nuevoCliente) {
         Client client = ClientBuilder.newClient().register(new JacksonFeature());
-        client.target(path + "/agregar-cliente").
-                request(MediaType.APPLICATION_JSON).
+        client.target(path + "/agregar-cliente").request(MediaType.APPLICATION_JSON).
                 post(Entity.entity(nuevoCliente, MediaType.APPLICATION_JSON));
     }
 
@@ -34,9 +36,10 @@ public class ClienteModelo {
     // GET
     public List<Cliente> traerClientes() {
         Client client = ClientBuilder.newClient().register(new JacksonFeature());
-        List<Cliente> prods = client.target(path + "/traer-clientes")
+        List<LinkedHashMap> prods = client.target(path + "/traer-clientes")
                 .request(MediaType.APPLICATION_JSON).get(List.class);
-        return prods;
+        List<Cliente> listCliente = castearCliente(prods);
+        return listCliente;
     }
 
     // PUT
@@ -48,6 +51,22 @@ public class ClienteModelo {
     // DELETE
     public void borrarCliente(Integer id) {
         Client client = ClientBuilder.newClient().register(new JacksonFeature());
-        client.target(path + "/borrar-cliente/{" + id + "}").request(MediaType.APPLICATION_JSON).delete();
+        client.target(path + "/borrar-cliente/" + id).request(MediaType.APPLICATION_JSON).delete();
+    }
+
+    private List<Cliente> castearCliente(List<LinkedHashMap> prods) {
+        List<Cliente> clientes = new ArrayList<>();
+        for(LinkedHashMap cli: prods) {
+            Cliente clienteNuevo = new Cliente();
+            clienteNuevo.setId(Integer.valueOf(cli.get("id").toString()));
+            clienteNuevo.setApellido(cli.get("apellido").toString());
+            clienteNuevo.setEmail(cli.get("email").toString());
+            clienteNuevo.setLoginName(cli.get("loginName").toString());
+            clienteNuevo.setNombre(cli.get("nombre").toString());
+            clienteNuevo.setTipoCliente(Integer.valueOf(cli.get("tipoCliente").toString()));
+            clienteNuevo.setPasswd(cli.get("passwd").toString());
+            clientes.add(clienteNuevo);
+        }
+        return clientes;
     }
 }
